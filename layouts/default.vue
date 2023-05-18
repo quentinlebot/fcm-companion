@@ -1,11 +1,7 @@
 <template>
-    <div>
-        <TheHeader />
-        <div class="container mx-auto">
-            <slot />
-        </div>
-        <TheNav />
-    </div>
+    <TheHeader />
+    <slot />
+    <TheNav />
 </template>
 
 <script setup>

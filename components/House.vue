@@ -1,9 +1,8 @@
 <template>
-    <div class="grid grid-cols-2 gap-4 place-content-evenly h-50">
-        <div class="w-50">01</div>
-        <div class="w-50">01</div>
-        <div class="w-50">01</div>
-        <div class="w-50">01</div>
+    <div class="container flex flex-col">
+        <div class="text-center m-5">
+            <h3 class="text-5xl uppercase font-bold kansas">Houses & locations</h3>
+        </div>
     </div>
 </template>
 
