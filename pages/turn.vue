@@ -1,9 +1,7 @@
 <template>
-    <div>
-        <NuxtLayout>
-            <TurnOrder />
-        </NuxtLayout>
-    </div>
+    <NuxtLayout>
+        <TurnOrder />
+    </NuxtLayout>
 </template>
 
 <script setup>

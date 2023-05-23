@@ -1,10 +1,3 @@
 <template>
-    <div>
-        <slot />
-    </div>
+    <slot />
 </template>
-
-<script setup>
-</script>
-
-<style></style>

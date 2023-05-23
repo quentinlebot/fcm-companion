@@ -1,9 +1,7 @@
 <template>
-    <div>
-        <NuxtLayout>
-            <Dinnertime />
-        </NuxtLayout>
-    </div>
+    <NuxtLayout>
+        <Dinnertime />
+    </NuxtLayout>
 </template>
 
 <script setup>

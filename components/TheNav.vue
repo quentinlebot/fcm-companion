@@ -1,28 +1,48 @@
 <template>
     <div class="btm-nav">
-        <NuxtLink to="/player" :class="['text-info', { active: route.name == 'player' }]">
-            <font-awesome-icon :icon="['fas', 'user']" />
-        </NuxtLink>
-        <NuxtLink to="/turn" :class="['text-primary', { active: route.name == 'turn' }]">
-            <font-awesome-icon :icon="['fas', 'people-arrows']" />
-        </NuxtLink>
-        <NuxtLink to="/worker" :class="['text-error', { active: route.name == 'worker' }]">
-            <font-awesome-icon :icon="['fas', 'mug-hot']" />
-        </NuxtLink>
-        <NuxtLink to="/house" :class="['text-secondary', { active: route.name == 'house' }]">
-            <font-awesome-icon :icon="['fas', 'location-dot']" />
-        </NuxtLink>
-        <NuxtLink to="/milestone" :class="['text-accent', { active: route.name == 'milestone' }]">
-            <font-awesome-icon :icon="['fas', 'flag-checkered']" />
-        </NuxtLink>
-        <NuxtLink to="/dinnertime" :class="['text-warning', { active: route.name == 'dinnertime' }]">
-            <font-awesome-icon :icon="['fas', 'utensils']" />
+        <NuxtLink v-for="page in pages" :key="page.path" :to="page.path"
+            :class="[page.color, { active: route.name == page.path.replace('/', '') }]">
+            <Icon :name="page.icon" />
         </NuxtLink>
     </div>
 </template>
 
 <script setup>
 const route = useRoute()
+
+const pages = [
+    {
+        path: '/player',
+        icon: 'fa6-solid:user',
+        color: 'text-info',
+    },
+    {
+        path: '/turn',
+        icon: 'fa6-solid:people-arrows',
+        color: 'text-primary',
+    },
+    {
+        path: '/worker',
+        icon: 'fa6-solid:mug-hot',
+        color: 'text-error',
+    },
+    {
+        path: '/house',
+        icon: 'fa6-solid:location-dot',
+        color: 'text-secondary',
+    },
+    {
+        path: '/milestone',
+        icon: 'fa6-solid:flag-checkered',
+        color: 'text-accent',
+    },
+    {
+        path: '/dinnertime',
+        icon: 'fa6-solid:utensils',
+        color: 'text-warning',
+    },
+]
+
 </script>
 
 <style></style>

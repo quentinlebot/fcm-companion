@@ -1,9 +1,7 @@
 <template>
-    <div>
-        <NuxtLayout>
-            <Player />
-        </NuxtLayout>
-    </div>
+    <NuxtLayout>
+        <Player />
+    </NuxtLayout>
 </template>
 
 <script setup>

@@ -3,8 +3,3 @@
     <slot />
     <TheNav />
 </template>
-
-<script setup>
-</script>
-
-<style></style>

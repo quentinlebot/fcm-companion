@@ -1,8 +1,6 @@
 <template>
-    <div class="container flex flex-col">
-        <div class="text-center m-5">
-            <h3 class="text-5xl uppercase font-bold kansas">Houses & locations</h3>
-        </div>
+    <div class="flex flex-col">
+        <h3 class="text-center m-5 text-5xl uppercase font-bold kansas">Houses & locations</h3>
     </div>
 </template>
 

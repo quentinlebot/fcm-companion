@@ -1,9 +1,7 @@
 <template>
-    <div>
-        <NuxtLayout>
-            <Worker />
-        </NuxtLayout>
-    </div>
+    <NuxtLayout>
+        <Worker />
+    </NuxtLayout>
 </template>
 
 <script setup>
