@@ -3,13 +3,17 @@
         <h3 class="text-center m-5 text-5xl uppercase font-bold kansas">Turn order</h3>
         <div class="flex justify-center">
             <div class="overflow-x-auto w-1/3">
-                <p class="font-bold uppercase divider">List of players</p>
+                <p class="font-bold uppercase divider">Drag to order Turn</p>
+                <div class="italic mt-20 text-center" v-if="players.length < 1">
+                    Start with adding players
+                    <nuxt-link class="link link-primary" to="/player">here</nuxt-link>
+                </div>
                 <table class="table w-full">
                     <tbody>
-                        <tr v-for="player in players" :key="player.name">
+                        <tr v-for="player, i in players" :key="player.name">
                             <th>
                                 <label>
-                                    <input type="checkbox" class="checkbox" />
+                                    {{ i + 1 }}
                                 </label>
                             </th>
                             <td>
