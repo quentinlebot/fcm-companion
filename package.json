@@ -9,6 +9,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@nuxt/image-edge": "^1.0.0-28059208.2abef1b",
     "@nuxtjs/tailwindcss": "^6.7.0",
     "@types/node": "^18",
     "@vueuse/core": "^10.1.2",
