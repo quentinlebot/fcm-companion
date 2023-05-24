@@ -8,29 +8,26 @@
                     Start with adding players
                     <nuxt-link class="link link-primary" to="/player">here</nuxt-link>
                 </div>
-                <table class="table w-full">
-                    <tbody>
-                        <tr v-for="player, i in players" :key="player.name">
-                            <th>
-                                <label>
-                                    {{ i + 1 }}
-                                </label>
-                            </th>
-                            <td>
-                                <div class="flex items-center space-x-3">
-                                    <div class="avatar">
-                                        <div class="mask mask-squircle w-12 h-12">
-                                            <nuxt-img :src="player.restaurant.img" format="webp"
-                                                :alt="player.restaurant.name" />
+                <table class="table">
+                    <tbody class="w-full">
+                        <draggable v-model="players" tag="tr" item-key="name">
+                            <template #item="{ element: player }">
+                                <tr class="hover w-full">
+                                    <td class="flex items-center space-x-3 w-full">
+                                        <div class="avatar">
+                                            <div class="mask mask-squircle w-12 h-12">
+                                                <nuxt-img :src="player.restaurant.img" format="webp"
+                                                    :alt="player.restaurant.name" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold">{{ player.name }}</div>
-                                        <div class="text-sm opacity-50">{{ player.restaurant.name }}</div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                                        <div>
+                                            <div class="font-bold">{{ player.name }}</div>
+                                            <div class="text-sm opacity-50">{{ player.restaurant.name }}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </draggable>
                     </tbody>
                 </table>
             </div>
@@ -41,6 +38,7 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { usePlayerStore } from '@/stores/player';
+import draggable from 'vuedraggable';
 
 const store = usePlayerStore();
 
