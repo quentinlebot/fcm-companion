@@ -1,7 +1,9 @@
 <template>
     <div class="flex flex-col w-screen place-items-center">
-        <h3 class="text-center mt-5 w-2/3 text-5xl uppercase font-bold kansas">Players & restaurants</h3>
-        <div class="mt-5 w-1/3">
+        <h3 class="text-center mt-5 text-5xl uppercase font-bold kansas">Players & restaurants</h3>
+
+        <div class="w-1/3 mt-10">
+            <p class="font-bold uppercase divider">Add new player</p>
             <div class="flex relative">
                 <p>Select your restaurant</p>
                 <p class="text-primary absolute right-0">{{ selectedRestaurant.name }}</p>
@@ -23,30 +25,30 @@
                         taken</span>
                 </label>
             </div>
+
+            <div class="flex flex-row justify-center">
+                <button class="btn w-40" @click="newPlayer"
+                    :disabled="!inputName || inputError || !selectedRestaurant.name">Add</button>
+            </div>
         </div>
-        <div class="w-1/3 flex justify-center">
-            <button class="btn w-40" @click="newPlayer"
-                :disabled="!inputName || inputError || !selectedRestaurant.name">Add</button>
-        </div>
-        <div class="w-1/3" v-if="players.length > 0">
+
+        <div class="w-1/3 mt-10" v-if="players.length > 0">
             <p class="font-bold uppercase divider">List of players</p>
-            <div class="flex flex-col">
-                <div v-for="player in players" :key="player.name" class="mt-1 flex group/item">
-                    <div class="flex justify-between w-full">
-                        <div class="avatar">
-                            <div class="w-7 rounded">
-                                <nuxt-img :src="player.restaurant.img" format="webp" :alt="restaurant.name" />
-                            </div>
+            <div class="flex w-full flex-wrap gap-2">
+                <div v-for="player in players" :key="player.name" class="badge badge-lg">
+                    <div class="avatar w-4 h-4">
+                        <div class="rounded">
+                            <nuxt-img :src="player.restaurant.img" format="webp" :alt="player.restaurant.name" />
                         </div>
-                        <div class="">{{ player.name }}</div>
-                        <button class="btn btn-xs btn-square invisible group-hover/item:visible"
-                            @click="deletePlayer(player.name)">
-                            <Icon name="fa6-solid:xmark" />
-                        </button>
                     </div>
+                    <div class="mx-2">{{ player.name }}</div>
+                    <span @click="deletePlayer(player.name)">
+                        <Icon name="fa6-solid:xmark" />
+                    </span>
                 </div>
             </div>
         </div>
+
     </div>
 </template>
 

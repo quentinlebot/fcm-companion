@@ -1,5 +1,5 @@
 <template>
-    <div class="btm-nav">
+    <div class="btm-nav z-50">
         <NuxtLink v-for="page in pages" :key="page.path" :to="page.path"
             :class="[page.color, { active: route.name == page.path.replace('/', '') }]">
             <Icon :name="page.icon" />
