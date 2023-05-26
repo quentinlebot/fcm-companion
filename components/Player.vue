@@ -113,7 +113,6 @@ watch(() => inputName.value, (value) => {
     }
     inputError.value = false;
 });
-
 </script>
 
 <style></style>
