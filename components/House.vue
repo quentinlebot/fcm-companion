@@ -3,19 +3,19 @@
         <h3 class="text-center m-5 text-5xl uppercase font-bold kansas">Houses & locations</h3>
         <div class="flex">
             <div>
-                <nuxt-img src="/img/house.jpg" format="webp" sizes="sm:100vw md:50vw lg:400px" />
+                <img src="/img/house.jpg" format="webp" sizes="sm:100vw md:50vw lg:400px" />
             </div>
             <div>
-                <nuxt-img src="/img/house_garden.jpg" format="webp" sizes="sm:100vw md:50vw lg:400px" />
+                <img src="/img/house_garden.jpg" format="webp" sizes="sm:100vw md:50vw lg:400px" />
             </div>
             <div>
-                <nuxt-img src="/img/garden.jpg" format="webp" sizes="sm:100vw md:50vw lg:400px" />
+                <img src="/img/garden.jpg" format="webp" sizes="sm:100vw md:50vw lg:400px" />
             </div>
             <div class="park h-[150px]">
-                <nuxt-img src="/img/park.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
+                <img src="/img/park.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
             </div>
             <div>
-                <nuxt-img src="/img/park.jpg" format="webp" sizes="sm:100vw md:50vw lg:400px" />
+                <img src="/img/park.jpg" format="webp" sizes="sm:100vw md:50vw lg:400px" />
             </div>
         </div>
     </div>

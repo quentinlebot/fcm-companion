@@ -11,7 +11,7 @@
             <div class="p-3 carousel h-20 space-x-2 bg-neutral rounded-box justify-center">
                 <div v-for="restaurant in restaurants" :key="restaurant.name" :class="['carousel-item', 'cursor-pointer']"
                     @click="selectRestaurant(restaurant)">
-                    <nuxt-img :src="restaurant.img" format="webp" :alt="restaurant.name"
+                    <img :src="restaurant.img" format="webp" :alt="restaurant.name"
                         :class="['rounded-box', restaurant.disabled ? 'grayscale opacity-60' : '', selectedRestaurant.name === restaurant.name ? 'border-2 border-primary' : '']" />
                 </div>
             </div>
@@ -38,7 +38,7 @@
                 <div v-for="player in players" :key="player.name" class="badge badge-lg">
                     <div class="avatar w-4 h-4">
                         <div class="rounded">
-                            <nuxt-img :src="player.restaurant.img" format="webp" :alt="player.restaurant.name" />
+                            <img :src="player.restaurant.img" format="webp" :alt="player.restaurant.name" />
                         </div>
                     </div>
                     <div class="mx-2">{{ player.name }}</div>

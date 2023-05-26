@@ -6,7 +6,7 @@
                 <div class="flex w-1/3 justify-center">
                     <span class="star mr-5">★</span>
                     <div class="circle">
-                        <nuxt-img class="overflow-visible max-w-none burger" src="/img/m_icon04.png" format="webp" />
+                        <img class="overflow-visible max-w-none burger" src="/img/m_icon04.png" format="webp" />
                     </div>
                     <span class="star ml-5">★</span>
                 </div>
@@ -17,7 +17,7 @@
                 <div class="flex w-1/3 justify-center">
                     <span class="star mr-5">★</span>
                     <div class="circle">
-                        <nuxt-img class="overflow-visible max-w-none pizza" src="/img/m_icon07.png" format="webp" />
+                        <img class="overflow-visible max-w-none pizza" src="/img/m_icon07.png" format="webp" />
                     </div>
                     <span class="star ml-5">★</span>
                 </div>
@@ -28,7 +28,7 @@
                 <div class="flex w-1/3 justify-center">
                     <span class="star mr-5">★</span>
                     <div class="circle">
-                        <nuxt-img class="overflow-visible max-w-none drink" src="/img/m_icon10.png" format="webp" />
+                        <img class="overflow-visible max-w-none drink" src="/img/m_icon10.png" format="webp" />
                     </div>
                     <span class="star ml-5">★</span>
                 </div>
@@ -39,7 +39,7 @@
                 <div class="flex w-1/3 justify-center">
                     <span class="star mr-5">★</span>
                     <div class="circle">
-                        <nuxt-img class="overflow-visible max-w-none sales" src="/img/m_icon23.png" format="webp" />
+                        <img class="overflow-visible max-w-none sales" src="/img/m_icon23.png" format="webp" />
                     </div>
                     <span class="star ml-5">★</span>
                 </div>

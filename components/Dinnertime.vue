@@ -4,28 +4,28 @@
         <div class="flex flex-col">
             <div class="flex">
                 <div>
-                    <nuxt-img src="/img/burger.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
+                    <img src="/img/burger.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
                 </div>
                 <div>
-                    <nuxt-img src="/img/pizza.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
+                    <img src="/img/pizza.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
                 </div>
                 <div>
-                    <nuxt-img src="/img/juice.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
+                    <img src="/img/juice.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
                 </div>
                 <div>
-                    <nuxt-img src="/img/beer.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
+                    <img src="/img/beer.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
                 </div>
                 <div>
-                    <nuxt-img src="/img/coke.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
+                    <img src="/img/coke.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
                 </div>
                 <div>
-                    <nuxt-img src="/img/noodles.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
+                    <img src="/img/noodles.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
                 </div>
                 <div>
-                    <nuxt-img src="/img/sushi.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
+                    <img src="/img/sushi.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
                 </div>
                 <div>
-                    <nuxt-img src="/img/kimchi.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
+                    <img src="/img/kimchi.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
                 </div>
             </div>
             <div class="flex h-[300px]">

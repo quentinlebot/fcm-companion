@@ -8,7 +8,7 @@
                     calculating dinner time stages can be complex, so we've created a tool to simplify the process.</p>
                 <NuxtLink to="/player" class="btn btn-primary">Get Started</NuxtLink>
             </div>
-            <nuxt-img src="/img/3DboxFCM_KM.png" class="max-w-sm rounded-lg mirror" format="webp" />
+            <img src="/img/3DboxFCM_KM.png" class="max-w-sm rounded-lg mirror" format="webp" />
         </div>
     </div>
 </template>

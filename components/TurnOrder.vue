@@ -17,7 +17,7 @@
                                         <div class="font-bold">{{ player.turnOrder }}</div>
                                         <div class="avatar">
                                             <div class="mask mask-squircle w-12 h-12">
-                                                <nuxt-img :src="player.restaurant.img" format="webp"
+                                                <img :src="player.restaurant.img" format="webp"
                                                     :alt="player.restaurant.name" />
                                             </div>
                                         </div>
