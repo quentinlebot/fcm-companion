@@ -2,6 +2,9 @@
   <NuxtPage />
 </template>
 
+<script setup>
+</script>
+
 <style>
 @font-face {
   font-family: 'Kansas';
