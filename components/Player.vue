@@ -3,7 +3,7 @@
         <h3 class="text-center mt-5 text-5xl uppercase font-bold kansas">Players & restaurants</h3>
 
         <div class="w-1/3 mt-10">
-            <p class="font-bold uppercase divider">Add new player</p>
+            <p class="font-bold uppercase divider">Add new player to your game</p>
             <div class="flex relative">
                 <p>Select your restaurant</p>
                 <p class="text-primary absolute right-0">{{ selectedRestaurant.name }}</p>

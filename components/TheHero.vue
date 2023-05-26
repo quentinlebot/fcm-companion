@@ -10,8 +10,7 @@
             <div class="flex flex-col text-center h-full justify-center place-items-center">
                 <h1 class="text-5xl font-bold kansas my-5">Dinnertime companion</h1>
                 <p class="py-5">Welcome to the ultimate companion for Food Chain Magnate board game !
-                </p>
-                <p>This tool has been created to simplify the process of dinnertime calculation.
+                    <br />This tool has been created to simplify the process of dinnertime calculation.
                 </p>
                 <NuxtLink to="/player" class="btn btn-primary my-10 w-1/2">Get Started</NuxtLink>
             </div>

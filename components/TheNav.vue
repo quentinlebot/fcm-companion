@@ -1,48 +1,18 @@
 <template>
-    <div class="btm-nav z-50">
-        <NuxtLink v-for="page in pages" :key="page.path" :to="page.path"
-            :class="[page.color, { active: route.name == page.path.replace('/', '') }]">
-            <Icon :name="page.icon" />
-        </NuxtLink>
+    <div class="navbar shadow-md">
+        <div class="navbar-start">
+            <div class="dropdown">
+                <label for="my-drawer-4" tabindex="0" class="btn btn-ghost btn-circle text-lg">
+                    <Icon name="fa6-solid:burger" />
+                </label>
+            </div>
+        </div>
+        <div class="navbar-end">
+            <div class="tooltip tooltip-left" data-tip="Reset game">
+                <button for="modalReset" class="btn btn-ghost btn-circle text-lg">
+                    <Icon name="fa6-solid:arrow-rotate-left" />
+                </button>
+            </div>
+        </div>
     </div>
 </template>
-
-<script setup>
-const route = useRoute()
-
-const pages = [
-    {
-        path: '/player',
-        icon: 'fa6-solid:user',
-        color: 'text-info',
-    },
-    {
-        path: '/turn',
-        icon: 'fa6-solid:people-arrows',
-        color: 'text-primary',
-    },
-    {
-        path: '/worker',
-        icon: 'fa6-solid:mug-hot',
-        color: 'text-error',
-    },
-    {
-        path: '/house',
-        icon: 'fa6-solid:location-dot',
-        color: 'text-secondary',
-    },
-    {
-        path: '/milestone',
-        icon: 'fa6-solid:flag-checkered',
-        color: 'text-accent',
-    },
-    {
-        path: '/dinnertime',
-        icon: 'fa6-solid:utensils',
-        color: 'text-warning',
-    },
-]
-
-</script>
-
-<style></style>
