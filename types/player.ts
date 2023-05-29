@@ -1,4 +1,4 @@
-import { Restaurant, usePlayerStore } from "~/stores/player";
+import { Restaurant, useMainStore } from "~/stores/main";
 
 export class Player {
 
@@ -20,7 +20,7 @@ export class Player {
 
   constructor(name: string, restaurant_id: number) {
     this.name = name;
-    this.restaurant = usePlayerStore().getRestaurant(restaurant_id)!;
+    this.restaurant = useMainStore().getRestaurant(restaurant_id)!;
   }
 
   getUnitPrice(multiplier: number = 1) {

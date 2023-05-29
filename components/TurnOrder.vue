@@ -33,10 +33,10 @@
 
 <script setup>
 import { storeToRefs } from 'pinia';
-import { usePlayerStore } from '@/stores/player';
+import { useMainStore } from '~/stores/main';
 import draggable from 'vuedraggable';
 
-const store = usePlayerStore();
+const store = useMainStore();
 
 let { players } = storeToRefs(store);
 

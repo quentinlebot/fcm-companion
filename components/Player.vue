@@ -55,9 +55,9 @@
 
 <script setup>
 import { storeToRefs } from 'pinia';
-import { usePlayerStore } from '@/stores/player';
+import { useMainStore } from '~/stores/main';
 
-const store = usePlayerStore();
+const store = useMainStore();
 
 let { players, restaurants } = storeToRefs(store);
 let inputName = ref('');

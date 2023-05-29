@@ -31,9 +31,9 @@
 
 
 <script setup>
-import { usePlayerStore } from '@/stores/player';
+import { useMainStore } from '@/stores/player';
 
-const store = usePlayerStore();
+const store = useMainStore();
 
 function resetData() {
     store.$reset();
