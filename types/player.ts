@@ -4,7 +4,7 @@ export class Player {
 
   name: string = 'Player ';
   hide: boolean = false;
-  turnOrder: number = 0;
+  turnOrder: number = -1;
   milestoneBurger: boolean = false;
   milestonePizza: boolean = false;
   milestoneDrink: boolean = false;
@@ -39,4 +39,5 @@ export class Player {
   getDrinkSellingPrice(multiplier: number = 1) {
     return this.getUnitPrice() * multiplier + (this.milestoneDrink ? 5 : 0);
   }
+
 }

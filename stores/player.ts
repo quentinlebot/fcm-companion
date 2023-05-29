@@ -51,7 +51,6 @@ export const usePlayerStore = defineStore('player', () => {
     function $reset() {
         players.value = [];
     }
-
     function newPlayer({ name, restaurant_id }: { name: string, restaurant_id: number }) {
         const nameTaken = players.value.some(p => p.name === name);
         if (nameTaken) return;
@@ -65,6 +64,11 @@ export const usePlayerStore = defineStore('player', () => {
         const player = players.value.find(p => p.name === name);
         if (!player) return;
         players.value.splice(players.value.indexOf(player), 1);
+    }
+    function setTurnOrder(playersSorted: Player[]) {
+        playersSorted.forEach((player, index) => {
+            players.value.find(p => p.name === player.name)!.turnOrder = index + 1;
+        })
     }
 
     const restaurants = computed(() => {
@@ -83,6 +87,7 @@ export const usePlayerStore = defineStore('player', () => {
         players,
         newPlayer,
         deletePlayer,
+        setTurnOrder
     }
 },
     {
