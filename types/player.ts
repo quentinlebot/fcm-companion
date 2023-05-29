@@ -23,6 +23,9 @@ export class Player {
     this.restaurant = useMainStore().getRestaurant(restaurant_id)!;
   }
 
+  getNbWorkers() {
+    return this.waitress + this.cfo + this.discountManager + this.pricingManager + this.luxuryManager;
+  }
   getUnitPrice(multiplier: number = 1) {
     return (this.baseUnitPrice +
       this.discountManager * -3 +

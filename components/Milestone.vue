@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col h-[calc(100vh-64px)] relative">
         <h3 class="text-center my-5 text-5xl uppercase font-bold kansas">Milestones</h3>
-        <p class="font-bold uppercase divider md:mx-[10%]">Update unlock per player</p>
+        <p class="font-bold uppercase divider md:mx-[10%]">Click to update reward</p>
         <div class="flex justify-center">
             <div class="flex flex-col w-full md:w-1/3">
                 <div class="flex justify-center place-items-center h-[70px] md:h-[100px] blue gap-5 md:rounded-box">
@@ -16,7 +16,12 @@
                     </div>
                     <span class="kansas text-sm text-gray-800 w-1/3 text-end mr-2">5$ for every burger sold</span>
                 </div>
-                <div class="h-[50px]">
+                <div class="flex justify-center h-100px gap-2 my-2">
+                    <div class="flex flex-col text-center" v-for="p in players" :key="p.name" @click="setMilestone(p, '')">
+                        <img :src="p.restaurant.img" alt=""
+                            :class="['h-6', 'md:h-20', 'rounded-full', hasMilestone(p, '') ? '' : 'grayscale opacity-50']" />
+                        <span :class="['text-xl', hasMilestone(p, '') ? 'text-primary' : '']">{{ p.name }}</span>
+                    </div>
                 </div>
                 <div class="flex justify-center place-items-center h-[70px] md:h-[100px] blue gap-5 md:rounded-box">
                     <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2 w-1/3">First pizza
@@ -31,7 +36,12 @@
                     <span class="kansas text-sm text-gray-800 md:w-[250px] w-1/3 text-end mr-2">5$ for every pizza
                         sold</span>
                 </div>
-                <div class="h-[50px]">
+                <div class="flex justify-center h-100px gap-2 my-2">
+                    <div class="flex flex-col text-center" v-for="p in players" :key="p.name" @click="setMilestone(p, '')">
+                        <img :src="p.restaurant.img" alt=""
+                            :class="['h-6', 'md:h-20', 'rounded-full', hasMilestone(p, '') ? '' : 'grayscale opacity-50']" />
+                        <span :class="['text-xl', hasMilestone(p, '') ? 'text-primary' : '']">{{ p.name }}</span>
+                    </div>
                 </div>
                 <div class="flex justify-center place-items-center h-[70px] md:h-[100px] blue gap-5 md:rounded-box">
                     <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2 w-1/3">First drink
@@ -46,7 +56,12 @@
                     <span class="kansas text-sm text-gray-800 md:w-[250px] w-1/3 text-end mr-2">5$ for every drink
                         sold</span>
                 </div>
-                <div class="h-[50px]">
+                <div class="flex justify-center h-100px gap-2 my-2">
+                    <div class="flex flex-col text-center" v-for="p in players" :key="p.name" @click="setMilestone(p, '')">
+                        <img :src="p.restaurant.img" alt=""
+                            :class="['h-6', 'md:h-20', 'rounded-full', hasMilestone(p, '') ? '' : 'grayscale opacity-50']" />
+                        <span :class="['text-xl', hasMilestone(p, '') ? 'text-primary' : '']">{{ p.name }}</span>
+                    </div>
                 </div>
                 <div class="flex justify-center place-items-center h-[70px] md:h-[100px] pink gap-5 md:rounded-box">
                     <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2 w-1/3">First to lower
@@ -59,6 +74,13 @@
                         <span class="star ml-5">★</span>
                     </div>
                     <span class="kansas text-sm text-gray-800 md:w-[250px] w-1/3 text-end mr-2">Price -1$</span>
+                </div>
+                <div class="flex justify-center h-100px gap-2 my-2">
+                    <div class="flex flex-col text-center" v-for="p in players" :key="p.name" @click="setMilestone(p, '')">
+                        <img :src="p.restaurant.img" alt=""
+                            :class="['h-6', 'md:h-20', 'rounded-full', hasMilestone(p, '') ? '' : 'grayscale opacity-50']" />
+                        <span :class="['text-xl', hasMilestone(p, '') ? 'text-primary' : '']">{{ p.name }}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,6 +99,12 @@ import { useMainStore } from '~/stores/main';
 const store = useMainStore();
 
 let { players } = storeToRefs(store);
+
+function setMilestone(player, milestone) {
+}
+function hasMilestone(player, milestone) {
+    return Math.random() > 0.5;
+}
 </script>
 
 <style>

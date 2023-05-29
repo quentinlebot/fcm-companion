@@ -5,18 +5,14 @@ export class House {
   garden: boolean = false;
   gardenReadOnly: boolean = false;
   park: boolean = false;
-  distPlayer: { id: number, dist: number, value: number }[] = [];
 
-  constructor(id: number, garden: boolean = false, nbPlayer: number = 6) {
+  constructor(id: number, garden: boolean = false) {
     this.id = id;
     this.name = 'House ' + id;
     if (id === 3.14) this.name = 'Apartment Pi';
     if (id === 9.75) this.name = 'Apartment 9 3/4';
     this.garden = garden;
     this.gardenReadOnly = garden;
-    for (let i = 1; i <= nbPlayer; i++) {
-      this.distPlayer.push({ id: i, dist: 0, value: 0 });
-    }
   }
 
   getMultiplier() {
