@@ -1,8 +1,3 @@
-import { usePlayer } from "@/models/player";
-import { toNumber } from "@vue/shared";
-
-const playerGlobal = usePlayer();
-
 export class House {
 
   id: number;
@@ -30,28 +25,28 @@ export class House {
     if (this.garden) multiplier += 1;
     return multiplier;
   }
-  getPlayersFromRules() {
-    return [...this.distPlayer].sort((a, b) => {
-      let playerA = playerGlobal.getPlayerById(a.id);
-      let playerB = playerGlobal.getPlayerById(b.id);
-      if (playerA && playerB) {
-        if (toNumber(playerA.getUnitPrice()) + toNumber(a.dist) > toNumber(playerB.getUnitPrice()) + toNumber(b.dist)) return +1;
-        if (toNumber(playerA.getUnitPrice()) + toNumber(a.dist) < toNumber(playerB.getUnitPrice()) + toNumber(b.dist)) return -1;
-        if (playerA.waitress > playerB.waitress) return -1;
-        if (playerA.waitress < playerB.waitress) return +1;
-        if (playerA.turnOrder > playerB.turnOrder) return +1;
-        if (playerA.turnOrder < playerB.turnOrder) return -1;
-      }
-      return 0;
-    });
-  }
-  getPriceFromRules({ id, dist }: { id: number, dist: number }): number {
-    let p = playerGlobal.getPlayerById(id);
-    return p ? toNumber(p.getUnitPrice()) + toNumber(dist) : 0;
-  }
-  getPlayerValue({ id, dist, value }: { id: number, dist: number, value: number }) {
-    const player = playerGlobal.getPlayerById(id);
-    if (!player || player.hide) return '';
-    return player.name + '(' + this.getPriceFromRules({ id, dist }) + ')'
-  }
+  // getPlayersFromRules() {
+  //   return [...this.distPlayer].sort((a, b) => {
+  //     let playerA = playerGlobal.getPlayerById(a.id);
+  //     let playerB = playerGlobal.getPlayerById(b.id);
+  //     if (playerA && playerB) {
+  //       if (toNumber(playerA.getUnitPrice()) + toNumber(a.dist) > toNumber(playerB.getUnitPrice()) + toNumber(b.dist)) return +1;
+  //       if (toNumber(playerA.getUnitPrice()) + toNumber(a.dist) < toNumber(playerB.getUnitPrice()) + toNumber(b.dist)) return -1;
+  //       if (playerA.waitress > playerB.waitress) return -1;
+  //       if (playerA.waitress < playerB.waitress) return +1;
+  //       if (playerA.turnOrder > playerB.turnOrder) return +1;
+  //       if (playerA.turnOrder < playerB.turnOrder) return -1;
+  //     }
+  //     return 0;
+  //   });
+  // }
+  // getPriceFromRules({ id, dist }: { id: number, dist: number }): number {
+  //   let p = playerGlobal.getPlayerById(id);
+  //   return p ? toNumber(p.getUnitPrice()) + toNumber(dist) : 0;
+  // }
+  // getPlayerValue({ id, dist, value }: { id: number, dist: number, value: number }) {
+  //   const player = playerGlobal.getPlayerById(id);
+  //   if (!player || player.hide) return '';
+  //   return player.name + '(' + this.getPriceFromRules({ id, dist }) + ')'
+  // }
 }

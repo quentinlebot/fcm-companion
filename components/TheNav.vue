@@ -31,7 +31,7 @@
 
 
 <script setup>
-import { useMainStore } from '@/stores/player';
+import { useMainStore } from '@/stores/main';
 
 const store = useMainStore();
 
