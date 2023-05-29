@@ -48,6 +48,10 @@ export const usePlayerStore = defineStore('player', () => {
     ];
     const players: Ref<Player[]> = ref([]);
 
+    function $reset() {
+        players.value = [];
+    }
+
     function newPlayer({ name, restaurant_id }: { name: string, restaurant_id: number }) {
         const nameTaken = players.value.some(p => p.name === name);
         if (nameTaken) return;
@@ -73,10 +77,14 @@ export const usePlayerStore = defineStore('player', () => {
     });
 
     return {
+        $reset,
         restaurants,
         getRestaurant: (id: number) => restaurantsDef.find(r => r.id === id),
         players,
         newPlayer,
         deletePlayer,
     }
-})
+},
+    {
+        persist: true,
+    })

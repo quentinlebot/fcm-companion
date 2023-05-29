@@ -18,7 +18,7 @@
             <p class="mt-5  md:mt-10">Enter your name</p>
             <div class="form-control">
                 <input type="text" placeholder="" class="input input-primary w-full" v-model="inputName"
-                    @keydown.Enter="onEnterPress" @keydown="verfiyName" @mousedown="scrollToVIew" tabindex="0" />
+                    @keydown.enter="onEnterPress" @change="verfiyName" @input="scrollToVIew" tabindex="0" />
                 <label class="label">
                     <span class="label-text-alt"></span>
                     <span :class="['label-text-alt', 'text-red-400', inputError ? 'visible' : 'invisible']">Name already
@@ -32,9 +32,9 @@
             </div>
         </div>
 
-        <div class="md:w-1/3 mt-10" v-if="players.length > 0">
+        <div class="md:w-1/3 mt-2 md:mt-10 justify-center" v-if="players.length > 0">
             <p class="font-bold uppercase divider">List of players</p>
-            <div class="flex w-full flex-wrap gap-2">
+            <div class="flex w-full flex-wrap gap-2 justify-center">
                 <div v-for="player in players" :key="player.name" class="badge" @click="deletePlayer(player.name)">
                     <div class="avatar w-4 h-4">
                         <div class="rounded">
@@ -44,6 +44,11 @@
                     <div class="mx-2">{{ player.name }}</div>
                     <Icon name="fa6-solid:xmark" />
                 </div>
+            </div>
+            <div class="flex w-full justify-center">
+                <NuxtLink to="/turn" class="">
+                    <button class="btn btn-outline mt-3" :disabled="players.length < 2">Next</button>
+                </NuxtLink>
             </div>
         </div>
     </div>
@@ -108,7 +113,6 @@ const newPlayer = () => {
     });
     inputName.value = '';
     selectNext();
-    inputName.focus();
 }
 const deletePlayer = (name) => {
     store.deletePlayer(name);

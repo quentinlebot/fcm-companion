@@ -11,3 +11,16 @@
         </div>
     </div>
 </template>
+
+<script setup>
+onMounted(() => {
+    requestWakeLock();
+})
+const requestWakeLock = async () => {
+    try {
+        await navigator.wakeLock.request("screen");
+    } catch (err) {
+        console.log(`${err.name}, ${err.message}`);
+    }
+};
+</script>
