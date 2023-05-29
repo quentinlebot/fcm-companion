@@ -1,9 +1,8 @@
 <template>
-    <div class="flex flex-col w-screen place-items-center">
-        <h3 class="text-center mt-5 text-5xl uppercase font-bold kansas">Players & restaurants</h3>
-
+    <div class="flex flex-col h-[calc(100vh-64px)] relative w-screen place-items-center">
+        <h3 class="text-center my-5 text-5xl uppercase font-bold kansas">Players & restaurants</h3>
+        <p class="font-bold uppercase divider md:mx-[10%]">Add new player to your game</p>
         <div id="title" class="md:w-auto m-2 relative md:mt-10">
-            <p class="font-bold uppercase divider">Add new player to your game</p>
             <div class="flex md:mt-10">
                 <p>Select your restaurant</p>
             </div>
@@ -45,11 +44,11 @@
                     <Icon name="fa6-solid:xmark" />
                 </div>
             </div>
-            <div class="flex w-full justify-center">
-                <NuxtLink to="/turn" class="">
-                    <button class="btn btn-outline mt-3" :disabled="players.length < 2">Next</button>
-                </NuxtLink>
-            </div>
+        </div>
+        <div v-if="players.length > 0" class="flex w-full justify-center fixed bottom-5">
+            <NuxtLink to="/turn" class="">
+                <button class="btn btn-outline mt-3" :disabled="players.length < 2">Next</button>
+            </NuxtLink>
         </div>
     </div>
 </template>

@@ -1,64 +1,82 @@
 <template>
-    <div class="flex flex-col">
-        <h3 class="text-center m-5 text-5xl uppercase font-bold kansas">Milestones</h3>
+    <div class="flex flex-col h-[calc(100vh-64px)] relative">
+        <h3 class="text-center my-5 text-5xl uppercase font-bold kansas">Milestones</h3>
+        <p class="font-bold uppercase divider md:mx-[10%]">Update unlock per player</p>
         <div class="flex justify-center">
             <div class="flex flex-col w-full md:w-1/3">
                 <div class="flex justify-center place-items-center h-[70px] md:h-[100px] blue gap-5 md:rounded-box">
-                    <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2">First burger marketed</span>
-                    <div class="flex justify-center">
+                    <span class="kansas text-gray-800 text-sm md:text-xl ml-2 w-1/3">First burger
+                        marketed</span>
+                    <div class="flex justify-center w-1/3">
                         <span class="star mr-5">★</span>
                         <div class="circle">
                             <img class="overflow-visible max-w-none burger" src="/img/m_icon04.png" format="webp" />
                         </div>
                         <span class="star ml-5">★</span>
                     </div>
-                    <span class="kansas text-xs text-gray-800 md:w-[250px]">5$ for every burger sold</span>
+                    <span class="kansas text-sm text-gray-800 w-1/3 text-end mr-2">5$ for every burger sold</span>
                 </div>
                 <div class="h-[50px]">
                 </div>
                 <div class="flex justify-center place-items-center h-[70px] md:h-[100px] blue gap-5 md:rounded-box">
-                    <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2">First pizza marketed</span>
-                    <div class="flex justify-center">
+                    <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2 w-1/3">First pizza
+                        marketed</span>
+                    <div class="flex justify-center w-1/3">
                         <span class="star mr-5">★</span>
                         <div class="circle">
                             <img class="overflow-visible max-w-none pizza" src="/img/m_icon07.png" format="webp" />
                         </div>
                         <span class="star ml-5">★</span>
                     </div>
-                    <span class="kansas text-xs text-gray-800 md:w-[250px]">5$ for every pizza sold</span>
+                    <span class="kansas text-sm text-gray-800 md:w-[250px] w-1/3 text-end mr-2">5$ for every pizza
+                        sold</span>
                 </div>
                 <div class="h-[50px]">
                 </div>
                 <div class="flex justify-center place-items-center h-[70px] md:h-[100px] blue gap-5 md:rounded-box">
-                    <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2">First drink marketed</span>
-                    <div class="flex justify-center">
+                    <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2 w-1/3">First drink
+                        marketed</span>
+                    <div class="flex justify-center w-1/3">
                         <span class="star mr-5">★</span>
                         <div class="circle">
                             <img class="overflow-visible max-w-none drink" src="/img/m_icon10.png" format="webp" />
                         </div>
                         <span class="star ml-5">★</span>
                     </div>
-                    <span class="kansas text-xs text-gray-800 md:w-[250px]">5$ for every drink sold</span>
+                    <span class="kansas text-sm text-gray-800 md:w-[250px] w-1/3 text-end mr-2">5$ for every drink
+                        sold</span>
                 </div>
                 <div class="h-[50px]">
                 </div>
                 <div class="flex justify-center place-items-center h-[70px] md:h-[100px] pink gap-5 md:rounded-box">
-                    <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2">First to lower prices</span>
-                    <div class="flex justify-center">
+                    <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2 w-1/3">First to lower
+                        prices</span>
+                    <div class="flex justify-center w-1/3">
                         <span class="star mr-5">★</span>
                         <div class="circle">
                             <img class="overflow-visible max-w-none sales" src="/img/m_icon23.png" format="webp" />
                         </div>
                         <span class="star ml-5">★</span>
                     </div>
-                    <span class="kansas text-xs text-gray-800 md:w-[250px]">Price -1$</span>
+                    <span class="kansas text-sm text-gray-800 md:w-[250px] w-1/3 text-end mr-2">Price -1$</span>
                 </div>
             </div>
+        </div>
+        <div class="flex w-full justify-center fixed bottom-5">
+            <NuxtLink to="/dinnertime" class="">
+                <button class="btn btn-outline mt-3" :disabled="players.length < 2">Next</button>
+            </NuxtLink>
         </div>
     </div>
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia';
+import { usePlayerStore } from '@/stores/player';
+
+const store = usePlayerStore();
+
+let { players } = storeToRefs(store);
 </script>
 
 <style>

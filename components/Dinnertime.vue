@@ -1,7 +1,8 @@
 <template>
-    <div class="flex flex-col">
-        <h3 class="text-center m-5 text-5xl uppercase font-bold kansas">Dinnertime</h3>
-        <div class="flex flex">
+    <div class="flex flex-col h-[calc(100vh-64px)] relative">
+        <h3 class="text-center my-5 text-5xl uppercase font-bold kansas">Dinnertime</h3>
+        <p class="font-bold uppercase divider md:mx-[10%]">Select a house & set foods</p>
+        <div class="flex">
             <svg width="300px" viewBox="85 130 40 40">
                 <path style="fill:#996b2b;fill-opacity:1;stroke-width:0.35277781"
                     d="m 94.881436,158.67264 c -2.00293,-0.47455 -3.60153,-2.56073 -3.60153,-4.70003 0,-0.55139 -0.30247,-0.97447 -0.88714,-1.24086 -1.9137,-0.87194 -1.90238,-4.02429 0.0162,-4.50583 0.58003,-0.14557 0.8689,-0.54972 1.03829,-1.45262 0.50599,-2.69716 3.44804,-5.9041 6.76027,-7.36892 5.610364,-2.48117 12.916744,-1.54933 17.036724,2.17283 1.6343,1.47648 3.01313,3.6488 3.35203,5.28102 0.12952,0.62376 0.5465,1.21031 1.00317,1.41111 1.85658,0.81636 1.93229,3.6204 0.12005,4.44611 -0.65645,0.2991 -0.91174,0.76703 -1.09872,2.0139 -0.30465,2.03152 -1.95469,3.73136 -3.94055,4.05948 -1.89992,0.31391 -18.391934,0.21713 -19.798784,-0.11619 z" />
@@ -39,10 +40,21 @@
                         d="m 98.051869,153.53819 c -2.61863,-2.44942 -3.83061,-5.28154 -4.0054,-9.35972 l -0.10207,-2.38125 h 9.132251 9.13225 v 0.63472 c 0,0.51418 0.22792,0.60811 1.20016,0.49461 0.87739,-0.10243 1.39922,0.0589 1.94028,0.6 1.49875,1.49874 0.62562,3.34982 -2.74828,5.82649 -0.93099,0.68341 -2.12722,1.86955 -2.65828,2.63587 -0.53105,0.76631 -1.55665,1.80293 -2.27909,2.30358 l -1.31354,0.91029 h -3.25935 -3.259351 z" />
                 </svg> -->
         </div>
+        <div class="flex w-full justify-center fixed bottom-5">
+            <NuxtLink to="/turn" class="">
+                <button class="btn btn-outline mt-3" :disabled="players.length < 2">New turn</button>
+            </NuxtLink>
+        </div>
     </div>
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia';
+import { usePlayerStore } from '@/stores/player';
+
+const store = usePlayerStore();
+
+let { players } = storeToRefs(store);
 </script>
 
 <style></style>

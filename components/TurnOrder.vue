@@ -1,9 +1,9 @@
 <template>
-    <div class="flex flex-col h-[calc(100vh-150px)]">
-        <h3 class="text-center m-5 text-5xl uppercase font-bold kansas">Turn order</h3>
+    <div class="flex flex-col h-[calc(100vh-64px)] relative">
+        <h3 class="text-center my-5 text-5xl uppercase font-bold kansas">Turn order</h3>
+        <p class="font-bold uppercase divider md:mx-[10%]">Drag to arrange turn order</p>
         <div class="flex justify-center h-full">
             <div class="md:w-1/3">
-                <p class="font-bold uppercase divider">Drag to arrange turn order</p>
                 <div class="italic mt-2 md:mt-20 text-center" v-if="players.length < 1">
                     Start with adding players
                     <nuxt-link class="link link-primary" to="/player">here</nuxt-link>
@@ -23,7 +23,7 @@
                 </draggable>
             </div>
         </div>
-        <div class="flex w-full justify-center">
+        <div class="flex w-full justify-center fixed bottom-5">
             <NuxtLink to="/worker" class="">
                 <button class="btn btn-outline mt-3" :disabled="players.length < 2">Next</button>
             </NuxtLink>
