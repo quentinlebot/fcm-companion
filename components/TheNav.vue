@@ -37,5 +37,6 @@ const store = usePlayerStore();
 
 function resetData() {
     store.$reset();
+    navigateTo('/')
 }
 </script>
