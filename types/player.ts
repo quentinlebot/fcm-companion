@@ -11,12 +11,11 @@ export class Player {
   milestoneLowerPrice: boolean = false;
   discountManager: number = 0;
   pricingManager: number = 0;
-  luxuryManager: number = 0;
+  luxuriesManager: number = 0;
   baseUnitPrice: number = 10;
   waitress: number = 0;
   cfo: number = 0;
   restaurant: Restaurant;
-
 
   constructor(name: string, restaurant_id: number) {
     this.name = name;
@@ -24,13 +23,13 @@ export class Player {
   }
 
   getNbWorkers() {
-    return this.waitress + this.cfo + this.discountManager + this.pricingManager + this.luxuryManager;
+    return this.waitress + this.cfo + this.discountManager + this.pricingManager + this.luxuriesManager;
   }
   getUnitPrice(multiplier: number = 1) {
     return (this.baseUnitPrice +
       this.discountManager * -3 +
       this.pricingManager * -1 +
-      this.luxuryManager * 10 +
+      this.luxuriesManager * 10 +
       (this.milestoneLowerPrice ? -1 : 0)) * multiplier;
   }
   getBurgerSellingPrice(multiplier: number = 1) {
@@ -42,5 +41,4 @@ export class Player {
   getDrinkSellingPrice(multiplier: number = 1) {
     return this.getUnitPrice() * multiplier + (this.milestoneDrink ? 5 : 0);
   }
-
 }

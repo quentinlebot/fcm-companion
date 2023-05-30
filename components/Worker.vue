@@ -1,42 +1,57 @@
 <template>
     <div class="flex flex-col relative h-[calc(100vh-64px)]">
-        <h3 class="text-center my-5 text-5xl uppercase font-bold kansas">Workers</h3>
-        <p class="font-bold uppercase divider md:mx-[10%]">Select active worker for this turn</p>
+        <h3 class="text-center my-5 text-5xl uppercase font-bold kansas">At work</h3>
+        <p class="font-bold uppercase divider md:mx-[10%]">Select player's active employees</p>
         <div class="flex justify-center h-100px gap-2">
-            <div class="flex flex-col text-center" v-for="p in players" :key="p.name" @click="selectPlayer(p)">
+            <div class="flex flex-col justify-center place-items-center" v-for="p in players" :key="p.name"
+                @click="selectPlayer(p)">
                 <img :src="p.restaurant.img" alt=""
-                    :class="['h-12', 'md:h-20', 'rounded-full', p.name == selectedPlayer.name ? '' : 'grayscale opacity-50']" />
+                    :class="['rounded-full', p.name == selectedPlayer.name ? 'h-12 md:h-20' : 'grayscale opacity-50 h-8 w-8 md:h-16 md:w-16']" />
                 <span :class="['text-xl', p.name == selectedPlayer.name ? 'text-primary' : '']">{{ p.name }}</span>
-                <span>0</span>
+                <span class="opacity-50 text-xs md:text-lg">{{ countWorkers(p) }} emp.</span>
             </div>
         </div>
-        <div class="flex justify-center h-full">
-            <div class="flex gap-2 md:gap-10 justify-center h-full place-items-center flex-wrap">
-
-                <div class="indicator w-[30vw] md:w-1/5" @click="increase('p')">
-                    <span class="indicator-item indicator-center badge badge-secondary">0</span>
-                    <img class="cursor-pointer opacity-60 hover:opacity-100" src="/img/e_pricing_manager.jpg" format="webp"
-                        sizes="19vw" />
+        <div class="flex justify-center h-full mt-5">
+            <div class="flex gap-2 md:gap-10 justify-center h-1/2 md:h-full place-items-center flex-wrap">
+                <div class="flex flex-col justify-center place-items-center gap-2 w-[30vw] md:w-[12vw]">
+                    <span class="text-center divider kansas">Clear</span>
+                    <div class="btn-group btn-group-vertical lg:btn-group-horizontal">
+                        <button class="btn btn-active" @click="reset([selectedPlayer])">This player</button>
+                        <button class="btn" @click="reset(players)">all players</button>
+                    </div>
                 </div>
-                <div class="indicator w-[30vw] md:w-1/5" @click="increase('d')">
-                    <span class="indicator-item indicator-center badge badge-secondary">0</span>
-                    <img class="cursor-pointer opacity-60 hover:opacity-100" src="/img/e_discount_manager.jpg" format="webp"
-                        sizes="19vw" />
+                <div class="indicator w-[30vw] md:w-[12vw]">
+                    <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8">{{
+                        selectedPlayer.pricingManager
+                    }}</span>
+                    <img class="cursor-pointer hover:opacity-90" src="/img/e_pricing_manager.jpg" format="webp" sizes="19vw"
+                        @click="increase('p')" />
                 </div>
-                <div class="indicator w-[30vw] md:w-1/5" @click="increase('l')">
-                    <span class="indicator-item indicator-center badge badge-secondary">0</span>
-                    <img class="cursor-pointer opacity-60 hover:opacity-100" src="/img/e_luxuries_manager.jpg" format="webp"
-                        sizes="19vw" />
+                <div class="indicator w-[30vw] md:w-[12vw]">
+                    <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8">{{
+                        selectedPlayer.discountManager
+                    }}</span>
+                    <img class="cursor-pointer hover:opacity-90" src="/img/e_discount_manager.jpg" format="webp"
+                        sizes="19vw" @click="increase('d')" />
                 </div>
-                <div class="indicator w-[30vw] md:w-1/5" @click="increase('c')">
-                    <span class="indicator-item indicator-center badge badge-secondary">0</span>
-                    <img class="cursor-pointer opacity-60 hover:opacity-100" src="/img/e_cfo.jpg" format="webp"
-                        sizes="19vw" />
+                <div class="indicator w-[30vw] md:w-[12vw]">
+                    <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8">{{
+                        selectedPlayer.luxuriesManager
+                    }}</span>
+                    <img class="cursor-pointer hover:opacity-90" src="/img/e_luxuries_manager.jpg" format="webp"
+                        sizes="19vw" @click="increase('l')" />
                 </div>
-                <div class="indicator w-[30vw] md:w-1/5" @click="increase('w')">
-                    <span class="indicator-item indicator-center badge badge-secondary">0</span>
-                    <img class="cursor-pointer opacity-60 hover:opacity-100" src="/img/e_waitress.jpg" format="webp"
-                        sizes="19vw" />
+                <div class="indicator w-[30vw] md:w-[12vw]">
+                    <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8">{{ selectedPlayer.cfo
+                    }}</span>
+                    <img class="cursor-pointer hover:opacity-90" src="/img/e_cfo.jpg" format="webp" sizes="19vw"
+                        @click="increase('c')" />
+                </div>
+                <div class="indicator w-[30vw] md:w-[12vw]">
+                    <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8">{{ selectedPlayer.waitress
+                    }}</span>
+                    <img class="cursor-pointer hover:opacity-90" src="/img/e_waitress.jpg" format="webp" sizes="19vw"
+                        @click="increase('w')" />
                 </div>
             </div>
         </div>
@@ -51,7 +66,6 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useMainStore } from '~/stores/main';
-import { Player } from '~/types/player';
 
 const store = useMainStore();
 
@@ -60,6 +74,41 @@ let selectedPlayer = ref(players.value[0]);
 
 const selectPlayer = (player) => {
     selectedPlayer.value = player;
+};
+
+const increase = (type) => {
+    switch (type) {
+        case 'p':
+            selectedPlayer.value.pricingManager++;
+            break;
+        case 'd':
+            selectedPlayer.value.discountManager++;
+            break;
+        case 'l':
+            selectedPlayer.value.luxuriesManager++;
+            break;
+        case 'c':
+            if (selectedPlayer.value.cfo < 1)
+                selectedPlayer.value.cfo++;
+            break;
+        case 'w':
+            selectedPlayer.value.waitress++;
+            break;
+    }
+};
+
+const countWorkers = (player) => {
+    return player.pricingManager + player.discountManager + player.luxuriesManager + player.cfo + player.waitress;
+};
+
+const reset = (players) => {
+    players.forEach((p) => {
+        p.pricingManager = 0;
+        p.discountManager = 0;
+        p.luxuriesManager = 0;
+        p.cfo = 0;
+        p.waitress = 0;
+    });
 };
 </script>
 

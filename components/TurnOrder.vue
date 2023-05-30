@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col h-[calc(100vh-64px)] relative">
         <h3 class="text-center my-5 text-5xl uppercase font-bold kansas">Turn order</h3>
-        <p class="font-bold uppercase divider md:mx-[10%]">Drag to arrange turn order</p>
+        <p class="font-bold uppercase divider md:mx-[10%]">Drag to arrange order of buisness</p>
         <div class="flex justify-center h-full">
             <div class="md:w-1/3">
                 <div class="italic mt-2 md:mt-20 text-center" v-if="players.length < 1">
