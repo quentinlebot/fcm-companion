@@ -64,11 +64,11 @@ let inputName = ref('');
 let inputError = ref(false);
 let selectedRestaurant = ref(restaurants.value[0]);
 
-function selectRestaurant(restaurant) {
+const selectRestaurant = (restaurant) => {
     if (restaurant.disabled) return;
     selectedRestaurant.value = restaurant;
 }
-function selectNext() {
+const selectNext = () => {
     for (let index = 0; index < restaurants.value.length; index++) {
         const element = restaurants.value[index];
         if (!element.disabled) {
@@ -81,12 +81,12 @@ function selectNext() {
         img: '',
     };
 }
-function onEnterPress(event) {
+const onEnterPress = (event) => {
     if (event.key === 'Enter') {
         newPlayer();
     }
 }
-function verfiyName() {
+const verfiyName = () => {
     const name = inputName.value;
     if (name == '') {
         inputError.value = false;
@@ -99,10 +99,9 @@ function verfiyName() {
     }
     inputError.value = false;
 }
-function scrollToVIew() {
+const scrollToVIew = () => {
     document.getElementById('title').scrollIntoView();
 }
-
 const newPlayer = () => {
     if (inputName.value == '' || !selectedRestaurant.value.name) return;
 

@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col h-[calc(100vh-64px)] relative">
         <h3 class="text-center my-5 text-5xl uppercase font-bold kansas">Dinnertime</h3>
-        <p class="font-bold uppercase divider md:mx-[10%]">Select a house & set foods</p>
+        <p id="title" class="font-bold uppercase divider md:mx-[10%]">Select a house & set foods</p>
         <div class="flex">
             <svg width="300px" viewBox="85 130 40 40">
                 <path style="fill:#996b2b;fill-opacity:1;stroke-width:0.35277781"
@@ -42,7 +42,7 @@
         </div>
         <div class="flex w-full justify-center fixed bottom-5">
             <NuxtLink to="/turn" class="">
-                <button class="btn btn-outline mt-3" :disabled="players.length < 2">New turn</button>
+                <button class="btn btn-outline mt-3">New turn</button>
             </NuxtLink>
         </div>
     </div>
@@ -55,6 +55,10 @@ import { useMainStore } from '~/stores/main';
 const store = useMainStore();
 
 let { players } = storeToRefs(store);
+
+onMounted(() => {
+    document.getElementById('title').scrollIntoView();
+})
 </script>
 
 <style></style>

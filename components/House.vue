@@ -1,6 +1,7 @@
 <template>
     <div class="flex flex-col">
         <h3 class="text-center m-5 text-5xl uppercase font-bold kansas">Houses & locations</h3>
+        <p id="title" class="font-bold uppercase divider md:mx-[10%]">Distance from players</p>
         <div class="flex">
             <div>
                 <img src="/img/house.jpg" format="webp" sizes="sm:100vw md:50vw lg:400px" />
@@ -22,6 +23,9 @@
 </template>
 
 <script setup>
+onMounted(() => {
+    document.getElementById('title').scrollIntoView();
+})
 </script>
 
 <style>
