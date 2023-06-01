@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col h-[calc(100vh-64px)] relative">
         <h3 id="title" class="text-center my-5 text-5xl uppercase font-bold kansas">Milestones</h3>
-        <p class="font-bold uppercase divider md:mx-[10%]">Awarded card by players</p>
+        <p class="font-bold uppercase divider md:mx-[10%]">Awarded players</p>
         <div class="flex justify-center mt-5 md:h-[60vh] place-items-center">
             <div class="flex flex-col md:flex-row w-full md:flex-wrap md:gap-10 md:justify-center">
                 <div @click="setCurrentMilestone('burger')"
@@ -95,15 +95,16 @@
                 <h3 class="font-bold text-lg">Select players who score milestone "{{ selectedMilestone }}"</h3>
                 <div class="flex justify-center h-100px gap-2 my-2">
                     <div class="flex flex-col justify-center place-items-center text-center" v-for="p in players"
-                        @click="setMilestone(p)" :key="p.name">
+                        @click="tooglePlayer(p)" :key="p.name">
                         <img :src="p.restaurant.img" alt=""
-                            :class="['h-8 w-8', 'md:w-12 md:h-12', 'rounded-full', hasMilestone(p) ? '' : 'grayscale opacity-50']" />
-                        <span :class="['text-xl', hasMilestone(p) ? 'text-primary' : '']">{{ p.name
+                            :class="['h-8 w-8', 'md:w-12 md:h-12', 'rounded-full', selectedPlayers.includes(p) ? '' : 'grayscale opacity-50']" />
+                        <span :class="['text-xl', selectedPlayers.includes(p) ? 'text-primary' : '']">{{ p.name
                         }}</span>
                     </div>
                 </div>
                 <div class="modal-action flex justify-center">
-                    <label class="btn btn-primary" for="cb_milestone">Done</label>
+                    <label class="btn btn-primary" for="cb_milestone" @click="setMilestones()">Done</label>
+                    <label class="btn btn-outline" for="cb_milestone">Cancel</label>
                 </div>
             </div>
         </div>
@@ -124,6 +125,7 @@ const store = useMainStore();
 let { players } = storeToRefs(store);
 let modal = ref(false);
 let selectedMilestone = ref('burger');
+let selectedPlayers = ref([]);
 
 onMounted(() => {
     document.getElementById('title').scrollIntoView();
@@ -131,28 +133,34 @@ onMounted(() => {
 
 const setCurrentMilestone = (m) => {
     selectedMilestone.value = m;
+    selectedPlayers.value = [];
     modal.value = true;
 }
-const setMilestone = (player, milestone) => {
+const setMilestone = (player, value, milestone) => {
     if (!milestone)
         milestone = selectedMilestone.value;
     if (!player) return
     switch (milestone) {
         case 'burger':
-            player.milestoneBurger = !player.milestoneBurger;
+            player.milestoneBurger = value;
             break;
         case 'pizza':
-            player.milestonePizza = !player.milestonePizza;
+            player.milestonePizza = value;
             break;
         case 'drink':
-            player.milestoneDrink = !player.milestoneDrink;
+            player.milestoneDrink = value;
             break;
         case 'price':
-            player.milestoneLowerPrice = !player.milestoneLowerPrice;
+            player.milestoneLowerPrice = value;
             break;
         default:
             break;
     }
+}
+const setMilestones = () => {
+    players.value.forEach(p => {
+        setMilestone(p, selectedPlayers.value.includes(p), selectedMilestone.value);
+    });
 }
 const hasMilestone = (player, milestone) => {
     if (!milestone)
@@ -168,6 +176,13 @@ const hasMilestone = (player, milestone) => {
             return player.milestoneLowerPrice;
         default:
             return false;
+    }
+}
+const tooglePlayer = (player) => {
+    if (selectedPlayers.value.includes(player)) {
+        selectedPlayers.value = selectedPlayers.value.filter(p => p !== player);
+    } else {
+        selectedPlayers.value.push(player);
     }
 }
 </script>
