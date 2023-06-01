@@ -2,30 +2,60 @@
     <div class="flex flex-col">
         <h3 class="text-center m-5 text-5xl uppercase font-bold kansas">Houses & marketing</h3>
         <p id="title" class="font-bold uppercase divider md:mx-[10%]">Select house and set needs</p>
-        <div class="flex justify-center">
-            <select class="select select-primary w-full max-w-xs" v-model="selectedHouse">
-                <option selected disabled value="">Select house</option>
-                <option v-for="h in houses" :key="h.id">{{ h.id == 9.75 ? '9&frac34;' : h.name }}</option>
+        <div class="flex justify-center mt-10">
+            <select class="select select-primary w-full max-w-xs" v-model="selected">
+                <option disabled selected value="">Please select house</option>
+                <option v-for="h in houses" :value="h">{{ h.id == 9.75 ? '9&frac34;' : h.name }}</option>
             </select>
         </div>
-        <div class="flex">
-            <div>
-                <img src="/img/house.jpg" format="webp" sizes="sm:100vw md:50vw lg:400px" />
+        <div class="flex flex-col justify-center place-items-center m-5 gap-1">
+            <img src="/img/house.jpg" class="w-[100px]" v-if="!selected.appartment & !selected.gardenReadOnly" />
+            <img src="/img/garden.jpg" :class="['w-[100px]', selected.garden ? '' : 'grayscale opacity-50']"
+                v-if="!selected.gardenReadOnly & !selected.appartment" />
+            <img src="/img/house_garden.jpg" class="w-[100px]" v-if="selected.gardenReadOnly" />
+            <div class="bg-house" v-if="selected.appartment">
+                <img src="/img/appartment.png" class="w-[100px]" />
             </div>
-            <div>
-                <img src="/img/house_garden.jpg" format="webp" sizes="sm:100vw md:50vw lg:400px" />
-            </div>
-            <div>
-                <img src="/img/garden.jpg" format="webp" sizes="sm:100vw md:50vw lg:400px" />
-            </div>
-            <div class="park h-[150px]">
-                <img src="/img/park.png" format="webp" sizes="sm:100vw md:50vw lg:400px" />
-            </div>
-            <div>
-                <img src="/img/park.jpg" format="webp" sizes="sm:100vw md:50vw lg:400px" />
+            <div :class="['bg-park', selected.park ? '' : 'grayscale opacity-50']">
+                <img src="/img/park.png" :class="['w-[100px]', selected.park ? '' : 'grayscale opacity-50']" />
             </div>
         </div>
-        <div class="flex w-full">
+        <div class="flex flex-col place-items-center" v-for="p in players" :key="p.name">
+            <div class="form-control w-full max-w-xs">
+                <label class="label">
+                    <span class="label-text">
+                        <img :src="p.restaurant.img" alt="" :class="['rounded-full', 'h-8']" />
+                    </span>
+                    <span class="label-text-alt">{{ p.restaurant.name }}</span>
+                </label>
+                <input type="text" placeholder="Count the number of crossed tiles"
+                    class="input input-bordered w-full max-w-xs" />
+                <label class="label">
+                    <span class="label-text-alt">Bottom Left label</span>
+                    <span class="label-text-alt">{{ p.name }}</span>
+                </label>
+            </div>
+        </div>
+        <div class="flex mt-10 hidden">
+            <div>
+            </div>
+            <div class="house">
+                <img src="/img/appartment.png" />
+            </div>
+            <div>
+                <img src="/img/house_garden.jpg" />
+            </div>
+            <div>
+                <img src="/img/garden.jpg" />
+            </div>
+            <div class="park h-[150px]">
+                <img src="/img/park.png" />
+            </div>
+            <div>
+                <img src="/img/park.jpg" />
+            </div>
+        </div>
+        <div class="flex w-full mt-10 hidden">
             <svg width="300px" viewBox="85 130 40 40">
                 <path style="fill:#996b2b;fill-opacity:1;stroke-width:0.35277781"
                     d="m 94.881436,158.67264 c -2.00293,-0.47455 -3.60153,-2.56073 -3.60153,-4.70003 0,-0.55139 -0.30247,-0.97447 -0.88714,-1.24086 -1.9137,-0.87194 -1.90238,-4.02429 0.0162,-4.50583 0.58003,-0.14557 0.8689,-0.54972 1.03829,-1.45262 0.50599,-2.69716 3.44804,-5.9041 6.76027,-7.36892 5.610364,-2.48117 12.916744,-1.54933 17.036724,2.17283 1.6343,1.47648 3.01313,3.6488 3.35203,5.28102 0.12952,0.62376 0.5465,1.21031 1.00317,1.41111 1.85658,0.81636 1.93229,3.6204 0.12005,4.44611 -0.65645,0.2991 -0.91174,0.76703 -1.09872,2.0139 -0.30465,2.03152 -1.95469,3.73136 -3.94055,4.05948 -1.89992,0.31391 -18.391934,0.21713 -19.798784,-0.11619 z" />
@@ -63,7 +93,7 @@
                         d="m 98.051869,153.53819 c -2.61863,-2.44942 -3.83061,-5.28154 -4.0054,-9.35972 l -0.10207,-2.38125 h 9.132251 9.13225 v 0.63472 c 0,0.51418 0.22792,0.60811 1.20016,0.49461 0.87739,-0.10243 1.39922,0.0589 1.94028,0.6 1.49875,1.49874 0.62562,3.34982 -2.74828,5.82649 -0.93099,0.68341 -2.12722,1.86955 -2.65828,2.63587 -0.53105,0.76631 -1.55665,1.80293 -2.27909,2.30358 l -1.31354,0.91029 h -3.25935 -3.259351 z" />
                 </svg> -->
         </div>
-        <div class="flex w-full justify-center fixed bottom-5">
+        <div class="flex w-full justify-center fixed bottom-8">
             <NuxtLink to="/dinnertime" class="">
                 <button class="btn btn-outline mt-3">Next</button>
             </NuxtLink>
@@ -78,17 +108,20 @@ import { useMainStore } from '~/stores/main';
 const store = useMainStore();
 
 let { players, houses } = storeToRefs(store);
-let selectedHouse = ref(null);
+let selected = ref("");
 
 onMounted(() => {
     document.getElementById('title').scrollIntoView();
-    selectedHouse.value = houses.value[0];
 })
 </script>
 
 <style>
-.park {
+.bg-park {
     background-color: #5d914f;
+}
+
+.bg-house {
+    background-color: #772549;
 }
 
 svg:disabled {

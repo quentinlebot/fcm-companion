@@ -60,7 +60,7 @@
                 </li>
             </ul>
         </div>
-        <div class="flex w-full justify-center fixed bottom-5">
+        <div class="flex w-full justify-center fixed bottom-8">
             <NuxtLink to="/turn" class="">
                 <button class="btn btn-outline mt-3">New turn</button>
             </NuxtLink>

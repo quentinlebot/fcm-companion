@@ -92,8 +92,11 @@
         <input type="checkbox" id="cb_milestone" class="modal-toggle" v-model="modal" />
         <div class="modal modal-bottom sm:modal-middle">
             <div class="modal-box">
-                <h3 class="font-bold text-lg">Select players who score milestone "{{ selectedMilestone }}"</h3>
-                <div class="flex justify-center h-100px gap-2 my-2">
+                <h3 class="font-bold text-lg text-center">Select players who score milestone :</h3>
+                <p class="w-full italic text-center">{{
+                    getMilestoneDisplayName()
+                }}</p>
+                <div class="flex justify-center h-100px gap-2 my-3">
                     <div class="flex flex-col justify-center place-items-center text-center" v-for="p in players"
                         @click="tooglePlayer(p)" :key="p.name">
                         <img :src="p.restaurant.img" alt=""
@@ -108,7 +111,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex w-full justify-center fixed bottom-5">
+        <div class="flex w-full justify-center fixed bottom-8">
             <NuxtLink to="/house" class="">
                 <button class="btn btn-outline mt-3">Next</button>
             </NuxtLink>
@@ -183,6 +186,20 @@ const tooglePlayer = (player) => {
         selectedPlayers.value = selectedPlayers.value.filter(p => p !== player);
     } else {
         selectedPlayers.value.push(player);
+    }
+}
+const getMilestoneDisplayName = () => {
+    switch (selectedMilestone.value) {
+        case 'burger':
+            return 'First burger marketed';
+        case 'pizza':
+            return 'First pizza marketed';
+        case 'drink':
+            return 'First drink marketed';
+        case 'price':
+            return 'First to lower prices';
+        default:
+            return '';
     }
 }
 </script>

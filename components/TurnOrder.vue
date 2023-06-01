@@ -23,7 +23,7 @@
                 </draggable>
             </div>
         </div>
-        <div class="flex w-full justify-center fixed bottom-5">
+        <div class="flex w-full justify-center fixed bottom-8">
             <NuxtLink to="/worker">
                 <button class="btn btn-outline mt-3">Next</button>
             </NuxtLink>

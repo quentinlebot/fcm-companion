@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="players.length > 0" class="flex w-full justify-center fixed bottom-5">
+        <div v-if="players.length > 0" class="flex w-full justify-center fixed bottom-8">
             <NuxtLink to="/turn" class="">
                 <button class="btn btn-outline mt-3" :disabled="players.length < 2">Next</button>
             </NuxtLink>
