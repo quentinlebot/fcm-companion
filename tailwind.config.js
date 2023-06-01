@@ -8,7 +8,13 @@ module.exports = {
         "./app.vue",
     ],
     theme: {
-    extend: {},
+        extend: {
+        },
     },
+    safelist: [
+        {
+          pattern: /text-(red|lime)-(600)/, // You can display all the colors that you need
+        },
+    ],
     plugins: [require("@tailwindcss/typography"), require("daisyui")],
 };

@@ -2,15 +2,16 @@ export class House {
 
   id: number;
   name: string;
+  appartment: boolean = false;
   garden: boolean = false;
   gardenReadOnly: boolean = false;
   park: boolean = false;
 
   constructor(id: number, garden: boolean = false) {
     this.id = id;
-    this.name = 'House ' + id;
-    if (id === 3.14) this.name = 'Apartment Pi';
-    if (id === 9.75) this.name = 'Apartment 9 3/4';
+    this.name = id.toString();
+    if (id === 3.14) this.name = 'π', this.appartment = true;
+    if (id === 9.75) this.name = '9 3/4', this.appartment = true;
     this.garden = garden;
     this.gardenReadOnly = garden;
   }
