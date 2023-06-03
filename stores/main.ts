@@ -89,7 +89,6 @@ export const useMainStore = defineStore('main', () => {
     function $reset() {
         players.value = [];
         houses.value = initialHouses;
-
     }
     function newPlayer({ name, restaurant_id }: { name: string, restaurant_id: number }) {
         const nameTaken = players.value.some(p => p.name === name);

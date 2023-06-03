@@ -31,16 +31,16 @@ const pages = [
         color: 'text-error',
     },
     {
-        path: '/house',
-        label: 'House',
-        icon: 'fa6-solid:location-dot',
-        color: 'text-secondary',
-    },
-    {
         path: '/milestone',
         label: 'Milestone',
         icon: 'fa6-solid:flag-checkered',
         color: 'text-accent',
+    },
+    {
+        path: '/house',
+        label: 'House',
+        icon: 'fa6-solid:location-dot',
+        color: 'text-secondary',
     },
     {
         path: '/dinnertime',

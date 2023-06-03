@@ -24,7 +24,6 @@ export class House {
   getNbNeeded() {
     return this.nbBurger + this.nbPizza + this.nbBeer + this.nbCoke + this.nbJuice;
   }
-
   getMultiplier() {
     let multiplier = 1;
     if (this.park) multiplier += 1;

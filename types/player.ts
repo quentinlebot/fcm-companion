@@ -2,8 +2,7 @@ import { Restaurant, useMainStore } from "~/stores/main";
 
 export class Player {
 
-  name: string = 'Player ';
-  hide: boolean = false;
+  name: string = 'Player';
   turnOrder: number = -1;
   milestoneBurger: boolean = false;
   milestonePizza: boolean = false;
@@ -16,12 +15,19 @@ export class Player {
   waitress: number = 0;
   cfo: number = 0;
   restaurant: Restaurant;
+  turnAmount: number = 0;
+  distances = new Map<number, number>();
 
   constructor(name: string, restaurant_id: number) {
     this.name = name;
     this.restaurant = useMainStore().getRestaurant(restaurant_id)!;
   }
-
+  setDistance(house_id: number, distance: number) {
+    this.distances.set(house_id, distance);
+  }
+  getDistance(house_id: number) {
+    return this.distances.get(house_id);
+  }
   getUnitPrice(multiplier: number = 1) {
     return (this.baseUnitPrice +
       this.discountManager * -3 +

@@ -17,11 +17,15 @@
                     </div>
                     <span class="kansas text-sm text-gray-800 w-1/3 text-end mr-2">5$ for every burger sold</span>
                 </div>
-                <div class="flex justify-center h-100px gap-2 my-2 md:w-1/3">
+                <div class="flex justify-center h-100px gap-2 my-2 md:w-1/3 border-x-[1px] rounded-xl">
                     <div class="flex justify-center place-items-center flex-row md:flex-col text-center"
                         v-for="p in players.filter(pl => pl.milestoneBurger)" :key="p.name">
                         <img :src="p.restaurant.img" alt="" :class="['h-5 w-5', 'md:h-14 md:w-14', 'rounded-full']" />
                         <span :class="['text-sm md:text-xl']">{{ p.name }}</span>
+                    </div>
+                    <div v-if="players.filter(pl => pl.milestoneBurger).length == 0"
+                        class="flex justify-center place-items-center underline">
+                        <p>Nobody has scored this milestone yet</p>
                     </div>
                 </div>
                 <div @click="setCurrentMilestone('pizza')"
@@ -38,12 +42,16 @@
                     <span class="kansas text-sm text-gray-800 md:w-[250px] w-1/3 text-end mr-2">5$ for every pizza
                         sold</span>
                 </div>
-                <div class="flex justify-center h-100px gap-2 my-2 md:w-1/3">
+                <div class="flex justify-center h-100px gap-2 my-2 md:w-1/3 border-x-[1px] rounded-xl">
 
                     <div class="flex justify-center place-items-center flex-row md:flex-col text-center"
                         v-for="p in players.filter(pl => pl.milestonePizza)" :key="p.name">
                         <img :src="p.restaurant.img" alt="" :class="['h-5 w-5', 'md:h-14 md:w-14', 'rounded-full']" />
                         <span :class="['text-sm md:text-xl']">{{ p.name }}</span>
+                    </div>
+                    <div v-if="players.filter(pl => pl.milestonePizza).length == 0"
+                        class="flex justify-center place-items-center underline">
+                        <p>Nobody has scored this milestone yet</p>
                     </div>
                 </div>
                 <div @click="setCurrentMilestone('drink')"
@@ -60,11 +68,15 @@
                     <span class="kansas text-sm text-gray-800 md:w-[250px] w-1/3 text-end mr-2">5$ for every drink
                         sold</span>
                 </div>
-                <div class="flex justify-center h-100px gap-2 my-2 md:w-1/3">
+                <div class="flex justify-center h-100px gap-2 my-2 md:w-1/3 border-x-[1px] rounded-xl">
                     <div class="flex justify-center place-items-center flex-row md:flex-col text-center"
                         v-for="p in players.filter(pl => pl.milestoneDrink)" :key="p.name">
                         <img :src="p.restaurant.img" alt="" :class="['h-5 w-5', 'md:h-14 md:w-14', 'rounded-full']" />
                         <span :class="['text-sm md:text-xl']">{{ p.name }}</span>
+                    </div>
+                    <div v-if="players.filter(pl => pl.milestoneDrink).length == 0"
+                        class="flex justify-center place-items-center underline">
+                        <p>Nobody has scored this milestone yet</p>
                     </div>
                 </div>
                 <div @click="setCurrentMilestone('price')"
@@ -80,11 +92,15 @@
                     </div>
                     <span class="kansas text-sm text-gray-800 md:w-[250px] w-1/3 text-end mr-2">Price -1$</span>
                 </div>
-                <div class="flex justify-center h-100px gap-2 my-2 md:w-1/3">
+                <div class="flex justify-center h-100px gap-2 my-2 md:w-1/3 border-x-[1px] rounded-xl">
                     <div class="flex justify-center place-items-center flex-row md:flex-col text-center"
                         v-for="p in players.filter(pl => pl.milestoneLowerPrice)" :key="p.name">
                         <img :src="p.restaurant.img" alt="" :class="['h-5 w-5', 'md:h-14 md:w-14', 'rounded-full']" />
                         <span :class="['text-sm md:text-xl']">{{ p.name }}</span>
+                    </div>
+                    <div v-if="players.filter(pl => pl.milestoneLowerPrice).length == 0"
+                        class="flex justify-center place-items-center underline">
+                        <p>Nobody has scored this milestone yet</p>
                     </div>
                 </div>
             </div>
