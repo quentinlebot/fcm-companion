@@ -54,9 +54,10 @@
         <p id="title" class="font-bold uppercase divider mt-10 md:mx-[10%]">Select a house & set foods</p>
         <div class="">
             <ul class="steps steps-vertical lg:steps-horizontal">
-                <li class="step" :data-content="h.id == 9.75 ? '9&frac34;' : h.name" v-for="h in houses" :key="h.id">
+                <li class="step" :data-content="h.id == 9.75 ? '9&frac34;' : h.name" v-for="h in housesWithNeeded"
+                    :key="h.id">
                     <img v-if="h.garden" src="/img/house_garden.jpg" class="w-[40px]" />
-                    <img v-if="h.appartment" src="/img/appartment.jpg" class="w-[45px]" />
+                    <img v-if="h.apartment" src="/img/appartment.jpg" class="w-[45px]" />
                 </li>
             </ul>
         </div>
@@ -74,7 +75,7 @@ import { useMainStore } from '~/stores/main';
 
 const store = useMainStore();
 
-let { players, houses } = storeToRefs(store);
+let { players, housesWithNeeded } = storeToRefs(store);
 let amount = ref(150);
 
 onMounted(() => {

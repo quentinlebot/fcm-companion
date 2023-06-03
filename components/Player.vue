@@ -120,6 +120,12 @@ const deletePlayer = (name) => {
 watch(() => inputName.value, (value) => {
     verfiyName(value);
 });
+onMounted(() => {
+    ["Kiny", "Flo", "Josh", "Pépé", "Techa", "Alex"].forEach(name => {
+        inputName.value = name;
+        newPlayer();
+    });
+});
 </script>
 
 <style></style>

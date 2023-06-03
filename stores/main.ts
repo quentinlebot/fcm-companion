@@ -129,6 +129,7 @@ export const useMainStore = defineStore('main', () => {
         deletePlayer,
         setTurnOrder,
         houses,
+        housesWithNeeded: computed(() => houses.value.filter(h => h.getNbNeeded() > 0)),
     }
 },
     {

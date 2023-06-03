@@ -2,18 +2,27 @@ export class House {
 
   id: number;
   name: string;
-  appartment: boolean = false;
+  apartment: boolean = false;
   garden: boolean = false;
   gardenReadOnly: boolean = false;
   park: boolean = false;
+  nbBurger: number = 0;
+  nbPizza: number = 0;
+  nbBeer: number = 0;
+  nbCoke: number = 0;
+  nbJuice: number = 0;
 
   constructor(id: number, garden: boolean = false) {
     this.id = id;
     this.name = id.toString();
-    if (id === 3.14) this.name = 'π', this.appartment = true;
-    if (id === 9.75) this.name = '9 3/4', this.appartment = true;
+    if (id === 3.14) this.name = 'π', this.apartment = true;
+    if (id === 9.75) this.name = '9 3/4', this.apartment = true;
     this.garden = garden;
     this.gardenReadOnly = garden;
+  }
+
+  getNbNeeded() {
+    return this.nbBurger + this.nbPizza + this.nbBeer + this.nbCoke + this.nbJuice;
   }
 
   getMultiplier() {
