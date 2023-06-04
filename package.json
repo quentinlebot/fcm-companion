@@ -6,7 +6,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "static": "npx nuxi generate"
   },
   "devDependencies": {
     "@nuxt/image": "^0.7.1",
