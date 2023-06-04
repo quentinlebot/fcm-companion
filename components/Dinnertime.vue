@@ -57,7 +57,7 @@
                 class="overflow-visible steps steps-vertical md:place-items-start lg:steps-horizontal min-h-[calc(100vh-315px)]">
                 <li :class="['', 'step', 'm-1']" :data-content="h.id == 9.75 ? '9&frac34;' : h.name"
                     v-for="h in housesWithNeeded" :key="h.id">
-                    <div class="flex md:flex-col gap-10">
+                    <div class="flex md:flex-col md:gap-10">
                         <div class="flex flex-col justify-center">
                             <div class="bg-house h-[54px] md:h-[50px] flex flex-col justify-end"
                                 v-if="!h.apartment & !h.gardenReadOnly">
