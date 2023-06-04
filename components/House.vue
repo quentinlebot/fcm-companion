@@ -124,7 +124,7 @@
         </div>
         <p id="title" class="font-bold uppercase divider md:mx-[10%]">Set distances</p>
         <div class="flex gap-5 justify-center -mt-3 md:m-5">
-            <div class="flex flex-col" v-for="p in players" :key="p.name">
+            <div class="flex flex-col" v-for="p, i in players" :key="p.name">
                 <div class="form-control">
                     <label class="label flex flex-wrap">
                         <span class="label-text">
@@ -132,8 +132,8 @@
                         </span>
                         <span :class="['label-text-alt', p.restaurant.color]">{{ p.restaurant.name }}</span>
                     </label>
-                    <input type="text" md:placeholder="Number of crossed tiles"
-                        class="input input-bordered w-full max-w-xs input-xs md:input-md" />
+                    <input type="number" class="input input-bordered w-full max-w-xs input-xs md:input-md" v-model="dist[i]"
+                        @change="setDistance()" />
                     <label class="label">
                         <span class="label-text-alt"></span>
                         <span class="label-text-alt">{{ p.name }}</span>
@@ -159,10 +159,16 @@ const store = useMainStore();
 let { players, houses } = storeToRefs(store);
 let index = ref(0);
 let selected = ref(houses.value[index.value]);
+let dist = ref([]);
 
 onMounted(() => {
     document.getElementById('title').scrollIntoView();
+    updateDistance();
 })
+watch(selected, () => {
+    updateDistance();
+})
+
 const next = () => {
     index.value++;
     if (index.value >= houses.value.length) {
@@ -208,6 +214,17 @@ const clearFoods = () => {
     selected.value.nbBeer = 0;
     selected.value.nbCoke = 0;
     selected.value.nbJuice = 0;
+}
+const updateDistance = () => {
+    dist.value = [];
+    players.value.forEach(p => {
+        dist.value.push(p.getDistance(selected.value.id));
+    });
+}
+const setDistance = () => {
+    players.value.forEach((p, i) => {
+        p.setDistance(selected.value.id, dist.value[i]);
+    });
 }
 </script>
 
