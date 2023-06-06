@@ -37,6 +37,12 @@ const pages = [
         color: 'text-accent',
     },
     {
+        path: '/stock',
+        label: 'Stock',
+        icon: 'fa6-solid:beer-mug-empty',
+        color: 'text-success',
+    },
+    {
         path: '/house',
         label: 'House',
         icon: 'fa6-solid:location-dot',

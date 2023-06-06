@@ -161,5 +161,107 @@ export class Player {
         return '';
     }
   }
-
+  setFood(food: string, value: number) {
+    switch (food) {
+      case 'burger':
+        this.nbrOfBurger = value;
+        break;
+      case 'pizza':
+        this.nbrOfPizza = value;
+        break;
+      case 'beer':
+        this.nbrOfBeer = value;
+        break;
+      case 'coke':
+        this.nbrOfCoke = value;
+        break;
+      case 'juice':
+        this.nbrOfJuice = value;
+        break;
+      case 'sushi':
+        this.nbrOfSushi = value;
+        break;
+      case 'noodle':
+        this.nbrOfNoodle = value;
+        break;
+      case 'kimchi':
+        this.nbrOfKimchi = value;
+        break;
+      default:
+        break;
+    }
+  }
+  increaseFood(food: string) {
+    switch (food) {
+      case 'burger':
+        this.nbrOfBurger++;
+        break;
+      case 'pizza':
+        this.nbrOfPizza++;
+        break;
+      case 'beer':
+        this.nbrOfBeer++;
+        break;
+      case 'coke':
+        this.nbrOfCoke++;
+        break;
+      case 'juice':
+        this.nbrOfJuice++;
+        break;
+      case 'sushi':
+        this.nbrOfSushi++;
+        break;
+      case 'noodle':
+        this.nbrOfNoodle++;
+        break;
+      case 'kimchi':
+        if (this.nbrOfKimchi < 2)
+          this.nbrOfKimchi++;
+        break;
+      default:
+        break;
+    }
+  }
+  increaseFoodx5(food: string) {
+    switch (food) {
+      case 'burger':
+        this.nbrOfBurger += 5;
+        break;
+      case 'pizza':
+        this.nbrOfPizza += 5;
+        break;
+      case 'beer':
+        this.nbrOfBeer += 5;
+        break;
+      case 'coke':
+        this.nbrOfCoke += 5;
+        break;
+      case 'juice':
+        this.nbrOfJuice += 5;
+        break;
+      case 'sushi':
+        this.nbrOfSushi += 5;
+        break;
+      case 'noodle':
+        this.nbrOfNoodle += 5;
+        break;
+      case 'kimchi':
+        this.nbrOfKimchi += 5;
+        if (this.nbrOfKimchi > 2)
+          this.nbrOfKimchi = 2;
+        break;
+      default:
+        break;
+    }
+  }
+  resetFood() {
+    this.setFood('burger', 0);
+    this.setFood('pizza', 0);
+    this.setFood('beer', 0);
+    this.setFood('coke', 0);
+    this.setFood('juice', 0);
+    this.setFood('sushi', 0);
+    this.setFood('noodle', 0);
+    this.setFood('kimchi', 0);
+  }
 }

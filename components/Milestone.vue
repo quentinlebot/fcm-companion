@@ -128,7 +128,7 @@
             </div>
         </div>
         <div class="flex w-full justify-center fixed bottom-8">
-            <NuxtLink to="/house" class="">
+            <NuxtLink to="/stock" class="">
                 <button class="btn btn-outline mt-3">Next</button>
             </NuxtLink>
         </div>

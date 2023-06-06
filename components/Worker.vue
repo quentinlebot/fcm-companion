@@ -64,7 +64,7 @@
             <NuxtLink to="/milestone" v-if="remainingMilestone()">
                 <button class="btn btn-outline mt-3">Next</button>
             </NuxtLink>
-            <NuxtLink to="/house" v-if="!remainingMilestone()">
+            <NuxtLink to="/stock" v-if="!remainingMilestone()">
                 <button class="btn btn-outline mt-3">Next</button>
             </NuxtLink>
         </div>

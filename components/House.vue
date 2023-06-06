@@ -133,7 +133,7 @@
                         <span :class="['label-text-alt', p.restaurant.color]">{{ p.restaurant.name }}</span>
                     </label>
                     <input type="number" class="input input-bordered w-full max-w-xs input-xs md:input-md" v-model="dist[i]"
-                        @change="setDistance()" />
+                        @change="p.setDistance(selected.id, dist[i])" />
                     <label class="label">
                         <span class="label-text-alt"></span>
                         <span class="label-text-alt">{{ p.name }}</span>
@@ -143,7 +143,7 @@
 
         </div>
         <div class="flex w-full justify-center fixed bottom-8">
-            <NuxtLink to="/stock" class="">
+            <NuxtLink to="/dinnertime" class="">
                 <button class="btn btn-outline mt-3">Next</button>
             </NuxtLink>
         </div>
@@ -188,11 +188,6 @@ const updateDistance = () => {
     dist.value = [];
     players.value.forEach(p => {
         dist.value.push(p.getDistance(selected.value.id));
-    });
-}
-const setDistance = () => {
-    players.value.forEach((p, i) => {
-        p.setDistance(selected.value.id, dist.value[i]);
     });
 }
 </script>
