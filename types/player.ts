@@ -12,11 +12,11 @@ export enum Product {
 }
 
 export enum Employee {
-  DISCOUNT_MANAGER = 'discountManager',
   PRICING_MANAGER = 'pricingManager',
+  DISCOUNT_MANAGER = 'discountManager',
   LUXURIES_MANAGER = 'luxuriesManager',
-  WAITRESS = 'waitress',
   CFO = 'cfo',
+  WAITRESS = 'waitress',
 }
 
 export enum Milestone {
@@ -56,6 +56,7 @@ export class Player {
     this.name = name;
     this.restaurant = useMainStore().getRestaurant(restaurant_id)!;
   }
+
   setDistance(house_id: number, distance: number) {
     this.distances.set(house_id, distance);
   }
@@ -128,4 +129,37 @@ export class Player {
         return false;
     }
   }
+  setMilestone(milestone: string, value: boolean) {
+    switch (milestone) {
+      case 'burger':
+        this.milestoneBurger = value;
+        break;
+      case 'pizza':
+        this.milestonePizza = value;
+        break;
+      case 'drink':
+        this.milestoneDrink = value;
+        break;
+      case 'lowerPrice':
+        this.milestoneLowerPrice = value;
+        break;
+      default:
+        break;
+    }
+  }
+  getMilestoneDisplay(milestone: string) {
+    switch (milestone) {
+      case 'burger':
+        return 'First burger marketed';
+      case 'pizza':
+        return 'First pizza marketed';
+      case 'drink':
+        return 'First drink marketed';
+      case 'price':
+        return 'First to lower prices';
+      default:
+        return '';
+    }
+  }
+
 }

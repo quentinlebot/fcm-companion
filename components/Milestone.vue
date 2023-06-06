@@ -4,10 +4,10 @@
         <p class="font-bold uppercase divider md:mx-[10%]">Awarded players</p>
         <div class="flex justify-center mt-5 md:h-[60vh] place-items-center">
             <div class="flex flex-col md:flex-row w-full md:flex-wrap md:gap-10 md:justify-center">
-                <div @click="setCurrentMilestone('burger')"
+                <div @click="setCurrentMilestone(Milestone.BURGER)"
                     class="flex justify-center place-items-center h-[70px] md:h-[100px] blue gap-5 md:rounded-box md:w-1/3 cursor-pointer">
-                    <span class="kansas text-gray-800 text-sm md:text-xl ml-2 w-1/3">First burger
-                        marketed</span>
+                    <span class="kansas text-gray-800 text-sm md:text-xl ml-2 w-1/3">{{
+                        Utils.getMilestoneDisplay(Milestone.BURGER) }}</span>
                     <div class="flex justify-center w-1/3">
                         <span class="star mr-5">★</span>
                         <div class="circle">
@@ -28,10 +28,10 @@
                         <p>Nobody has scored this milestone yet</p>
                     </div>
                 </div>
-                <div @click="setCurrentMilestone('pizza')"
+                <div @click="setCurrentMilestone(Milestone.PIZZA)"
                     class="flex justify-center place-items-center h-[70px] md:h-[100px] blue gap-5 md:rounded-box md:w-1/3 cursor-pointer">
-                    <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2 w-1/3">First pizza
-                        marketed</span>
+                    <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2 w-1/3">{{
+                        Utils.getMilestoneDisplay(Milestone.PIZZA) }}</span>
                     <div class="flex justify-center w-1/3">
                         <span class="star mr-5">★</span>
                         <div class="circle">
@@ -54,10 +54,10 @@
                         <p>Nobody has scored this milestone yet</p>
                     </div>
                 </div>
-                <div @click="setCurrentMilestone('drink')"
+                <div @click="setCurrentMilestone(Milestone.DRINK)"
                     class="flex justify-center place-items-center h-[70px] md:h-[100px] blue gap-5 md:rounded-box md:w-1/3 cursor-pointer">
-                    <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2 w-1/3">First drink
-                        marketed</span>
+                    <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2 w-1/3">{{
+                        Utils.getMilestoneDisplay(Milestone.DRINK) }}</span>
                     <div class="flex justify-center w-1/3">
                         <span class="star mr-5">★</span>
                         <div class="circle">
@@ -79,10 +79,10 @@
                         <p>Nobody has scored this milestone yet</p>
                     </div>
                 </div>
-                <div @click="setCurrentMilestone('price')"
+                <div @click="setCurrentMilestone(Milestone.LOWER_PRICE)"
                     class="flex justify-center place-items-center h-[70px] md:h-[100px] pink gap-5 md:rounded-box md:w-1/3 cursor-pointer">
-                    <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2 w-1/3">First to lower
-                        prices</span>
+                    <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2 w-1/3">{{
+                        Utils.getMilestoneDisplay(Milestone.LOWER_PRICE) }}</span>
                     <div class="flex justify-center w-1/3 rounded border-1 border-neutral">
                         <span class="star mr-5">★</span>
                         <div class="circle">
@@ -110,7 +110,7 @@
             <div class="modal-box">
                 <h3 class="font-bold text-lg text-center">Select players who score milestone :</h3>
                 <p class="w-full italic text-center">{{
-                    getMilestoneDisplayName()
+                    Utils.getMilestoneDisplay(selectedMilestone)
                 }}</p>
                 <div class="flex justify-center h-100px gap-2 my-3">
                     <div class="flex flex-col justify-center place-items-center text-center" v-for="p in players"
@@ -138,12 +138,14 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useMainStore } from '~/stores/main';
+import { Milestone } from '~/types/player';
+import { Utils } from '~/types/utils';
 
 const store = useMainStore();
 
 let { players } = storeToRefs(store);
 let modal = ref(false);
-let selectedMilestone = ref('burger');
+let selectedMilestone = ref(Milestone.BURGER);
 let selectedPlayers = ref([]);
 
 onMounted(() => {
@@ -155,67 +157,16 @@ const setCurrentMilestone = (m) => {
     selectedPlayers.value = [];
     modal.value = true;
 }
-const setMilestone = (player, value, milestone) => {
-    if (!milestone)
-        milestone = selectedMilestone.value;
-    if (!player) return
-    switch (milestone) {
-        case 'burger':
-            player.milestoneBurger = value;
-            break;
-        case 'pizza':
-            player.milestonePizza = value;
-            break;
-        case 'drink':
-            player.milestoneDrink = value;
-            break;
-        case 'price':
-            player.milestoneLowerPrice = value;
-            break;
-        default:
-            break;
-    }
-}
 const setMilestones = () => {
     players.value.forEach(p => {
-        setMilestone(p, selectedPlayers.value.includes(p), selectedMilestone.value);
+        p.setMilestone(selectedMilestone.value, selectedPlayers.value.includes(p))
     });
-}
-const hasMilestone = (player, milestone) => {
-    if (!milestone)
-        milestone = selectedMilestone.value;
-    switch (milestone) {
-        case 'burger':
-            return player.milestoneBurger;
-        case 'pizza':
-            return player.milestonePizza;
-        case 'drink':
-            return player.milestoneDrink;
-        case 'price':
-            return player.milestoneLowerPrice;
-        default:
-            return false;
-    }
 }
 const tooglePlayer = (player) => {
     if (selectedPlayers.value.includes(player)) {
         selectedPlayers.value = selectedPlayers.value.filter(p => p !== player);
     } else {
         selectedPlayers.value.push(player);
-    }
-}
-const getMilestoneDisplayName = () => {
-    switch (selectedMilestone.value) {
-        case 'burger':
-            return 'First burger marketed';
-        case 'pizza':
-            return 'First pizza marketed';
-        case 'drink':
-            return 'First drink marketed';
-        case 'price':
-            return 'First to lower prices';
-        default:
-            return '';
     }
 }
 </script>

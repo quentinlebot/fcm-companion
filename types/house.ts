@@ -6,11 +6,11 @@ export class House {
   garden: boolean = false;
   gardenReadOnly: boolean = false;
   park: boolean = false;
-  nbBurger: number = 0;
-  nbPizza: number = 0;
-  nbBeer: number = 0;
-  nbCoke: number = 0;
-  nbJuice: number = 0;
+  needBurger: number = 0;
+  needPizza: number = 0;
+  needBeer: number = 0;
+  needCoke: number = 0;
+  needJuice: number = 0;
 
   constructor(id: number, garden: boolean = false) {
     this.id = id;
@@ -21,15 +21,71 @@ export class House {
     this.gardenReadOnly = garden;
   }
 
-  getNbNeeded() {
-    return this.nbBurger + this.nbPizza + this.nbBeer + this.nbCoke + this.nbJuice;
-  }
   getMultiplier() {
     let multiplier = 1;
     if (this.park) multiplier += 1;
     if (this.garden) multiplier += 1;
     return multiplier;
   }
+  setPark() {
+    this.park = !this.park;
+  }
+  setGarden() {
+    this.garden = !this.garden;
+  }
+  increaseNeed(food: string) {
+    switch (food) {
+      case 'burger':
+        this.needBurger++;
+        break;
+      case 'pizza':
+        this.needPizza++;
+        break;
+      case 'beer':
+        this.needBeer++;
+        break;
+      case 'coke':
+        this.needCoke++;
+        break;
+      case 'juice':
+        this.needJuice++;
+        break;
+      default:
+        break;
+    }
+  }
+  setNeed(food: string, value: number) {
+    switch (food) {
+      case 'burger':
+        this.needBurger = value;
+        break;
+      case 'pizza':
+        this.needPizza = value;
+        break;
+      case 'beer':
+        this.needBeer = value;
+        break;
+      case 'coke':
+        this.needCoke = value;
+        break;
+      case 'juice':
+        this.needJuice = value;
+        break;
+      default:
+        break;
+    }
+  }
+  resetNeed() {
+    this.setNeed('burger', 0);
+    this.setNeed('pizza', 0);
+    this.setNeed('beer', 0);
+    this.setNeed('coke', 0);
+    this.setNeed('juice', 0);
+  }
+  countNeed() {
+    return this.needBurger + this.needPizza + this.needBeer + this.needCoke + this.needJuice;
+  }
+
   // getPlayersFromRules() {
   //   return [...this.distPlayer].sort((a, b) => {
   //     let playerA = playerGlobal.getPlayerById(a.id);

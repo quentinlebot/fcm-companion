@@ -17,7 +17,7 @@
                     <span class="text-center kansas">Clear</span>
                     <div class="btn-group btn-group-vertical lg:btn-group-horizontal">
                         <button class="btn btn-active" @click="selectedPlayer.resetEmployees()">This player</button>
-                        <button class="btn" @click="resetAllEmployees(players)">all players</button>
+                        <button class="btn" @click="resetAllEmployees()">all players</button>
                     </div>
                 </div>
                 <div class="indicator w-[30vw] md:w-[12vw]">
@@ -88,37 +88,8 @@ onMounted(() => {
 const selectPlayer = (player) => {
     selectedPlayer.value = player;
 };
-const increase = (type) => {
-    switch (type) {
-        case 'p':
-            selectedPlayer.value.pricingManager++;
-            break;
-        case 'd':
-            selectedPlayer.value.discountManager++;
-            break;
-        case 'l':
-            selectedPlayer.value.luxuriesManager++;
-            break;
-        case 'c':
-            if (selectedPlayer.value.cfo < 1)
-                selectedPlayer.value.cfo++;
-            break;
-        case 'w':
-            selectedPlayer.value.waitress++;
-            break;
-    }
-};
-const countWorkers = (player) => {
-    return player.pricingManager + player.discountManager + player.luxuriesManager + player.cfo + player.waitress;
-};
-const reset = (players) => {
-    players.forEach((p) => {
-        p.pricingManager = 0;
-        p.discountManager = 0;
-        p.luxuriesManager = 0;
-        p.cfo = 0;
-        p.waitress = 0;
-    });
+const resetAllEmployees = () => {
+    players.value.forEach(p => p.resetEmployees());
 };
 const hasMilestone = (player, milestone) => {
     switch (milestone) {
