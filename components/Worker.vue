@@ -7,7 +7,8 @@
                 <img :src="p.restaurant.img" alt=""
                     :class="['rounded-full', p.name == selectedPlayer.name ? 'h-12 md:h-20' : 'grayscale opacity-50 h-8 w-8 md:h-16 md:w-16']" />
                 <span :class="['text-xl', p.name == selectedPlayer.name ? 'text-primary' : '']">{{ p.name }}</span>
-                <span class="opacity-50 text-xs md:text-lg" v-if="countWorkers(p) > 0">{{ countWorkers(p) }} emp.</span>
+                <span class="opacity-50 text-xs md:text-lg" v-if="p.getNbrOfEmployee() > 0">{{ p.getNbrOfEmployee() }}
+                    emp.</span>
             </div>
         </div>
         <div class="flex justify-center h-full mt-5">
@@ -15,8 +16,8 @@
                 <div class="flex flex-col justify-center place-items-center gap-2 w-[30vw] md:w-[12vw]">
                     <span class="text-center kansas">Clear</span>
                     <div class="btn-group btn-group-vertical lg:btn-group-horizontal">
-                        <button class="btn btn-active" @click="reset([selectedPlayer])">This player</button>
-                        <button class="btn" @click="reset(players)">all players</button>
+                        <button class="btn btn-active" @click="selectedPlayer.resetEmployees()">This player</button>
+                        <button class="btn" @click="resetAllEmployees(players)">all players</button>
                     </div>
                 </div>
                 <div class="indicator w-[30vw] md:w-[12vw]">
@@ -25,7 +26,7 @@
                             selectedPlayer.pricingManager
                         }}</span>
                     <img class="cursor-pointer hover:opacity-90" src="/img/e_pricing_manager.jpg" format="webp" sizes="19vw"
-                        @click="increase('p')" />
+                        @click="selectedPlayer.increaseNbrOfEmployee(Employee.PRICING_MANAGER)" />
                 </div>
                 <div class="indicator w-[30vw] md:w-[12vw]">
                     <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8"
@@ -33,7 +34,7 @@
                             selectedPlayer.discountManager
                         }}</span>
                     <img class="cursor-pointer hover:opacity-90" src="/img/e_discount_manager.jpg" format="webp"
-                        sizes="19vw" @click="increase('d')" />
+                        sizes="19vw" @click="selectedPlayer.increaseNbrOfEmployee(Employee.DISCOUNT_MANAGER)" />
                 </div>
                 <div class="indicator w-[30vw] md:w-[12vw]">
                     <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8"
@@ -41,21 +42,21 @@
                             selectedPlayer.luxuriesManager
                         }}</span>
                     <img class="cursor-pointer hover:opacity-90" src="/img/e_luxuries_manager.jpg" format="webp"
-                        sizes="19vw" @click="increase('l')" />
+                        sizes="19vw" @click="selectedPlayer.increaseNbrOfEmployee(Employee.LUXURIES_MANAGER)" />
                 </div>
                 <div class="indicator w-[30vw] md:w-[12vw]">
                     <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8" v-if="selectedPlayer.cfo">{{
                         selectedPlayer.cfo
                     }}</span>
                     <img class="cursor-pointer hover:opacity-90" src="/img/e_cfo.jpg" format="webp" sizes="19vw"
-                        @click="increase('c')" />
+                        @click="selectedPlayer.increaseNbrOfEmployee(Employee.CFO)" />
                 </div>
                 <div class="indicator w-[30vw] md:w-[12vw]">
                     <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8"
                         v-if="selectedPlayer.waitress">{{ selectedPlayer.waitress
                         }}</span>
                     <img class="cursor-pointer hover:opacity-90" src="/img/e_waitress.jpg" format="webp" sizes="19vw"
-                        @click="increase('w')" />
+                        @click="selectedPlayer.increaseNbrOfEmployee(Employee.WAITRESS)" />
                 </div>
             </div>
         </div>
@@ -73,6 +74,7 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useMainStore } from '~/stores/main';
+import { Employee } from '~/types/player';
 
 const store = useMainStore();
 
