@@ -1,3 +1,5 @@
+import { Product } from "./player";
+
 export class House {
 
   id: number;
@@ -6,11 +8,7 @@ export class House {
   garden: boolean = false;
   gardenReadOnly: boolean = false;
   park: boolean = false;
-  needBurger: number = 0;
-  needPizza: number = 0;
-  needBeer: number = 0;
-  needCoke: number = 0;
-  needJuice: number = 0;
+  needs: Map<string, number> = new Map<string, number>();
 
   constructor(id: number, garden: boolean = false) {
     this.id = id;
@@ -19,6 +17,7 @@ export class House {
     if (id === 9.75) this.name = '9 3/4', this.apartment = true;
     this.garden = garden;
     this.gardenReadOnly = garden;
+    this.resetNeeds();
   }
 
   getMultiplier() {
@@ -33,57 +32,31 @@ export class House {
   setGarden() {
     this.garden = !this.garden;
   }
-  increaseNeed(food: string) {
-    switch (food) {
-      case 'burger':
-        this.needBurger++;
-        break;
-      case 'pizza':
-        this.needPizza++;
-        break;
-      case 'beer':
-        this.needBeer++;
-        break;
-      case 'coke':
-        this.needCoke++;
-        break;
-      case 'juice':
-        this.needJuice++;
-        break;
-      default:
-        break;
+  resetNeeds() {
+    this.needs.clear();
+    for (const product in Product) {
+      if ([Product.BURGER, Product.PIZZA, Product.BEER, Product.COKE, Product.JUICE].includes(Product[product as keyof typeof Product])) {
+        this.needs.set(Product[product as keyof typeof Product], 0);
+      }
     }
+  }
+  increaseNeed(food: string) {
+    let nbItems = this.needs.get(food)!;
+    this.needs.set(food, nbItems + 1);
   }
   setNeed(food: string, value: number) {
-    switch (food) {
-      case 'burger':
-        this.needBurger = value;
-        break;
-      case 'pizza':
-        this.needPizza = value;
-        break;
-      case 'beer':
-        this.needBeer = value;
-        break;
-      case 'coke':
-        this.needCoke = value;
-        break;
-      case 'juice':
-        this.needJuice = value;
-        break;
-      default:
-        break;
+    if (value < 0) return;
+    this.needs.set(food, value);
+  }
+  getNeed(food: string) {
+    return this.needs.get(food);
+  }
+  getNbrOfNeeds() {
+    let sum = 0;
+    for (let nbItems of this.needs.values()) {
+      sum += nbItems;
     }
-  }
-  resetNeed() {
-    this.setNeed('burger', 0);
-    this.setNeed('pizza', 0);
-    this.setNeed('beer', 0);
-    this.setNeed('coke', 0);
-    this.setNeed('juice', 0);
-  }
-  countNeed() {
-    return this.needBurger + this.needPizza + this.needBeer + this.needCoke + this.needJuice;
+    return sum;
   }
 
   // getPlayersFromRules() {

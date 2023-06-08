@@ -19,11 +19,11 @@
                 </div>
                 <div class="flex justify-center h-100px gap-2 my-2 md:w-1/3 border-x-[1px] rounded-xl">
                     <div class="flex justify-center place-items-center flex-row md:flex-col text-center"
-                        v-for="p in players.filter(pl => pl.milestoneBurger)" :key="p.name">
+                        v-for="p in players.filter(pl => pl.hasMilestone(Milestone.BURGER))" :key="p.name">
                         <img :src="p.restaurant.img" alt="" :class="['h-5 w-5', 'md:h-14 md:w-14', 'rounded-full']" />
                         <span :class="['text-sm md:text-xl']">{{ p.name }}</span>
                     </div>
-                    <div v-if="players.filter(pl => pl.milestoneBurger).length == 0"
+                    <div v-if="players.filter(pl => pl.hasMilestone(Milestone.BURGER)).length == 0"
                         class="flex justify-center place-items-center underline">
                         <p>Nobody has scored this milestone yet</p>
                     </div>
@@ -45,11 +45,11 @@
                 <div class="flex justify-center h-100px gap-2 my-2 md:w-1/3 border-x-[1px] rounded-xl">
 
                     <div class="flex justify-center place-items-center flex-row md:flex-col text-center"
-                        v-for="p in players.filter(pl => pl.milestonePizza)" :key="p.name">
+                        v-for="p in players.filter(pl => pl.hasMilestone(Milestone.PIZZA))" :key="p.name">
                         <img :src="p.restaurant.img" alt="" :class="['h-5 w-5', 'md:h-14 md:w-14', 'rounded-full']" />
                         <span :class="['text-sm md:text-xl']">{{ p.name }}</span>
                     </div>
-                    <div v-if="players.filter(pl => pl.milestonePizza).length == 0"
+                    <div v-if="players.filter(pl => pl.hasMilestone(Milestone.PIZZA)).length == 0"
                         class="flex justify-center place-items-center underline">
                         <p>Nobody has scored this milestone yet</p>
                     </div>
@@ -70,11 +70,11 @@
                 </div>
                 <div class="flex justify-center h-100px gap-2 my-2 md:w-1/3 border-x-[1px] rounded-xl">
                     <div class="flex justify-center place-items-center flex-row md:flex-col text-center"
-                        v-for="p in players.filter(pl => pl.milestoneDrink)" :key="p.name">
+                        v-for="p in players.filter(pl => pl.hasMilestone(Milestone.DRINK))" :key="p.name">
                         <img :src="p.restaurant.img" alt="" :class="['h-5 w-5', 'md:h-14 md:w-14', 'rounded-full']" />
                         <span :class="['text-sm md:text-xl']">{{ p.name }}</span>
                     </div>
-                    <div v-if="players.filter(pl => pl.milestoneDrink).length == 0"
+                    <div v-if="players.filter(pl => pl.hasMilestone(Milestone.DRINK)).length == 0"
                         class="flex justify-center place-items-center underline">
                         <p>Nobody has scored this milestone yet</p>
                     </div>
@@ -94,11 +94,11 @@
                 </div>
                 <div class="flex justify-center h-100px gap-2 my-2 md:w-1/3 border-x-[1px] rounded-xl">
                     <div class="flex justify-center place-items-center flex-row md:flex-col text-center"
-                        v-for="p in players.filter(pl => pl.milestoneLowerPrice)" :key="p.name">
+                        v-for="p in players.filter(pl => pl.hasMilestone(Milestone.LOWER_PRICE))" :key="p.name">
                         <img :src="p.restaurant.img" alt="" :class="['h-5 w-5', 'md:h-14 md:w-14', 'rounded-full']" />
                         <span :class="['text-sm md:text-xl']">{{ p.name }}</span>
                     </div>
-                    <div v-if="players.filter(pl => pl.milestoneLowerPrice).length == 0"
+                    <div v-if="players.filter(pl => pl.hasMilestone(Milestone.LOWER_PRICE)).length == 0"
                         class="flex justify-center place-items-center underline">
                         <p>Nobody has scored this milestone yet</p>
                     </div>

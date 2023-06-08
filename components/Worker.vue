@@ -22,38 +22,40 @@
                 </div>
                 <div class="indicator w-[30vw] md:w-[12vw]">
                     <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8"
-                        v-if="selectedPlayer.pricingManager">{{
-                            selectedPlayer.pricingManager
+                        v-if="selectedPlayer.getEmployee(Employee.PRICING_MANAGER)">{{
+                            selectedPlayer.getEmployee(Employee.PRICING_MANAGER)
                         }}</span>
                     <img class="cursor-pointer hover:opacity-90" src="/img/e_pricing_manager.jpg" format="webp" sizes="19vw"
                         @click="selectedPlayer.increaseNbrOfEmployee(Employee.PRICING_MANAGER)" />
                 </div>
                 <div class="indicator w-[30vw] md:w-[12vw]">
                     <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8"
-                        v-if="selectedPlayer.discountManager">{{
-                            selectedPlayer.discountManager
+                        v-if="selectedPlayer.getEmployee(Employee.DISCOUNT_MANAGER)">{{
+                            selectedPlayer.getEmployee(Employee.DISCOUNT_MANAGER)
                         }}</span>
                     <img class="cursor-pointer hover:opacity-90" src="/img/e_discount_manager.jpg" format="webp"
                         sizes="19vw" @click="selectedPlayer.increaseNbrOfEmployee(Employee.DISCOUNT_MANAGER)" />
                 </div>
                 <div class="indicator w-[30vw] md:w-[12vw]">
                     <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8"
-                        v-if="selectedPlayer.luxuriesManager">{{
-                            selectedPlayer.luxuriesManager
+                        v-if="selectedPlayer.getEmployee(Employee.LUXURIES_MANAGER)">{{
+                            selectedPlayer.getEmployee(Employee.LUXURIES_MANAGER)
                         }}</span>
                     <img class="cursor-pointer hover:opacity-90" src="/img/e_luxuries_manager.jpg" format="webp"
                         sizes="19vw" @click="selectedPlayer.increaseNbrOfEmployee(Employee.LUXURIES_MANAGER)" />
                 </div>
                 <div class="indicator w-[30vw] md:w-[12vw]">
-                    <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8" v-if="selectedPlayer.cfo">{{
-                        selectedPlayer.cfo
-                    }}</span>
+                    <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8"
+                        v-if="selectedPlayer.getEmployee(Employee.CFO)">{{
+                            selectedPlayer.getEmployee(Employee.CFO)
+                        }}</span>
                     <img class="cursor-pointer hover:opacity-90" src="/img/e_cfo.jpg" format="webp" sizes="19vw"
                         @click="selectedPlayer.increaseNbrOfEmployee(Employee.CFO)" />
                 </div>
                 <div class="indicator w-[30vw] md:w-[12vw]">
                     <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8"
-                        v-if="selectedPlayer.waitress">{{ selectedPlayer.waitress
+                        v-if="selectedPlayer.getEmployee(Employee.WAITRESS)">{{
+                            selectedPlayer.getEmployee(Employee.WAITRESS)
                         }}</span>
                     <img class="cursor-pointer hover:opacity-90" src="/img/e_waitress.jpg" format="webp" sizes="19vw"
                         @click="selectedPlayer.increaseNbrOfEmployee(Employee.WAITRESS)" />
@@ -91,25 +93,11 @@ const selectPlayer = (player) => {
 const resetAllEmployees = () => {
     players.value.forEach(p => p.resetEmployees());
 };
-const hasMilestone = (player, milestone) => {
-    switch (milestone) {
-        case 'burger':
-            return player.milestoneBurger;
-        case 'pizza':
-            return player.milestonePizza;
-        case 'drink':
-            return player.milestoneDrink;
-        case 'price':
-            return player.milestoneLowerPrice;
-        default:
-            return false;
-    }
-};
 const remainingMilestone = () => {
     let milestones = ['burger', 'pizza', 'drink', 'price']
     for (let index = 0; index < milestones.length; index++) {
         const element = milestones[index];
-        if (players.value.filter(p => hasMilestone(p, milestones[index])).length == 0)
+        if (players.value.filter(p => p.hasMilestone(milestones[index])).length == 0)
             return true;
     }
     return false;
