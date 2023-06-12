@@ -1,12 +1,13 @@
 import { defineStore } from "pinia"
 import { House } from "~/types/house";
-import { Player } from "~/types/player";
+import { Employee, Player, Product } from "~/types/player";
 
 export interface Restaurant {
     id: number;
     name: string;
     img: string;
     color: string;
+    class: string;
 }
 
 export interface RestaurantTaken extends Restaurant {
@@ -40,8 +41,9 @@ const initialHouses = [
     new House(22),
     new House(23),
     new House(24),
-    new House(25, true)]
-
+    new House(25, true),
+    new House(Number.NaN)
+];
 
 export const useMainStore = defineStore('main', () => {
 
@@ -51,36 +53,42 @@ export const useMainStore = defineStore('main', () => {
             name: 'Duck Dinner',
             img: '/img/p_duck_dinner.jpg',
             color: 'text-info',
+            class: 'info'
         },
         {
             id: 2,
             name: 'Gluttony Inc',
             img: '/img/p_gluttony_inc.jpg',
             color: 'text-red-600',
+            class: 'red'
         },
         {
             id: 3,
             name: 'Fried Geese',
             img: '/img/p_fried_geese.jpg',
             color: 'text-secondary',
+            class: 'secondary'
         },
         {
             id: 4,
             name: 'Santa Maria',
             img: '/img/p_santa_maria.jpg',
             color: 'text-error',
+            class: 'error'
         },
         {
             id: 5,
             name: 'Xango Blues',
             img: '/img/p_xango_blues.jpg',
             color: 'text-lime-600',
+            class: 'lime'
         },
         {
             id: 6,
             name: 'Siap Faji',
             img: '/img/p_siap_faji.jpg',
             color: 'text-accent',
+            class: 'accent'
         }
     ];
     const players: Ref<Player[]> = ref([]);
@@ -109,7 +117,9 @@ export const useMainStore = defineStore('main', () => {
             players.value.find(p => p.name === player.name)!.turnOrder = index + 1;
         })
     }
-
+    function housesWithNeeds() {
+        return houses.value.filter(h => h.getNbrOfNeeds() > 0).sort(House.sortById);
+    }
     const restaurants = computed(() => {
         return restaurantsDef.map(r => {
             return {
@@ -128,7 +138,7 @@ export const useMainStore = defineStore('main', () => {
         deletePlayer,
         setTurnOrder,
         houses,
-        housesWithNeeded: computed(() => houses.value.filter(h => h.getNbrOfNeeds() > 0)),
+        housesWithNeeded: computed(housesWithNeeds),
     }
 },
     {
