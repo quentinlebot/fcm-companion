@@ -121,10 +121,7 @@ watch(() => inputName.value, (value) => {
     verfiyName(value);
 });
 onMounted(() => {
-    ["Kiny", "Flo", "Josh", "Pépé", "Techa", "Alex"].forEach(name => {
-        inputName.value = name;
-        newPlayer();
-    });
+    store.test();
 });
 </script>
 
