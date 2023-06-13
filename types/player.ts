@@ -85,7 +85,8 @@ export class Player {
     }
     increaseNbrOfEmployee(employee: string) {
         let nbItems = this.employees.get(employee)!;
-        if (employee === Employee.CFO && nbItems === 1) return;
+        const x1 = [Employee.LUXURIES_MANAGER, Employee.CFO, Employee.MOVIE_STAR_B, Employee.MOVIE_STAR_C, Employee.MOVIE_STAR_D];
+        if (x1.includes(employee as Employee) && nbItems === 1) return;
         this.employees.set(employee, nbItems + 1);
     }
     getNbrOfProduct() {

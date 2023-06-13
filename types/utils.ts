@@ -9,6 +9,8 @@ export class Utils {
                 return 'First drink marketed';
             case 'lowerPrice':
                 return 'First to lower prices';
+            case 'ketchup':
+                return 'Someone sells your demand';
             default:
                 return '';
         }

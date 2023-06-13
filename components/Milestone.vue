@@ -2,7 +2,7 @@
     <div class="flex flex-col h-[calc(100vh-64px)] relative">
         <h3 id="title" class="text-center my-5 text-5xl uppercase font-bold kansas">Milestones</h3>
         <p class="font-bold uppercase divider md:mx-[10%]">Awarded players</p>
-        <div class="flex justify-center mt-5 md:h-[60vh] place-items-center">
+        <div class="flex justify-center mt-5 md:h-[65vh] place-items-center">
             <div class="flex flex-col md:flex-row w-full md:flex-wrap md:gap-10 md:justify-center">
                 <div @click="setCurrentMilestone(Milestone.BURGER)"
                     class="flex justify-center place-items-center h-[70px] md:h-[100px] blue gap-5 md:rounded-box md:w-1/3 cursor-pointer">
@@ -103,6 +103,30 @@
                         <p>Nobody has scored this milestone yet</p>
                     </div>
                 </div>
+                <div @click="setCurrentMilestone(Milestone.KETCHUP)"
+                    class="flex justify-center place-items-center h-[70px] md:h-[100px] bg-zinc-500 gap-5 md:rounded-box md:w-1/3 cursor-pointer">
+                    <span class="kansas text-gray-800 md:w-[250px] text-sm md:text-xl ml-2 w-1/3">{{
+                        Utils.getMilestoneDisplay(Milestone.KETCHUP) }}</span>
+                    <div class="flex justify-center w-1/3 rounded border-1 border-neutral">
+                        <span class="star mr-5">★</span>
+                        <div class="circle">
+                            <img class="overflow-visible max-w-none ketchup" src="/img/m_icon30.png" format="webp" />
+                        </div>
+                        <span class="star ml-5">★</span>
+                    </div>
+                    <span class="kansas text-sm text-gray-800 md:w-[250px] w-1/3 text-end mr-2">Distance -1</span>
+                </div>
+                <div class="flex justify-center h-100px gap-2 my-2 md:w-1/3 border-x-[1px] rounded-xl">
+                    <div class="flex justify-center place-items-center flex-row md:flex-col text-center"
+                        v-for="p in players.filter(pl => pl.hasMilestone(Milestone.KETCHUP))" :key="p.name">
+                        <img :src="p.restaurant.img" alt="" :class="['h-5 w-5', 'md:h-14 md:w-14', 'rounded-full']" />
+                        <span :class="['text-sm md:text-xl']">{{ p.name }}</span>
+                    </div>
+                    <div v-if="players.filter(pl => pl.hasMilestone(Milestone.KETCHUP)).length == 0"
+                        class="flex justify-center place-items-center underline">
+                        <p>Nobody has scored this milestone yet</p>
+                    </div>
+                </div>
             </div>
         </div>
         <input type="checkbox" id="cb_milestone" class="modal-toggle" v-model="modal" />
@@ -127,7 +151,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex w-full justify-center fixed bottom-8">
+        <div class="flex w-full justify-center pb-8 md:pb-0 md:fixed md:bottom-8">
             <NuxtLink to="/stock" class="">
                 <button class="btn btn-outline mt-3">Next</button>
             </NuxtLink>
@@ -228,5 +252,9 @@ const tooglePlayer = (player) => {
     width: 80px;
     margin-top: -5px;
     margin-left: 5px;
+}
+
+.ketchup {
+    width: 62px;
 }
 </style>
