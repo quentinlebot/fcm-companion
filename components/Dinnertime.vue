@@ -1,64 +1,44 @@
 <template>
-    <div class="flex flex-col h-[calc(100vh-64px)] relative place-items-center">
+    <div class="flex flex-col relative place-items-center">
         <h3 class="text-center my-5 text-5xl uppercase font-bold kansas">Dinnertime</h3>
-        <div class="stats shadow bg-base-200 hidden md:visible">
-
-            <!-- <div class="stat">
-                <div class="stat-figure text-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        class="inline-block w-8 h-8 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
-                        </path>
-                    </svg>
-                </div>
-                <div class="stat-title">Total Likes</div>
-                <div class="stat-value text-primary">25.6K</div>
-                <div class="stat-desc">21% more than last month</div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-figure text-secondary">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        class="inline-block w-8 h-8 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                </div>
-                <div class="stat-title">Page Views</div>
-                <div class="stat-value text-secondary">2.6M</div>
-                <div class="stat-desc">21% more than last month</div>
-            </div> -->
+        <div class="stats stats-vertical md:stats-horizontal shadow bg-base-200">
             <div class="stat">
                 <div class="stat-title">Total amount this turn</div>
-                <div class="stat-value">$200</div>
+                <count-up :end-val="sumThisTurn" :options="countUpOptions" class="stat-value"></count-up>
                 <div class="stat-actions">
-                    <button class="btn btn-md btn-primary">Start new</button>
+                    <button class="btn btn-sm btn-primary" @click="applyDinnertime()">Start new turn</button>
                 </div>
             </div>
-            <div class="stat" v-for="d in dinnertime" :key="d.playerUpdated.name">
+            <div class="stat" v-for="p in playersCopy" :key="p.name">
                 <div class="stat-figure text-secondary">
                     <div class="avatar">
                         <div class="w-16 rounded-full">
-                            <img :src="d.playerUpdated.restaurant.img" />
+                            <img :src="p.restaurant.img" />
                         </div>
                     </div>
                 </div>
-                <span class="stat-value">100 $</span>
-                <div class="stat-title">{{ d.playerUpdated.name }}</div>
-                <div :class="['stat-desc', d.playerUpdated.restaurant.color]">{{ d.playerUpdated.restaurant.name }}</div>
-                <div class="stat-desc">From January</div>
+                <count-up :end-val="p.turnAmount" duration="4" :options="countUpOptions"
+                    :class="['stat-value', p.turnAmount ? '' : 'opacity-30']"></count-up>
+                <div class="stat-title">{{ p.name }}</div>
+                <div :class="['stat-desc', p.restaurant.color]">{{ p.restaurant.name }}</div>
+                <div class="stat-desc"></div>
             </div>
-
         </div>
         <div class="overflow-visible">
-            <ul
-                class="overflow-visible steps steps-vertical md:place-items-start lg:steps-horizontal min-h-[calc(100vh-315px)] relative">
-                <li :class="[d.playerUpdated ? 'step-' + d.playerUpdated.restaurant.class : '', 'step', 'm-1']"
+            <ul class="overflow-visible steps steps-vertical md:place-items-start lg:steps-horizontal">
+                <li :class="[d.playerUpdated ? 'step-' + d.playerUpdated.restaurant.class : '', 'step', 'm-1 md:mt-[20px]']"
                     :data-content="d.house.id == 9.75 ? '9&frac34;' : d.house.name" v-for="d in dinnertime"
                     :key="d.house.id">
-                    <div class="flex md:flex-col md:gap-10 animate-none">
-                        <div class="flex flex-col justify-center">
+                    <div class="absolute -ml-[35px] md:ml-0 md:-mt-[500px] text-xs justify-end md:invisible">
+                        <!-- {{ d.playerUpdated.restaurant.name }}
+                        <img :src="d.playerUpdated.restaurant.img" class="w-6 rounded-box" /> -->
+                        {{ d.playerUpdated.name }}
+                    </div>
+                    <div class="flex md:flex-col md:gap-10">
+                        <div class="text-xs invisible md:visible">
+                            {{ d.playerUpdated ? d.playerUpdated.name : '' }}
+                        </div>
+                        <div class="flex flex-col justify-start md:h-[100px]">
                             <div class="bg-house h-[54px] md:h-[50px] flex flex-col justify-end"
                                 v-if="!d.house.apartment && !d.house.gardenReadOnly">
                                 <img src="/img/house.jpg" :class="['w-[50px]', d.house ? '' : 'grayscale opacity-50']" />
@@ -149,15 +129,7 @@
                     </div>
                 </li>
             </ul>
-            <div class="h-[90px] flex justify-center place-items-start">
-                <NuxtLink to="/turn" class="">
-                    <button class="btn btn-outline mt-3">New turn</button>
-                </NuxtLink>
-            </div>
         </div>
-        <div class="flex w-full justify-center fixed bottom-8">
-        </div>
-        <div>{{ dinnertime }}</div>
     </div>
 </template>
 
@@ -165,13 +137,22 @@
 import CountUp from 'vue-countup-v3'
 import { storeToRefs } from 'pinia';
 import { useMainStore } from '~/stores/main';
-import { Employee, Player, Product } from '~/types/player';
+import { Employee, Player, Product, Milestone } from '~/types/player';
 import { House } from '~/types/house';
 
 const store = useMainStore();
+const router = useRouter();
+const countUpOptions = {
+    delay: 1,
+    duration: 10,
+    suffix: ' $'
+
+}
 
 let { housesWithNeeded, players } = storeToRefs(store);
+let playersCopy = ref(store.playersCopy());
 let dinnertime: Ref<any[]> = ref([]);
+let sumThisTurn = ref(0);
 
 onMounted(() => {
     execDinnertime();
@@ -255,22 +236,41 @@ const resolveHouseNeeds = (players: Player[], house: House) => {
         }
     }
 }
-const applyDinnertime = (playersDinnertime: Player[], housesToReset: House[]) => {
-    players.value.forEach(p => {
-        const playerDinnertime = playersDinnertime.find(pd => pd.name === p.name);
-        if (playerDinnertime) {
-            p.turnAmount = 0;
-            for (const [product, value] of playerDinnertime.foodsAndDrinks) {
-                p.setFoodAndDrinkAndDrink(product, value);
+const applyDinnertime = () => {
+    playersCopy.value.forEach(p => {
+        const playerToUpdate = players.value.find(p => p.name === p.name);
+        if (playerToUpdate) {
+            for (const [product, value] of p.foodsAndDrinks) {
+                playerToUpdate.setFoodAndDrinkAndDrink(product, value);
             }
         }
     });
-    housesToReset.forEach(h => d.house.resetNeeds());
+    dinnertime.value.filter(elem => elem)
+    dinnertime.value.forEach(d => {
+        if (d.playerUpdated) {
+            d.house.resetNeeds();
+        }
+    });
+    router.push('/turn');
 }
 const execDinnertime = () => {
+    dinnertime.value = [];
+    playersCopy.value.forEach(p => {
+        p.turnAmount = 0;
+    });
     for (let index = 0; index < housesWithNeeded.value.length; index++) {
-        dinnertime.value.push(resolveHouseNeeds(players.value, housesWithNeeded.value[index]));
+        dinnertime.value.push(resolveHouseNeeds(playersCopy.value, housesWithNeeded.value[index]));
     }
+    for (let index = 0; index < playersCopy.value.length; index++) {
+        const player = playersCopy.value[index];
+        if (player.getEmployee(Employee.WAITRESS)) {
+            player.turnAmount += player.getEmployee(Employee.WAITRESS)! * (player.hasMilestone(Milestone.WAITRESS) ? 5 : 3);
+        }
+        if (player.getEmployee(Employee.CFO)) {
+            player.turnAmount += Math.ceil(player.turnAmount * 0.5);
+        }
+    }
+    sumThisTurn.value = playersCopy.value.reduce((acc, curr) => acc + curr.turnAmount, 0);
 }
 </script>
 

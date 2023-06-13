@@ -11,6 +11,8 @@ export class Utils {
                 return 'First to lower prices';
             case 'ketchup':
                 return 'Someone sells your demand';
+            case 'waitress':
+                return 'First waitress played';
             default:
                 return '';
         }

@@ -30,6 +30,7 @@ export enum Milestone {
     DRINK = 'drink',
     LOWER_PRICE = 'lowerPrice',
     KETCHUP = 'ketchup',
+    WAITRESS = 'waitress',
 }
 
 export class Player {
@@ -83,11 +84,12 @@ export class Player {
     getEmployee(employee: string) {
         return this.employees.get(employee);
     }
-    increaseNbrOfEmployee(employee: string) {
+    increaseNbrOfEmployee(employee: string, value: number = 1) {
         let nbItems = this.employees.get(employee)!;
         const x1 = [Employee.LUXURIES_MANAGER, Employee.CFO, Employee.MOVIE_STAR_B, Employee.MOVIE_STAR_C, Employee.MOVIE_STAR_D];
         if (x1.includes(employee as Employee) && nbItems === 1) return;
-        this.employees.set(employee, nbItems + 1);
+        if (nbItems + value < 0) value = -nbItems;
+        this.employees.set(employee, nbItems + value);
     }
     getNbrOfProduct() {
         let sum = 0;
@@ -107,6 +109,7 @@ export class Player {
     increaseFoodAndDrink(foodAndDrink: string, value: number = 1) {
         let nbItems = this.foodsAndDrinks.get(foodAndDrink)!;
         if (foodAndDrink === Product.KIMCHI && nbItems + value > 2) return;
+        if (nbItems + value < 0) value = -nbItems;
         this.foodsAndDrinks.set(foodAndDrink, nbItems + value);
     }
     resetFoodAndDrink() {
@@ -159,7 +162,8 @@ export class Player {
         return this.getFoodAndDrink(Product.NOODLE)! >= house.getNbrOfNeeds();
     }
     clone(): Player {
-        let clone = Object.assign({}, this)
+        let clone = new Player(this.name, this.restaurant.id);
+        clone.turnOrder = this.turnOrder;
         clone.foodsAndDrinks = new Map<string, number>(this.foodsAndDrinks);
         clone.milestones = new Map<string, boolean>(this.milestones);
         clone.employees = new Map<string, number>(this.employees);

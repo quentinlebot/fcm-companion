@@ -7,13 +7,14 @@
                 <img :src="p.restaurant.img" alt=""
                     :class="['rounded-full', p.name == selectedPlayer.name ? 'h-12 md:h-20' : 'grayscale opacity-50 h-8 w-8 md:h-16 md:w-16']" />
                 <span :class="['text-xl', p.name == selectedPlayer.name ? 'text-primary' : '']">{{ p.name }}</span>
-                <span class="opacity-50 text-xs md:text-lg" v-if="p.getNbrOfEmployee() > 0">{{ p.getNbrOfEmployee() }}
+                <span :class="['opacity-50', 'text-xs', 'md:text-lg', p.getNbrOfEmployee() > 0 ? '' : 'invisible']">{{
+                    p.getNbrOfEmployee() }}
                     emp.</span>
             </div>
         </div>
         <div class="flex justify-center md:h-[55vh] mt-5">
             <div class="flex gap-2 md:gap-10 justify-center h-1/2 md:h-full place-items-center flex-wrap">
-                <div class="flex flex-col justify-center place-items-center gap-2 w-[30vw] md:w-[100vw]">
+                <div class="flex flex-col justify-center place-items-center gap-2 w-[100vw]">
                     <span class="text-center kansas">Clear</span>
                     <div class="btn-group btn-group-vertical lg:btn-group-horizontal">
                         <button class="btn btn-active" @click="selectedPlayer.resetEmployees()">This player</button>
@@ -54,6 +55,14 @@
                 </div>
                 <div class="indicator w-[30vw] md:w-[9vw]">
                     <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8"
+                        v-if="selectedPlayer.getEmployee(Employee.FRY_CHEF)">{{
+                            selectedPlayer.getEmployee(Employee.FRY_CHEF)
+                        }}</span>
+                    <img class="cursor-pointer hover:opacity-90" src="/img/e_fry_chef.jpg" format="webp" sizes="19vw"
+                        @click="selectedPlayer.increaseNbrOfEmployee(Employee.FRY_CHEF)" />
+                </div>
+                <div class="indicator w-[30vw] md:w-[9vw]">
+                    <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8"
                         v-if="selectedPlayer.getEmployee(Employee.WAITRESS)">{{
                             selectedPlayer.getEmployee(Employee.WAITRESS)
                         }}</span>
@@ -83,14 +92,6 @@
                         }}</span>
                     <img class="cursor-pointer hover:opacity-90" src="/img/e_d_movie_star.jpg" format="webp" sizes="19vw"
                         @click="selectedPlayer.increaseNbrOfEmployee(Employee.MOVIE_STAR_D)" />
-                </div>
-                <div class="indicator w-[30vw] md:w-[9vw]">
-                    <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8"
-                        v-if="selectedPlayer.getEmployee(Employee.FRY_CHEF)">{{
-                            selectedPlayer.getEmployee(Employee.FRY_CHEF)
-                        }}</span>
-                    <img class="cursor-pointer hover:opacity-90" src="/img/e_fry_chef.jpg" format="webp" sizes="19vw"
-                        @click="selectedPlayer.increaseNbrOfEmployee(Employee.FRY_CHEF)" />
                 </div>
             </div>
         </div>

@@ -128,12 +128,14 @@ export const useMainStore = defineStore('main', () => {
             } as RestaurantTaken;
         });
     });
+    const playersCopy = () => players.value.map(p => p.clone());
 
     return {
         $reset,
         restaurants,
         getRestaurant: (id: number) => restaurantsDef.find(r => r.id === id),
         players,
+        playersCopy,
         newPlayer,
         deletePlayer,
         setTurnOrder,
