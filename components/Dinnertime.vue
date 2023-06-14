@@ -4,12 +4,12 @@
         <div class="stats stats-vertical md:stats-horizontal shadow bg-base-200">
             <div class="stat w-[220px]">
                 <div class="stat-title">Total amount this turn</div>
-                <count-up :end-val="sumThisTurn" :options="countUpOptions" class="stat-value"></count-up>
+                <count-up :end-val="dinnertime.sum" :options="countUpOptions" class="stat-value"></count-up>
                 <div class="stat-actions">
                     <button class="btn btn-sm btn-primary" @click="applyDinnertime()">Start new turn</button>
                 </div>
             </div>
-            <div class="stat  w-[220px]" v-for="p in playersCopy" :key="p.name">
+            <div class="stat  w-[220px]" v-for="p in dinnertime.players" :key="p.name">
                 <div class="stat-figure text-secondary">
                     <div class="avatar">
                         <div class="w-16 rounded-full">
@@ -27,7 +27,7 @@
         <div class="overflow-visible">
             <ul class="overflow-visible steps steps-vertical mt-5 md:place-items-start lg:steps-horizontal">
                 <li :class="[d.playerUpdated ? 'step step-' + d.playerUpdated.restaurant.class : 'step']"
-                    :data-content="d.house.id == 9.75 ? '9&frac34;' : d.house.name" v-for="d in dinnertime"
+                    :data-content="d.house.id == 9.75 ? '9&frac34;' : d.house.name" v-for="d in dinnertime.actions"
                     :key="d.house.id">
                     <div class="flex md:flex-col md:w-[110px]">
                         <div class="flex flex-col justify-center place-items-center mr-2 md:mr-0">
@@ -38,7 +38,8 @@
                                 {{ d.playerUpdated ? d.earns + " $" : '' }}
                             </span>
                         </div>
-                        <div class="flex flex-col justify-start place-items-center h-[120px] md:h-[100px] md:mt-5">
+                        <NuxtLink :to="'/house/' + d.house.id"
+                            class="flex flex-col justify-start place-items-center h-[120px] md:h-[100px] md:mt-5">
                             <div class="bg-house w-[50px] h-[54px] md:h-[50px] flex flex-col justify-end"
                                 v-if="!d.house.apartment && !d.house.gardenReadOnly && !d.house.ruralArea">
                                 <img src="/img/house.jpg" :class="['w-[50px]', d.house ? '' : 'grayscale opacity-50']" />
@@ -57,7 +58,7 @@
                             <div :class="['bg-park w-[50px] mt-1']" v-if="d.house.park">
                                 <img src="/img/park.png" :class="['w-[50px]']" @click="" />
                             </div>
-                        </div>
+                        </NuxtLink>
                         <div class="grid grid-rows-2 md:grid-cols-2 md:mt-5">
                             <div class="flex md:flex-col justify-center place-items-center">
                                 <div v-for="n in d.house.getNeed(Product.BURGER)" :key="n"
@@ -98,7 +99,7 @@
                             </div>
                             <div class="flex md:flex-col justify-start place-items-start place-content-center">
                                 <div v-if="d.kimchi" :class="['w-[25px] h-[35px]']">
-                                    <svg width="35px" viewBox="85 130 40 40">
+                                    <svg width="25px" viewBox="85 130 40 40">
                                         <path style="fill:#8fd123;fill-opacity:1;stroke-width:0.35277778"
                                             d="m 102.27249,165.18687 c -0.52497,-0.27692 -1.2736,-0.95165 -1.66363,-1.4994 -0.760398,-1.06789 -2.599808,-4.93912 -3.035678,-6.38894 -0.14583,-0.48507 -0.79661,-1.71519 -1.44617,-2.73361 -1.30537,-2.04662 -2.64513,-5.06168 -3.33131,-7.49694 -1.04122,-3.69531 -1.01437,-4.48885 0.20071,-5.93289 0.50551,-0.60077 0.88194,-1.49329 0.88194,-2.09109 0,-3.5052 2.83946,-6.62504 6.845598,-7.52157 1.58739,-0.35524 2.04046,-0.33095 3.08667,0.16551 1.13032,0.53637 1.33228,0.53754 2.58316,0.0149 1.83211,-0.7655 3.49435,-0.42336 4.49075,0.92434 0.42652,0.57689 1.5768,1.41598 2.55618,1.86465 4.05101,1.85581 5.54444,7.13564 3.78064,13.366 -0.89506,3.16168 -1.79294,4.9144 -3.35536,6.54989 -0.61271,0.64137 -1.07868,1.23501 -1.03548,1.31921 0.1954,0.38086 -1.98809,5.79225 -2.99119,7.41314 -0.48735,0.78749 -1.35393,1.7003 -1.92573,2.02847 -1.26297,0.72484 -4.28315,0.73466 -5.6411,0.0183 z" />
                                     </svg>
@@ -128,10 +129,8 @@
 
 <script setup lang="ts">
 import CountUp from 'vue-countup-v3'
-import { storeToRefs } from 'pinia';
-import { useMainStore } from '~/stores/main';
-import { Employee, Player, Product, Milestone } from '~/types/player';
-import { House } from '~/types/house';
+import { useMainStore, DinnerTime } from '@/stores/main';
+import { Product } from '~/types/types';
 
 const store = useMainStore();
 const router = useRouter();
@@ -139,131 +138,17 @@ const countUpOptions = {
     delay: 2,
     duration: 6,
     suffix: ' $'
-
 }
 
-let { housesWithNeeded, players } = storeToRefs(store);
-let playersCopy = ref(store.playersCopy());
-let dinnertime: Ref<any[]> = ref([]);
-let sumThisTurn = ref(0);
+let dinnertime: Ref<DinnerTime> = ref({} as DinnerTime);
 
 onMounted(() => {
-    execDinnertime();
-    // document.getElementById('title').scrollIntoView();
-    // setInterval(() => {
-    //     amount.value += Math.floor(Math.random() * 10);
-    // }, 1000);
-})
-const resolveHouseNeeds = (players: Player[], house: House) => {
-    let player = null;
-    let earns: number = 0;
-    let kimchi, sushi, noodle = false;
-    let playerAtDistance = players.filter(p => p.getDistanceTo(house.id));
-    playerAtDistance = playerAtDistance.sort((a, b) => Player.sortByRules(a, b, house.id));
-    const playersWithKimchiAndSushi = playerAtDistance.filter(p => p.hasKimchi() && p.hasSushiNeeds(house));
-    if (playersWithKimchiAndSushi.length > 0) {
-        kimchi = sushi = true;
-        player = playersWithKimchiAndSushi[0];
-    }
-    if (!player) {
-        const playersWithKimchiAndNeeds = playerAtDistance.filter(p => p.hasKimchi() && p.hasHouseNeeds(house));
-        if (playersWithKimchiAndNeeds.length > 0) {
-            kimchi = true;
-            player = playersWithKimchiAndNeeds[0];
-        }
-    }
-    if (!player) {
-        const playersWithKimchiAndNoodle = playerAtDistance.filter(p => p.hasKimchi() && p.hasNoodleNeeds(house));
-        if (playersWithKimchiAndNoodle.length > 0) {
-            kimchi = noodle = true;
-            player = playersWithKimchiAndNoodle[0];
-        }
-    }
-    if (!player) {
-        const playersWithSushi = playerAtDistance.filter(p => p.hasSushiNeeds(house));
-        if (playersWithSushi.length > 0) {
-            sushi = true;
-            player = playersWithSushi[0];
-        }
-    }
-    if (!player) {
-        const playersWithNeeds = playerAtDistance.filter(p => p.hasHouseNeeds(house));
-        if (playersWithNeeds.length > 0) {
-            player = playersWithNeeds[0];
-        }
-    }
-    if (!player) {
-        const playersWithNoodle = playerAtDistance.filter(p => p.hasNoodleNeeds(house));
-        if (playersWithNoodle.length > 0) {
-            noodle = true;
-            player = playersWithNoodle[0];
-        }
-    }
-    if (player) {
-        if (kimchi) {
-            player.increaseFoodAndDrink(Product.KIMCHI, -1);
-            earns += player.getFinalUnitPrice(Product.KIMCHI, house.getMultiplier());
-        }
-        if (sushi) {
-            player.increaseFoodAndDrink(Product.SUSHI, -house.getNbrOfNeeds());
-            earns += house.getNbrOfNeeds() * player.getFinalUnitPrice(Product.SUSHI, house.getMultiplier());
-        } else if (noodle) {
-            player.increaseFoodAndDrink(Product.NOODLE, -house.getNbrOfNeeds());
-            earns += house.getNbrOfNeeds() * player.getFinalUnitPrice(Product.NOODLE, house.getMultiplier());
-        } else {
-            for (const [product, need] of house.needs) {
-                earns += need * player.getFinalUnitPrice(product, house.getMultiplier());
-                player.increaseFoodAndDrink(product, -need);
-            }
-        }
-        // FRY
-        earns += player.getEmployee(Employee.FRY_CHEF)! * 10;
-        player.turnAmount += earns;
-    }
-    return {
-        playerUpdated: player,
-        earns,
-        house,
-        kimchi,
-        sushi,
-        noodle
-    }
-}
+    dinnertime.value = store.execDinnertime();
+});
 const applyDinnertime = () => {
-    playersCopy.value.forEach(p => {
-        const playerToUpdate = players.value.find(p => p.name === p.name);
-        if (playerToUpdate) {
-            for (const [product, value] of p.foodsAndDrinks) {
-                playerToUpdate.setFoodAndDrinkAndDrink(product, value);
-            }
-        }
-    });
-    dinnertime.value.filter(elem => elem)
-    dinnertime.value.forEach(d => {
-        if (d.playerUpdated) {
-            d.house.resetNeeds();
-        }
-    });
+    if (!dinnertime.value) return;
+    store.applyDinnertime(dinnertime.value);
     router.push('/turn');
-}
-const execDinnertime = () => {
-    dinnertime.value = [];
-    playersCopy.value.forEach(p => {
-        p.turnAmount = 0;
-    });
-    for (let index = 0; index < housesWithNeeded.value.length; index++) {
-        dinnertime.value.push(resolveHouseNeeds(playersCopy.value, housesWithNeeded.value[index]));
-    }
-    for (let index = 0; index < playersCopy.value.length; index++) {
-        const player = playersCopy.value[index];
-        if (player.getEmployee(Employee.WAITRESS)) {
-            player.turnAmount += player.getEmployee(Employee.WAITRESS)! * (player.hasMilestone(Milestone.WAITRESS) ? 5 : 3);
-        }
-        if (player.getEmployee(Employee.CFO)) {
-            player.turnAmount += Math.ceil(player.turnAmount * 0.5);
-        }
-    }
-    sumThisTurn.value = playersCopy.value.reduce((acc, curr) => acc + curr.turnAmount, 0);
 }
 </script>
 
@@ -278,10 +163,6 @@ const execDinnertime = () => {
 
 svg:disabled {
     fill: #9ca3af;
-}
-
-li.step.step-primary::after {
-    /* animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; */
 }
 
 li.step.step-lime::after {

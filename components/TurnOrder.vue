@@ -33,7 +33,7 @@
 
 <script setup>
 import { storeToRefs } from 'pinia';
-import { useMainStore } from '~/stores/main';
+import { useMainStore } from '@/stores/main';
 import draggable from 'vuedraggable';
 
 const store = useMainStore();
@@ -41,7 +41,6 @@ const store = useMainStore();
 let { players } = storeToRefs(store);
 
 onMounted(() => {
-    document.getElementById('title').scrollIntoView();
     store.setTurnOrder(players.value);
 });
 

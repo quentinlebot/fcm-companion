@@ -55,7 +55,7 @@
 
 <script setup>
 import { storeToRefs } from 'pinia';
-import { useMainStore } from '~/stores/main';
+import { useMainStore } from '@/stores/main';
 
 const store = useMainStore();
 
@@ -121,7 +121,7 @@ watch(() => inputName.value, (value) => {
     verfiyName(value);
 });
 onMounted(() => {
-    store.test();
+    // store.test();
 });
 </script>
 

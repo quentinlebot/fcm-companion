@@ -186,7 +186,7 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useMainStore } from '~/stores/main';
-import { Milestone } from '~/types/player';
+import { Milestone } from '~/types/types';
 import { Utils } from '~/types/utils';
 
 const store = useMainStore();

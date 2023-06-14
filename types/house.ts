@@ -1,4 +1,4 @@
-import { Product } from "./player";
+import { Product } from "./types";
 
 export class House {
 

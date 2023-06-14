@@ -108,8 +108,8 @@
 
 <script setup>
 import { storeToRefs } from 'pinia';
-import { useMainStore } from '~/stores/main';
-import { Employee } from '~/types/player';
+import { useMainStore } from '@/stores/main';
+import { Employee } from '@/types/types';
 
 const store = useMainStore();
 
@@ -117,7 +117,6 @@ let { players } = storeToRefs(store);
 let selectedPlayer = ref(players.value[0]);
 
 onMounted(() => {
-    document.getElementById('title').scrollIntoView();
 })
 
 const selectPlayer = (player) => {

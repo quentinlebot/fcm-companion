@@ -1,6 +1,7 @@
 import { defineStore } from "pinia"
 import { House } from "~/types/house";
-import { Employee, Player, Product, Milestone } from "~/types/player";
+import { Player } from "~/types/player";
+import { Product, Employee, Milestone } from "~/types/types";
 
 export interface Restaurant {
     id: number;
@@ -115,6 +116,7 @@ export const useMainStore = defineStore('main', () => {
         let player4 = newPlayer({ name: 'Alex', restaurant_id: 4 });
         let player5 = newPlayer({ name: 'Techa', restaurant_id: 5 });
         let player6 = newPlayer({ name: 'Pépé', restaurant_id: 6 });
+        player1?.setFoodAndDrinkAndDrink(Product.KIMCHI, 1);
         player1?.setFoodAndDrinkAndDrink(Product.BURGER, 10);
         player1?.setFoodAndDrinkAndDrink(Product.SUSHI, 10);
         player1?.setFoodAndDrinkAndDrink(Product.NOODLE, 10);
@@ -134,7 +136,7 @@ export const useMainStore = defineStore('main', () => {
         house10.setGarden();
         house10.setNeed(Product.BEER, 5);
         let rural = getHouse(Number.POSITIVE_INFINITY)!;
-        houses.value[houses.value.length - 1].setNeed(Product.JUICE, 5);
+        rural.setNeed(Product.JUICE, 5);
         player1?.setDistanceTo(house1.id, 1);
         player2?.setDistanceTo(house1.id, 1);
     }
@@ -246,18 +248,12 @@ export const useMainStore = defineStore('main', () => {
         return result;
     }
     function applyDinnertime(dinnertime: DinnerTime) {
-        dinnertime.players.forEach(player => {
-            const playerToUpdate = players.value.find(p => p.name === p.name);
-            if (playerToUpdate) {
-                for (const [product, value] of player.foodsAndDrinks) {
-                    playerToUpdate.setFoodAndDrinkAndDrink(product, value);
-                }
-            }
+        dinnertime.actions.filter(elem => elem.playerUpdated).forEach(action => {
+            action.house.resetNeeds();
         });
-        dinnertime.actions.forEach(action => {
-            if (action.playerUpdated) {
-                action.house.resetNeeds();
-            }
+        players.value.forEach(player => {
+            player.resetEmployees();
+            player.resetFoodAndDrink();
         });
     }
     function execDinnertime() {
@@ -280,6 +276,7 @@ export const useMainStore = defineStore('main', () => {
             }
         }
         dinnertime.sum = dinnertime.players.reduce((acc, curr) => acc + curr.turnAmount, 0);
+        return dinnertime;
     }
     const restaurants = computed(() => {
         return restaurantsDef.map(r => {
@@ -303,6 +300,8 @@ export const useMainStore = defineStore('main', () => {
         setTurnOrder,
         houses,
         housesWithNeeded: computed(housesWithNeeds),
+        applyDinnertime,
+        execDinnertime,
     }
 },
     {
