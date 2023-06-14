@@ -26,4 +26,5 @@ export enum Employee {
     MOVIE_STAR_B = 'movieStarB',
     MOVIE_STAR_C = 'movieStarC',
     MOVIE_STAR_D = 'movieStarD',
+    NIGHT_SHIFT = 'nightShiftManager',
 }

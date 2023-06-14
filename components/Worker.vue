@@ -98,6 +98,14 @@
                         <img class="cursor-pointer hover:opacity-90" src="/img/e_d_movie_star.jpg" format="webp"
                             sizes="19vw" @click="selectedPlayer.increaseNbrOfEmployee(Employee.MOVIE_STAR_D)" />
                     </div>
+                    <div class="indicator w-[30vw] md:w-[9vw]">
+                        <span class="indicator-item badge badge-secondary md:text-xl md:w-8 md:h-8"
+                            v-if="selectedPlayer.getEmployee(Employee.NIGHT_SHIFT)">{{
+                                selectedPlayer.getEmployee(Employee.NIGHT_SHIFT)
+                            }}</span>
+                        <img class="cursor-pointer hover:opacity-90" src="/img/e_night_shift_manager.jpg" format="webp"
+                            sizes="19vw" @click="selectedPlayer.increaseNbrOfEmployee(Employee.NIGHT_SHIFT)" />
+                    </div>
                 </div>
             </div>
             <div class="flex w-full justify-center pb-8 md:pb-0 md:fixed md:bottom-8">

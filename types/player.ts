@@ -151,11 +151,17 @@ export class Player {
         return clone;
     }
     static sortByRules(a: Player, b: Player, house_id: number) {
+        let nbWaitressA = a.getEmployee(Employee.WAITRESS)!;
+        if (a.getEmployee(Employee.NIGHT_SHIFT)!)
+            nbWaitressA *= 2;
+        let nbWaitressB = b.getEmployee(Employee.WAITRESS)!;
+        if (b.getEmployee(Employee.NIGHT_SHIFT)!)
+            nbWaitressB *= 2;
         return a.getPriceAndDistance(house_id) - b.getPriceAndDistance(house_id) ||
             a.getEmployee(Employee.MOVIE_STAR_B)! - b.getEmployee(Employee.MOVIE_STAR_B)! ||
             a.getEmployee(Employee.MOVIE_STAR_C)! - b.getEmployee(Employee.MOVIE_STAR_C)! ||
             a.getEmployee(Employee.MOVIE_STAR_D)! - b.getEmployee(Employee.MOVIE_STAR_D)! ||
-            a.getEmployee(Employee.WAITRESS)! - b.getEmployee(Employee.WAITRESS)! ||
-            a.getTurnOrder() - b.getTurnOrder()
+            nbWaitressA - nbWaitressB ||
+            a.getTurnOrder() - b.getTurnOrder();
     }
 }

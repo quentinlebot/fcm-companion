@@ -271,6 +271,9 @@ export const useMainStore = defineStore('main', () => {
             if (player.getEmployee(Employee.WAITRESS)) {
                 player.turnAmount += player.getEmployee(Employee.WAITRESS)! * (player.hasMilestone(Milestone.WAITRESS) ? 5 : 3);
             }
+            if (player.getEmployee(Employee.NIGHT_SHIFT)) {
+                player.turnAmount += player.getEmployee(Employee.WAITRESS)! * (player.hasMilestone(Milestone.WAITRESS) ? 5 : 3);
+            }
             if (player.getEmployee(Employee.CFO)) {
                 player.turnAmount += Math.ceil(player.turnAmount * 0.5);
             }
