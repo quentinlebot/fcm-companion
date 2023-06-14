@@ -55,7 +55,7 @@ export class Player {
     }
     increaseNbrOfEmployee(employee: string, value: number = 1) {
         let nbItems = this.employees.get(employee)!;
-        const x1 = [Employee.LUXURIES_MANAGER, Employee.CFO, Employee.MOVIE_STAR_B, Employee.MOVIE_STAR_C, Employee.MOVIE_STAR_D];
+        const x1 = [Employee.NIGHT_SHIFT, Employee.LUXURIES_MANAGER, Employee.CFO, Employee.MOVIE_STAR_B, Employee.MOVIE_STAR_C, Employee.MOVIE_STAR_D];
         if (x1.includes(employee as Employee) && nbItems === 1) return;
         if (nbItems + value < 0) value = -nbItems;
         this.employees.set(employee, nbItems + value);
