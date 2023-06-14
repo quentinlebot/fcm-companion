@@ -3,7 +3,7 @@
         <h3 class="text-center m-5 text-5xl uppercase font-bold kansas">Houses & marketing</h3>
         <p id="title" class="font-bold uppercase divider md:mx-[10%]">Select house & set needs</p>
         <div class="flex justify-center md:m-5">
-            <div class="flex flex-col justify-center">
+            <div class="flex flex-col justify-center min-h-[200px]">
                 <div class="bg-house h-[108px] md:h-[100px] flex flex-col justify-end"
                     v-if="!selected.ruralArea & !selected.apartment & !selected.gardenReadOnly">
                     <img src="/img/house.jpg" :class="['w-[100px]', selected ? '' : 'grayscale opacity-50']" />
