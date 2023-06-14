@@ -16,7 +16,7 @@ export class House {
         this.name = id.toString();
         if (id === 3.14) this.name = 'π', this.apartment = true;
         if (id === 9.75) this.name = '9 3/4', this.apartment = true;
-        if (isNaN(id)) this.name = '∞', this.ruralArea = true;
+        if (id === Number.POSITIVE_INFINITY) this.name = '∞', this.ruralArea = true;
         this.garden = garden;
         this.gardenReadOnly = garden;
         this.resetNeeds();
@@ -32,6 +32,7 @@ export class House {
         this.park = !this.park;
     }
     setGarden() {
+        if (this.gardenReadOnly) return;
         this.garden = !this.garden;
     }
     resetNeeds() {
@@ -44,10 +45,15 @@ export class House {
     }
     increaseNeed(food: string) {
         let nbItems = this.needs.get(food)!;
+        if (this.getNbrOfNeeds() + 1 > this.getMaxNeeds()) return;
         this.needs.set(food, nbItems + 1);
     }
     setNeed(food: string, value: number) {
-        if (value < 0) return;
+        let nbItems = this.getNbrOfNeeds();
+        if (nbItems + value > this.getMaxNeeds())
+            value = this.getMaxNeeds() - nbItems;
+        if (nbItems + value < 0)
+            value = -nbItems;
         this.needs.set(food, value);
     }
     getNeed(food: string) {
@@ -59,6 +65,15 @@ export class House {
             sum += nbItems;
         }
         return sum;
+    }
+    getMaxNeeds() {
+        if (this.apartment) return Number.MAX_VALUE;
+        if (this.ruralArea) return Number.MAX_VALUE;
+        if (this.garden) return 5;
+        return 3;
+    }
+    maxNeedReached() {
+        return this.getNbrOfNeeds() >= this.getMaxNeeds();
     }
     static sortById(a: House, b: House) {
         if (a.id > b.id) return +1;

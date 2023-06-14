@@ -12,13 +12,13 @@
                     :class="['w-[100px]', 'pt-1', 'cursor-pointer', selected.garden ? '' : 'grayscale opacity-50']"
                     v-if="!selected.gardenReadOnly & !selected.apartment & !selected.ruralArea"
                     @click="selected.setGarden()" />
-                <div class="bg-house h-[154px] flex flex-col justify-end" v-if="selected.gardenReadOnly">
+                <div class="bg-house h-[145px] flex flex-col justify-end" v-if="selected.gardenReadOnly">
                     <img src="/img/house_garden.jpg" class="w-[100px]" />
                 </div>
-                <div class="bg-house h-[154px] flex flex-col justify-center" v-if="selected.apartment">
+                <div class="bg-house h-[145px] flex flex-col justify-center" v-if="selected.apartment">
                     <img src="/img/apartment.png" class="w-[100px]" />
                 </div>
-                <div class="h-[195px] flex flex-col justify-center" v-if="selected.ruralArea">
+                <div class="h-[174px] flex flex-col justify-center" v-if="selected.ruralArea">
                     <img src="/img/rural_area.jpg" class="w-[100px]" />
                 </div>
                 <div :class="['bg-park mt-1', selected.park ? '' : 'grayscale opacity-50']" v-if="!selected.ruralArea">
@@ -49,10 +49,11 @@
                         <Icon name="fa6-solid:trash" class="mr-2" />needs
                     </button>
                 </div>
-                <div class="text-center underline decoration-primary">
-                    <h4>Food & drinks</h4>
+                <div class="flex justify-center relative w-full">
+                    <h4 class="underline decoration-primary">Food & drinks</h4>
+                    <span v-if="selected.maxNeedReached()" class="absolute right-2 badge badge-error">max</span>
                 </div>
-                <div class="flex">
+                <div class="flex mr-5">
                     <div class="indicator">
                         <span class="indicator-item badge badge-secondary" v-if="selected.getNeed(Product.BURGER)">{{
                             selected.getNeed(Product.BURGER)

@@ -55,7 +55,7 @@ const initialHouses = [
     new House(23),
     new House(24),
     new House(25, true),
-    new House(Number.NaN)
+    new House(Number.POSITIVE_INFINITY)
 ];
 
 export const useMainStore = defineStore('main', () => {
@@ -110,23 +110,33 @@ export const useMainStore = defineStore('main', () => {
     function test() {
         $reset();
         let player1 = newPlayer({ name: 'Kiny', restaurant_id: 1 });
-        player1?.setFoodAndDrinkAndDrink(Product.BURGER, 10);
         let player2 = newPlayer({ name: 'Flo', restaurant_id: 2 });
+        let player3 = newPlayer({ name: 'Josh', restaurant_id: 3 });
+        let player4 = newPlayer({ name: 'Alex', restaurant_id: 4 });
+        let player5 = newPlayer({ name: 'Techa', restaurant_id: 5 });
+        let player6 = newPlayer({ name: 'Pépé', restaurant_id: 6 });
+        player1?.setFoodAndDrinkAndDrink(Product.BURGER, 10);
+        player1?.setFoodAndDrinkAndDrink(Product.SUSHI, 10);
+        player1?.setFoodAndDrinkAndDrink(Product.NOODLE, 10);
         player2?.setFoodAndDrinkAndDrink(Product.PIZZA, 10);
-        houses.value[0].setPark();
-        houses.value[0].setNeed(Product.BURGER, 1);
-        houses.value[0].setNeed(Product.PIZZA, 1);
-        houses.value[0].setNeed(Product.BEER, 1);
-        houses.value[0].setNeed(Product.COKE, 1);
-        houses.value[0].setNeed(Product.JUICE, 1);
-        houses.value[1].setGarden();
-        houses.value[1].setPark();
-        houses.value[1].setNeed(Product.BURGER, 1);
-        houses.value[3].setPark();
-        houses.value[3].setNeed(Product.BEER, 5);
+        let house1 = getHouse(1)!;
+        house1.setPark();
+        house1.setNeed(Product.BURGER, 1);
+        house1.setNeed(Product.PIZZA, 1);
+        house1.setNeed(Product.BEER, 1);
+        house1.setNeed(Product.COKE, 1);
+        house1.setNeed(Product.JUICE, 1);
+        let house2 = getHouse(2)!;
+        house2.setNeed(Product.BURGER, 1);
+        let house3 = getHouse(3)!;
+        house3.setNeed(Product.BEER, 5);
+        let house10 = getHouse(10)!;
+        house10.setGarden();
+        house10.setNeed(Product.BEER, 5);
+        let rural = getHouse(Number.POSITIVE_INFINITY)!;
         houses.value[houses.value.length - 1].setNeed(Product.JUICE, 5);
-        player1?.setDistanceTo(1, 1);
-        player2?.setDistanceTo(1, 1);
+        player1?.setDistanceTo(house1.id, 1);
+        player2?.setDistanceTo(house1.id, 1);
     }
     function $reset() {
         players.value = [];
@@ -152,6 +162,9 @@ export const useMainStore = defineStore('main', () => {
         playersSorted.forEach((player, index) => {
             players.value.find(p => p.name === player.name)!.turnOrder = index + 1;
         })
+    }
+    function getHouse(id: number) {
+        return houses.value.find(h => h.id === id);
     }
     function housesWithNeeds() {
         return houses.value.filter(h => h.getNbrOfNeeds() > 0).sort(House.sortById);

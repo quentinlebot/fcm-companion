@@ -102,15 +102,22 @@ export class Player {
         return this.foodsAndDrinks.get(foodAndDrink);
     }
     setFoodAndDrinkAndDrink(foodAndDrink: string, value: number) {
-        if (value < 0) return;
-        if (foodAndDrink === Product.KIMCHI && value > 2) return;
+        let nbItems = this.foodsAndDrinks.get(foodAndDrink)!;
+        const maxItems = this.getMaxFoodAndDrink(foodAndDrink);
+        if (nbItems + value > maxItems) value = maxItems - nbItems;
+        if (nbItems + value < 0) value = -nbItems;
         this.foodsAndDrinks.set(foodAndDrink, value);
     }
     increaseFoodAndDrink(foodAndDrink: string, value: number = 1) {
         let nbItems = this.foodsAndDrinks.get(foodAndDrink)!;
-        if (foodAndDrink === Product.KIMCHI && nbItems + value > 2) return;
+        const maxItems = this.getMaxFoodAndDrink(foodAndDrink);
+        if (nbItems + value > maxItems) value = maxItems - nbItems;
         if (nbItems + value < 0) value = -nbItems;
         this.foodsAndDrinks.set(foodAndDrink, nbItems + value);
+    }
+    getMaxFoodAndDrink(foodAndDrink: string) {
+        if (foodAndDrink === Product.KIMCHI) return 11;
+        return Number.MAX_VALUE;
     }
     resetFoodAndDrink() {
         this.foodsAndDrinks.clear();
