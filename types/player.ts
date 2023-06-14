@@ -116,10 +116,14 @@ export class Player {
         return this.distances.get(house_id);
     }
     setDistanceTo(house_id: number, distance: number) {
+        if (distance < 0) distance = Number.NaN;
         this.distances.set(house_id, distance);
     }
     getPriceAndDistance(house_id: number) {
-        return this.getDistanceTo(house_id)! + this.getUnitPrice() + (this.hasMilestone(Milestone.KETCHUP) ? -1 : 0);
+        let priceAndDistance = this.getDistanceTo(house_id)! + this.getUnitPrice();
+        if (this.hasMilestone(Milestone.KETCHUP) && priceAndDistance > 0)
+            priceAndDistance--;
+        return priceAndDistance;
     }
     hasKimchi() {
         return this.getFoodAndDrink(Product.KIMCHI)! > 0;
