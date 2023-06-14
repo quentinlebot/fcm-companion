@@ -21,7 +21,7 @@
 <script setup>
 </script>
 
-<style>
+<style scoped>
 img.mirror {
     transform: scaleX(-1);
 }

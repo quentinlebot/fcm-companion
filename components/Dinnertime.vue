@@ -14,7 +14,7 @@
                         <button class="btn btn-sm btn-primary" @click="applyDinnertime()">Start new turn</button>
                     </div>
                 </div>
-                <div class="stat  min-w-[220px]" v-for="p in dinnertime.players" :key="p.name">
+                <div class="stat min-w-[220px]" v-for="p in dinnertime.players" :key="p.name">
                     <div class="stat-figure text-secondary justify-end">
                         <div class="avatar">
                             <div class="w-16 rounded-full">
@@ -26,7 +26,8 @@
                         :class="['stat-value', p.turnAmount ? '' : 'opacity-20']"></count-up>
                     <div class="stat-title">{{ p.name }}</div>
                     <div :class="['stat-desc', p.restaurant.color]">{{ p.restaurant.name }}</div>
-                    <div class="stat-desc"></div>
+                    <div class="stat-desc mt-2 flex">
+                    </div>
                 </div>
             </div>
             <div class="overflow-visible flex justify-center">
@@ -163,7 +164,23 @@ const applyDinnertime = () => {
 }
 </script>
 
-<style>
+<style scoped>
+.circle {
+    background-color: #fef0d3;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blue {
+    background-color: #87c2c7;
+}
+
+.pink {
+    background-color: #f8a48c;
+}
+
 .bg-park {
     background-color: #5d914f;
 }

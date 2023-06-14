@@ -196,7 +196,7 @@ const updateDistance = () => {
 }
 </script>
 
-<style>
+<style scoped>
 .bg-park {
     background-color: #5d914f;
 }

@@ -50,4 +50,4 @@ watch(players, () => {
 });
 </script>
 
-<style></style>
+<style scoped></style>

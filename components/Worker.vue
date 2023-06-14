@@ -142,4 +142,4 @@ const remainingMilestone = () => {
 };
 </script>
 
-<style></style>
+<style scoped></style>

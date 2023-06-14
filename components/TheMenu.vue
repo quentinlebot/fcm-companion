@@ -57,4 +57,4 @@ const pages = [
 ]
 </script>
 
-<style></style>
+<style scoped></style>

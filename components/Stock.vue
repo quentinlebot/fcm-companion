@@ -197,4 +197,4 @@ const reset = () => {
 };
 </script>
 
-<style></style>
+<style scoped></style>

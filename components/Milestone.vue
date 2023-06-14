@@ -48,7 +48,6 @@
                             sold</span>
                     </div>
                     <div class="flex justify-center h-100px gap-2 my-2 md:w-1/3 border-x-[1px] rounded-xl">
-
                         <div class="flex justify-center place-items-center flex-row md:flex-col text-center"
                             v-for="p in players.filter(pl => pl.hasMilestone(Milestone.PIZZA))" :key="p.name">
                             <img :src="p.restaurant.img" alt="" :class="['h-5 w-5', 'md:h-14 md:w-14', 'rounded-full']" />
@@ -225,7 +224,7 @@ const tooglePlayer = (player) => {
 }
 </script>
 
-<style>
+<style scoped>
 .column {
     flex: 1 1 0px;
 }
