@@ -45,8 +45,9 @@ export class House {
     }
     increaseNeed(food: string) {
         let nbItems = this.needs.get(food)!;
-        if (this.getNbrOfNeeds() + 1 > this.getMaxNeeds()) return;
-        this.needs.set(food, nbItems + 1);
+        let value = this.ruralArea ? 2 : 1;
+        if (this.getNbrOfNeeds() + value > this.getMaxNeeds()) return;
+        this.needs.set(food, nbItems + value);
     }
     setNeed(food: string, value: number) {
         let nbItems = this.getNbrOfNeeds();
