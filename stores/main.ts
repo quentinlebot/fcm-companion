@@ -183,7 +183,7 @@ export const useMainStore = defineStore('main', () => {
             sushi: false,
             noodle: false
         };
-        let playerAtDistance = players.filter(p => p.getDistanceTo(house.id));
+        let playerAtDistance = players.filter(p => !isNaN(p.getDistanceTo(house.id)!));
         playerAtDistance = playerAtDistance.sort((a, b) => Player.sortByRules(a, b, house.id));
         const playersWithKimchiAndSushi = playerAtDistance.filter(p => p.hasKimchi() && p.hasSushiNeeds(house));
         if (playersWithKimchiAndSushi.length > 0) {
