@@ -81,13 +81,13 @@ export class DataService {
 
     private constructor() { }
 
-    static getHouses() {
+    static getHouses(): House[] {
         return this.houses;
     }
-    static getRestaurants() {
+    static getRestaurants(): Restaurant[] {
         return this.restaurants;
     }
-    static getRestaurantById(id: number) {
+    static getRestaurantById(id: number): Restaurant | undefined {
         return this.restaurants.find(x => x.id === id);
     }
 }

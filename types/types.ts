@@ -43,11 +43,13 @@ export interface Restaurant {
 export interface RestaurantTaken extends Restaurant {
     disabled: boolean;
 }
+
 export interface DinnerTime {
     players: Player[];
     actions: DinnerTimeAction[];
     sum: number;
 }
+
 export interface DinnerTimeAction {
     playerUpdated: Player | null,
     earns: number,

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia"
 import { House } from "~/types/house";
 import { Player } from "~/types/player";
-import { Product, Employee, Milestone, DinnerTime, DinnerTimeAction, Restaurant, RestaurantTaken } from "~/types/types";
+import { Product, Employee, Milestone, DinnerTime, DinnerTimeAction, RestaurantTaken } from "~/types/types";
 import { DataService } from "~/types/data.service";
 
 export const useMainStore = defineStore('main', () => {
@@ -15,8 +15,6 @@ export const useMainStore = defineStore('main', () => {
             } as RestaurantTaken;
         });
     });
-    const playersCopy = () => players.value.map(p => p.clone());
-
     function test() {
         $reset();
         let player1 = newPlayer({ name: 'Kiny', restaurant_id: 1 });
@@ -26,7 +24,7 @@ export const useMainStore = defineStore('main', () => {
         let player5 = newPlayer({ name: 'Techa', restaurant_id: 5 });
         let player6 = newPlayer({ name: 'Pépé', restaurant_id: 6 });
     }
-    function $reset() {
+    function $reset(): void {
         players.value = [];
         houses.value = DataService.getHouses();
     }
@@ -41,20 +39,20 @@ export const useMainStore = defineStore('main', () => {
         players.value.push(player);
         return player;
     }
-    function deletePlayer(name: string) {
+    function deletePlayer(name: string): void {
         const player = players.value.find(p => p.name === name);
         if (!player) return;
         players.value.splice(players.value.indexOf(player), 1);
     }
-    function setTurnOrder(playersSorted: Player[]) {
+    function setTurnOrder(playersSorted: Player[]): void {
         playersSorted.forEach((player, index) => {
             players.value.find(p => p.name === player.name)!.turnOrder = index + 1;
         })
     }
-    function getHouse(id: number) {
+    function getHouse(id: number): House | undefined {
         return houses.value.find(h => h.id === id);
     }
-    function housesWithNeeds() {
+    function housesWithNeeds(): House[] {
         return houses.value.filter(h => h.getNbrOfNeeds() > 0).sort(House.sortById);
     }
     function getPlayersCopy() {
@@ -133,7 +131,7 @@ export const useMainStore = defineStore('main', () => {
         }
         return result;
     }
-    function applyDinnertime(dinnertime: DinnerTime) {
+    function applyDinnertime(dinnertime: DinnerTime): void {
         dinnertime.actions.filter(elem => elem.playerUpdated).forEach(action => {
             action.house.resetNeeds();
         });
@@ -142,7 +140,7 @@ export const useMainStore = defineStore('main', () => {
             player.resetFoodAndDrink();
         });
     }
-    function execDinnertime() {
+    function execDinnertime(): DinnerTime {
         const housesWithNeeded = housesWithNeeds();
         let dinnertime: DinnerTime = {
             players: getPlayersCopy(),
@@ -173,7 +171,6 @@ export const useMainStore = defineStore('main', () => {
         $reset,
         restaurants,
         players,
-        playersCopy,
         newPlayer,
         deletePlayer,
         setTurnOrder,
