@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    ssr: false,
     app: {
         head: {
             charset: 'utf-8',
@@ -11,15 +12,12 @@ export default defineNuxtConfig({
             }]
         },
     },
-    modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@vueuse/nuxt', 'nuxt-icon', '@nuxt/image-edge', '@pinia-plugin-persistedstate/nuxt'],
+    modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@vueuse/nuxt', 'nuxt-icon', '@pinia-plugin-persistedstate/nuxt'],
     postcss: {
         plugins: {
             tailwindcss: {},
             autoprefixer: {},
         },
     },
-    image: {
-        staticFilename: '[publicPath]/images/[name]-[hash][ext]'
-    }
 })
 
