@@ -141,8 +141,8 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import CountUp from 'vue-countup-v3'
-import { useMainStore, DinnerTime } from '@/stores/main';
-import { Product } from '~/types/types';
+import { useMainStore } from '@/stores/main';
+import { DinnerTime, Product } from '~/types/types';
 
 const store = useMainStore();
 const router = useRouter();
