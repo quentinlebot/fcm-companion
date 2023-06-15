@@ -1,6 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    pages: true,
     app: {
         head: {
             charset: 'utf-8',
@@ -11,11 +10,6 @@ export default defineNuxtConfig({
                 content: 'Application to help you play the board game Food chain magnate and make the dinnertime phase easier.'
             }]
         },
-    },
-    nitro: {
-        prerender: {
-            crawlLinks: true
-        }
     },
     modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@vueuse/nuxt', 'nuxt-icon', '@nuxt/image-edge', '@pinia-plugin-persistedstate/nuxt'],
     postcss: {
