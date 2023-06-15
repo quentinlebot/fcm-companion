@@ -87,4 +87,7 @@ export class DataService {
     static getRestaurants() {
         return this.restaurants;
     }
+    static getRestaurantById(id: number) {
+        return this.restaurants.find(x => x.id === id);
+    }
 }

@@ -1,6 +1,7 @@
-import { Restaurant, useMainStore } from "~/stores/main";
+import { useMainStore } from "~/stores/main";
 import { House } from "./house";
-import { Employee, Milestone, Product } from "./types";
+import { Employee, Milestone, Product, Restaurant } from "./types";
+import { DataService } from "./data.service";
 
 export class Player {
 
@@ -16,7 +17,7 @@ export class Player {
 
     constructor(name: string, restaurant_id: number) {
         this.name = name;
-        this.restaurant = useMainStore().getRestaurant(restaurant_id)!;
+        this.restaurant = DataService.getRestaurantById(restaurant_id)!;
         this.resetFoodAndDrink();
         this.resetMilestones();
         this.resetEmployees();
@@ -157,16 +158,11 @@ export class Player {
         let nbWaitressB = b.getEmployee(Employee.WAITRESS)!;
         if (b.getEmployee(Employee.NIGHT_SHIFT)!)
             nbWaitressB *= 2;
-        let priceDist = a.getPriceAndDistance(house_id) - b.getPriceAndDistance(house_id)
-        if (priceDist != 0) return priceDist;
-        let movieStarB = a.getEmployee(Employee.MOVIE_STAR_B)! - b.getEmployee(Employee.MOVIE_STAR_B)!;
-        if (movieStarB != 0) return movieStarB;
-        let movieStarC = a.getEmployee(Employee.MOVIE_STAR_C)! - b.getEmployee(Employee.MOVIE_STAR_C)!;
-        if (movieStarC != 0) return movieStarC;
-        let movieStarD = a.getEmployee(Employee.MOVIE_STAR_D)! - b.getEmployee(Employee.MOVIE_STAR_D)!;
-        if (movieStarD != 0) return movieStarD;
-        let waitress = nbWaitressA - nbWaitressB;
-        if (waitress != 0) return waitress;
-        return a.getTurnOrder() - b.getTurnOrder();
+        return a.getPriceAndDistance(house_id) - b.getPriceAndDistance(house_id) ||
+            b.getEmployee(Employee.MOVIE_STAR_B)! - a.getEmployee(Employee.MOVIE_STAR_B)! ||
+            b.getEmployee(Employee.MOVIE_STAR_C)! - a.getEmployee(Employee.MOVIE_STAR_C)! ||
+            b.getEmployee(Employee.MOVIE_STAR_D)! - a.getEmployee(Employee.MOVIE_STAR_D)! ||
+            nbWaitressB - nbWaitressA ||
+            a.getTurnOrder() - b.getTurnOrder();
     }
 }
