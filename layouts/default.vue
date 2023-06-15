@@ -12,7 +12,7 @@
         <footer class="footer footer-center bg-base-300 absolute bottom-0">
             <a class="inline-block" href="">Made with
                 <Icon name="fa6-solid:heart" class="text-red-700 mb-1" /> by
-                Quentin L.
+                Quentin
             </a>
         </footer>
     </div>
