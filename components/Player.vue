@@ -121,7 +121,7 @@ watch(() => inputName.value, (value) => {
     verfiyName(value);
 });
 onMounted(() => {
-    // store.test();
+    //store.test();
 });
 </script>
 
