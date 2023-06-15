@@ -120,7 +120,7 @@
                     </div>
                 </div>
             </div>
-            <p id="title" class="font-bold uppercase divider md:mx-[10%]">Set distances</p>
+            <p class="font-bold uppercase divider md:mx-[10%]">Set distances</p>
             <div class="flex gap-5 justify-center -mt-3 md:m-5">
                 <div class="flex flex-col" v-for="p, i in players" :key="p.name">
                     <div class="form-control">
@@ -140,7 +140,6 @@
                     </div>
                 </div>
             </div>
-            <p>{{ id }}</p>
             <div class="flex w-full justify-center fixed bottom-8">
                 <NuxtLink to="/dinnertime" class="">
                     <button class="btn btn-outline mt-3">Next</button>
