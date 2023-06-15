@@ -9,7 +9,8 @@
             <div class="stats stats-vertical md:stats-horizontal shadow bg-base-200">
                 <div class="stat w-[220px]">
                     <div class="stat-title">Total amount this turn</div>
-                    <count-up :end-val="dinnertime.sum" :options="countUpOptions" class="stat-value"></count-up>
+                    <count-up :end-val="dinnertime.sum ? dinnertime.sum : 0" :options="countUpOptions"
+                        class="stat-value"></count-up>
                     <div class="stat-actions">
                         <button class="btn btn-sm btn-primary" @click="applyDinnertime()">Start new turn</button>
                     </div>
@@ -22,7 +23,7 @@
                             </div>
                         </div>
                     </div>
-                    <count-up :end-val="p.turnAmount" duration="4" :options="countUpOptions"
+                    <count-up :end-val="p.turnAmount ? p.turnAmount : 0" duration="4" :options="countUpOptions"
                         :class="['stat-value', p.turnAmount ? '' : 'opacity-20']"></count-up>
                     <div class="stat-title">{{ p.name }}</div>
                     <div :class="['stat-desc', p.restaurant.color]">{{ p.restaurant.name }}</div>

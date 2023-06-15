@@ -1,112 +1,21 @@
 import { defineStore } from "pinia"
 import { House } from "~/types/house";
 import { Player } from "~/types/player";
-import { Product, Employee, Milestone } from "~/types/types";
-
-export interface Restaurant {
-    id: number;
-    name: string;
-    img: string;
-    color: string;
-    class: string;
-}
-
-export interface RestaurantTaken extends Restaurant {
-    disabled: boolean;
-}
-export interface DinnerTime {
-    players: Player[];
-    actions: DinnerTimeAction[];
-    sum: number;
-}
-export interface DinnerTimeAction {
-    playerUpdated: Player | null,
-    earns: number,
-    house: House,
-    kimchi: boolean,
-    sushi: boolean,
-    noodle: boolean
-}
-
-const initialHouses = [
-    new House(1, true),
-    new House(2),
-    new House(3, true),
-    new House(3.14),
-    new House(4),
-    new House(5),
-    new House(6, true),
-    new House(7),
-    new House(8),
-    new House(9, true),
-    new House(9.75),
-    new House(10),
-    new House(11, true),
-    new House(12),
-    new House(13),
-    new House(14, true),
-    new House(15),
-    new House(16),
-    new House(17, true),
-    new House(18),
-    new House(19, true),
-    new House(20),
-    new House(21),
-    new House(22),
-    new House(23),
-    new House(24),
-    new House(25, true),
-    new House(Number.POSITIVE_INFINITY)
-];
+import { Product, Employee, Milestone, DinnerTime, DinnerTimeAction, Restaurant, RestaurantTaken } from "~/types/types";
+import { DataService } from "~/types/data.service";
 
 export const useMainStore = defineStore('main', () => {
-
-    const restaurantsDef: Restaurant[] = [
-        {
-            id: 1,
-            name: 'Duck Dinner',
-            img: '/img/p_duck_dinner.jpg',
-            color: 'text-info',
-            class: 'info'
-        },
-        {
-            id: 2,
-            name: 'Gluttony Inc',
-            img: '/img/p_gluttony_inc.jpg',
-            color: 'text-red-600',
-            class: 'red'
-        },
-        {
-            id: 3,
-            name: 'Fried Geese',
-            img: '/img/p_fried_geese.jpg',
-            color: 'text-secondary',
-            class: 'secondary'
-        },
-        {
-            id: 4,
-            name: 'Santa Maria',
-            img: '/img/p_santa_maria.jpg',
-            color: 'text-error',
-            class: 'error'
-        },
-        {
-            id: 5,
-            name: 'Xango Blues',
-            img: '/img/p_xango_blues.jpg',
-            color: 'text-lime-600',
-            class: 'lime'
-        },
-        {
-            id: 6,
-            name: 'Siap Faji',
-            img: '/img/p_siap_faji.jpg',
-            color: 'text-accent',
-            class: 'accent'
-        }
-    ];
     const players: Ref<Player[]> = ref([]);
-    const houses: Ref<House[]> = ref(initialHouses);
+    const houses: Ref<House[]> = ref([]);
+    const restaurants = computed(() => {
+        return DataService.getRestaurants().map(r => {
+            return {
+                ...r,
+                disabled: players.value.some(p => p.restaurant.id === r.id)
+            } as RestaurantTaken;
+        });
+    });
+    const playersCopy = () => players.value.map(p => p.clone());
 
     function test() {
         $reset();
@@ -116,38 +25,15 @@ export const useMainStore = defineStore('main', () => {
         let player4 = newPlayer({ name: 'Alex', restaurant_id: 4 });
         let player5 = newPlayer({ name: 'Techa', restaurant_id: 5 });
         let player6 = newPlayer({ name: 'Pépé', restaurant_id: 6 });
-        player1?.setFoodAndDrinkAndDrink(Product.KIMCHI, 1);
-        player1?.setFoodAndDrinkAndDrink(Product.BURGER, 10);
-        player1?.setFoodAndDrinkAndDrink(Product.SUSHI, 10);
-        player1?.setFoodAndDrinkAndDrink(Product.NOODLE, 10);
-        player2?.setFoodAndDrinkAndDrink(Product.PIZZA, 10);
-        let house1 = getHouse(1)!;
-        house1.setPark();
-        house1.setNeed(Product.BURGER, 1);
-        house1.setNeed(Product.PIZZA, 1);
-        house1.setNeed(Product.BEER, 1);
-        house1.setNeed(Product.COKE, 1);
-        house1.setNeed(Product.JUICE, 1);
-        let house2 = getHouse(2)!;
-        house2.setNeed(Product.BURGER, 1);
-        let house3 = getHouse(3)!;
-        house3.setNeed(Product.BEER, 5);
-        let house10 = getHouse(10)!;
-        house10.setGarden();
-        house10.setNeed(Product.BEER, 5);
-        let rural = getHouse(Number.POSITIVE_INFINITY)!;
-        rural.setNeed(Product.JUICE, 5);
-        player1?.setDistanceTo(house1.id, 1);
-        player2?.setDistanceTo(house1.id, 1);
     }
     function $reset() {
         players.value = [];
-        houses.value = initialHouses;
+        houses.value = DataService.getHouses();
     }
     function newPlayer({ name, restaurant_id }: { name: string, restaurant_id: number }): Player | undefined {
         const nameTaken = players.value.some(p => p.name === name);
         if (nameTaken) return;
-        const restaurantExists = restaurantsDef.some(r => r.id === restaurant_id);
+        const restaurantExists = restaurants.value.some(r => r.id === restaurant_id);
         if (!restaurantExists) return;
         const restaurantTaken = players.value.some(p => p.restaurant.id === restaurant_id);
         if (restaurantTaken) return;
@@ -185,6 +71,7 @@ export const useMainStore = defineStore('main', () => {
         };
         let playerAtDistance = players.filter(p => !isNaN(p.getDistanceTo(house.id)!));
         playerAtDistance = playerAtDistance.sort((a, b) => Player.sortByRules(a, b, house.id));
+        console.log(playerAtDistance);
         const playersWithKimchiAndSushi = playerAtDistance.filter(p => p.hasKimchi() && p.hasSushiNeeds(house));
         if (playersWithKimchiAndSushi.length > 0) {
             result.kimchi = result.sushi = true;
@@ -281,21 +168,11 @@ export const useMainStore = defineStore('main', () => {
         dinnertime.sum = dinnertime.players.reduce((acc, curr) => acc + curr.turnAmount, 0);
         return dinnertime;
     }
-    const restaurants = computed(() => {
-        return restaurantsDef.map(r => {
-            return {
-                ...r,
-                disabled: players.value.some(p => p.restaurant.id === r.id)
-            } as RestaurantTaken;
-        });
-    });
-    const playersCopy = () => players.value.map(p => p.clone());
 
     return {
         test,
         $reset,
         restaurants,
-        getRestaurant: (id: number) => restaurantsDef.find(r => r.id === id),
         players,
         playersCopy,
         newPlayer,

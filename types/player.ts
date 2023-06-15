@@ -157,11 +157,16 @@ export class Player {
         let nbWaitressB = b.getEmployee(Employee.WAITRESS)!;
         if (b.getEmployee(Employee.NIGHT_SHIFT)!)
             nbWaitressB *= 2;
-        return a.getPriceAndDistance(house_id) - b.getPriceAndDistance(house_id) ||
-            a.getEmployee(Employee.MOVIE_STAR_B)! - b.getEmployee(Employee.MOVIE_STAR_B)! ||
-            a.getEmployee(Employee.MOVIE_STAR_C)! - b.getEmployee(Employee.MOVIE_STAR_C)! ||
-            a.getEmployee(Employee.MOVIE_STAR_D)! - b.getEmployee(Employee.MOVIE_STAR_D)! ||
-            nbWaitressA - nbWaitressB ||
-            a.getTurnOrder() - b.getTurnOrder();
+        let priceDist = a.getPriceAndDistance(house_id) - b.getPriceAndDistance(house_id)
+        if (priceDist != 0) return priceDist;
+        let movieStarB = a.getEmployee(Employee.MOVIE_STAR_B)! - b.getEmployee(Employee.MOVIE_STAR_B)!;
+        if (movieStarB != 0) return movieStarB;
+        let movieStarC = a.getEmployee(Employee.MOVIE_STAR_C)! - b.getEmployee(Employee.MOVIE_STAR_C)!;
+        if (movieStarC != 0) return movieStarC;
+        let movieStarD = a.getEmployee(Employee.MOVIE_STAR_D)! - b.getEmployee(Employee.MOVIE_STAR_D)!;
+        if (movieStarD != 0) return movieStarD;
+        let waitress = nbWaitressA - nbWaitressB;
+        if (waitress != 0) return waitress;
+        return a.getTurnOrder() - b.getTurnOrder();
     }
 }

@@ -1,3 +1,6 @@
+import { House } from "./house";
+import { Player } from "./player";
+
 export enum Product {
     BURGER = 'burger',
     PIZZA = 'pizza',
@@ -27,4 +30,29 @@ export enum Employee {
     MOVIE_STAR_C = 'movieStarC',
     MOVIE_STAR_D = 'movieStarD',
     NIGHT_SHIFT = 'nightShiftManager',
+}
+
+export interface Restaurant {
+    id: number;
+    name: string;
+    img: string;
+    color: string;
+    class: string;
+}
+
+export interface RestaurantTaken extends Restaurant {
+    disabled: boolean;
+}
+export interface DinnerTime {
+    players: Player[];
+    actions: DinnerTimeAction[];
+    sum: number;
+}
+export interface DinnerTimeAction {
+    playerUpdated: Player | null,
+    earns: number,
+    house: House,
+    kimchi: boolean,
+    sushi: boolean,
+    noodle: boolean
 }
