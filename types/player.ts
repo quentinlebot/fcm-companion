@@ -22,6 +22,7 @@ export class Player {
         this.resetMilestones();
         this.resetEmployees();
     }
+
     getTurnOrder(): number {
         return this.turnOrder;
     }

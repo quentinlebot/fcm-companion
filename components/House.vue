@@ -163,7 +163,6 @@ let selected = ref(houses.value[index.value]);
 let dist = ref([]);
 
 onMounted(() => {
-    document.getElementById('title').scrollIntoView();
     if (route.params.id) {
         selected.value = houses.value.find(h => h.id == route.params.id);
     }

@@ -182,13 +182,5 @@ export const useMainStore = defineStore('main', () => {
 },
     {
         persist: {
-            // storage: sessionStorage,
-            // afterRestore: (ctx) => {
-            //     console.log(`about to restore '${JSON.stringify(ctx.store.players)}'`)
-            //     for (let index = 0; index < ctx.store.players.length; index++) {
-            //         const player = ctx.store.players[index];
-            //         console.log(`about to restore '${JSON.stringify(player)}'`)
-            //     }
-            // }
         }
     },)

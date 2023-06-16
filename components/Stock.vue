@@ -184,7 +184,6 @@ let { players } = storeToRefs(store);
 let selected = ref(players.value[0]);
 
 onMounted(() => {
-    document.getElementById('title').scrollIntoView();
 })
 
 const selectPlayer = (player) => {

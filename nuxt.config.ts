@@ -13,6 +13,9 @@ export default defineNuxtConfig({
         },
     },
     modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@vueuse/nuxt', 'nuxt-icon', '@pinia-plugin-persistedstate/nuxt'],
+    piniaPersistedstate: {
+        storage: 'localStorage'
+    },
     postcss: {
         plugins: {
             tailwindcss: {},

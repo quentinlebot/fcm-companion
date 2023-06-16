@@ -202,7 +202,6 @@ let selectedMilestone = ref(Milestone.BURGER);
 let selectedPlayers = ref([]);
 
 onMounted(() => {
-    document.getElementById('title').scrollIntoView();
 })
 
 const setCurrentMilestone = (m) => {
