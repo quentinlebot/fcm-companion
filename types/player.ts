@@ -1,6 +1,6 @@
 import { useMainStore } from "~/stores/main";
 import { House } from "./house";
-import { Employee, Milestone, Product, Restaurant } from "./types";
+import { Employee, Milestone, Product, Restaurant, isMovieStar } from "./types";
 import { DataService } from "./data.service";
 
 export class Player {
@@ -58,7 +58,8 @@ export class Player {
     increaseNbrOfEmployee(employee: string, value: number = 1): void {
         let nbItems = this.employees.get(employee)!;
         const x1 = [Employee.NIGHT_SHIFT, Employee.LUXURIES_MANAGER, Employee.CFO, Employee.MOVIE_STAR_B, Employee.MOVIE_STAR_C, Employee.MOVIE_STAR_D];
-        if (x1.includes(employee as Employee) && nbItems === 1) return;
+        if (x1.includes(employee as Employee) && nbItems === 1 && value > 0) return;
+        if (isMovieStar(employee) && this.hasMovieStar() && value > 0) return;
         if (nbItems + value < 0) value = -nbItems;
         this.employees.set(employee, nbItems + value);
     }
@@ -152,18 +153,30 @@ export class Player {
         clone.distances = new Map<number, number>(this.distances);
         return clone;
     }
+    hasMovieStar(): boolean {
+        return this.getEmployee(Employee.MOVIE_STAR_B)! > 0 ||
+            this.getEmployee(Employee.MOVIE_STAR_C)! > 0 ||
+            this.getEmployee(Employee.MOVIE_STAR_D)! > 0;
+    }
     static sortByRules(a: Player, b: Player, house_id: number): number {
+
         let nbWaitressA = a.getEmployee(Employee.WAITRESS)!;
         if (a.getEmployee(Employee.NIGHT_SHIFT)!)
             nbWaitressA *= 2;
+        if (a.hasMovieStar())
+            nbWaitressA++;
+
         let nbWaitressB = b.getEmployee(Employee.WAITRESS)!;
         if (b.getEmployee(Employee.NIGHT_SHIFT)!)
             nbWaitressB *= 2;
+        if (b.hasMovieStar())
+            nbWaitressB++;
+
         return a.getPriceAndDistance(house_id) - b.getPriceAndDistance(house_id) ||
+            nbWaitressB - nbWaitressA ||
             b.getEmployee(Employee.MOVIE_STAR_B)! - a.getEmployee(Employee.MOVIE_STAR_B)! ||
             b.getEmployee(Employee.MOVIE_STAR_C)! - a.getEmployee(Employee.MOVIE_STAR_C)! ||
             b.getEmployee(Employee.MOVIE_STAR_D)! - a.getEmployee(Employee.MOVIE_STAR_D)! ||
-            nbWaitressB - nbWaitressA ||
             a.getTurnOrder() - b.getTurnOrder();
     }
 }

@@ -32,6 +32,10 @@ export enum Employee {
     NIGHT_SHIFT = 'nightShiftManager',
 }
 
+export function isMovieStar(employee: string): boolean {
+    return [Employee.MOVIE_STAR_B, Employee.MOVIE_STAR_C, Employee.MOVIE_STAR_D].includes(employee as Employee);
+}
+
 export interface Restaurant {
     id: number;
     name: string;

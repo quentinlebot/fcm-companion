@@ -175,6 +175,7 @@ export const useMainStore = defineStore('main', () => {
         deletePlayer,
         setTurnOrder,
         houses,
+        getHouse,
         housesWithNeeded: computed(housesWithNeeds),
         applyDinnertime,
         execDinnertime,
