@@ -19,7 +19,7 @@
             </div>
             <div class="flex justify-center md:h-[55vh] mt-5">
                 <div class="flex gap-2 md:gap-8 justify-center h-1/2 md:h-full place-items-center flex-wrap">
-                    <div class="flex flex-col justify-center place-items-center gap-2 w-[100vw]">
+                    <div class="flex flex-col justify-center place-items-center gap-2 md:w-[100vw]">
                         <span class="text-center kansas">Clear</span>
                         <div class="btn-group btn-group-vertical lg:btn-group-horizontal">
                             <button class="btn btn-active" @click="selectedPlayer.resetEmployees()">This player</button>
