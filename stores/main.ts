@@ -6,7 +6,7 @@ import { DataService } from "~/types/data.service";
 
 export const useMainStore = defineStore('main', () => {
     const players: Ref<Player[]> = ref([]);
-    const houses: Ref<House[]> = ref([]);
+    const houses: Ref<House[]> = ref(DataService.getHouses());
     const restaurants = computed(() => {
         return DataService.getRestaurants().map(r => {
             return {
