@@ -7,11 +7,17 @@
             <input class="join-item btn" type="radio" name="options" aria-label="5" value="5" v-model="nbPlayers" />
             <input class="join-item btn" type="radio" name="options" aria-label="6" value="6" v-model="nbPlayers" />
         </div>
-        <!-- <card></card> -->
-        <div :class="['grid', `grid-cols-${grid.width}`, `grid-rows-${grid.height}`, 'gap-0']">
-            <Tile v-for="tile in tiles" :img="tile.img" class="h-[195px] w-[195px]"
-                :style="`transform: rotate(${tile.rot}deg);`"></Tile>
+        <div class="relative">
+            <div :class="['grid', `grid-cols-${grid.tileWidth}`, `grid-rows-${grid.tileHeight}`, 'gap-0']">
+                <Tile v-for="tile in tiles" img="" class="h-[200px] w-[200px]"
+                    :style="`transform: rotate(${tile.rot}deg);`"></Tile>
+            </div>
+            <div
+                :class="['absolute top-0 left-0', 'grid', `grid-cols-${grid.cellWidth}`, `grid-rows-${grid.cellHeight}`, 'gap-0']">
+                <div v-for="i in grid.cellWidth * grid.cellHeight" class="cell h-[40px] w-[40px]">{{ i }}</div>
+            </div>
         </div>
+        <card></card>
     </div>
 </template>
 
@@ -41,12 +47,16 @@ let mapSize: any = {
     },
 }
 let nbPlayers = ref('2');
-let grid: Ref<{ width: number, height: number }> = ref(mapSize[nbPlayers.value]);
+let grid: Ref<{ tileWidth: number, tileHeight: number, cellWidth: number, cellHeight: number }> = ref({
+    tileWidth: 3,
+    tileHeight: 3,
+    cellWidth: 15,
+    cellHeight: 15,
+});
 const MAX_TILE = 26;
 
-
 const generateMap = () => {
-    while (tiles.value.length < grid.value.width * grid.value.height) {
+    while (tiles.value.length < grid.value.tileWidth * grid.value.tileHeight) {
         let randomName = Math.floor(Math.random() * MAX_TILE) + 1;
         let randomStr = randomName.toString().padStart(2, '0');
         let randomRot = Math.floor(Math.random() * 4) * 90;
@@ -60,7 +70,13 @@ onMounted(() => {
 })
 
 watch(nbPlayers, (val) => {
-    grid.value = mapSize[val];
+    let { width, height } = mapSize[val];
+    grid.value = {
+        tileWidth: width,
+        tileHeight: height,
+        cellWidth: width * 5,
+        cellHeight: height * 5,
+    }
     tiles.value = [];
     generateMap();
 })
@@ -69,5 +85,11 @@ watch(nbPlayers, (val) => {
 <style scoped>
 .map {
     overflow: hidden;
+}
+
+.cell:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 1);
+    padding: 1px;
 }
 </style>
