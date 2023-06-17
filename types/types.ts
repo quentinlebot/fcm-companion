@@ -62,3 +62,11 @@ export interface DinnerTimeAction {
     sushi: boolean,
     noodle: boolean
 }
+
+export interface Cell {
+    id: number;
+    row: number;
+    col: number;
+    border: boolean[];
+    pointerSide: string;
+}

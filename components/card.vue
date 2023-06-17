@@ -9,14 +9,12 @@ import { useDraggable } from '@vueuse/core'
 import { useParentElement } from '@vueuse/core'
 
 const parentEl = useParentElement()
-
 const el = ref<HTMLElement | null>(null)
 
 const { x, y, style } = useDraggable(el, {
     initialValue: { x: 40, y: 40 },
 })
 
-let props = defineProps([]);
 let emits = defineEmits(['selected']);
 const selected = ref(false);
 
