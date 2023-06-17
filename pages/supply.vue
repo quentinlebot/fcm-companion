@@ -1,6 +1,6 @@
 <template>
     <NuxtLayout>
-        <Stock />
+        <Supply />
     </NuxtLayout>
 </template>
 

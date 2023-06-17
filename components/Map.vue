@@ -9,8 +9,8 @@
         </div>
         <!-- <card></card> -->
         <div :class="['grid', `grid-cols-${grid.width}`, `grid-rows-${grid.height}`, 'gap-0']">
-            <tile v-for="tile in tiles" :img="tile.img" class="h-[195px] w-[195px]"
-                :style="`transform: rotate(${tile.rot}deg);`"></tile>
+            <Tile v-for="tile in tiles" :img="tile.img" class="h-[195px] w-[195px]"
+                :style="`transform: rotate(${tile.rot}deg);`"></Tile>
         </div>
     </div>
 </template>

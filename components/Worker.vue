@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col relative h-[calc(100vh-64px)]">
+    <div class="flex flex-col relative">
         <h3 class="text-center my-5 text-5xl uppercase font-bold kansas">At work</h3>
         <p id="title" class="font-bold uppercase divider md:mx-[10%]">Select player's active employees</p>
         <div class="italic mt-2 md:mt-20 text-center" v-if="players.length < 1">

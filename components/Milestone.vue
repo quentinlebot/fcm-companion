@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col h-[calc(100vh-64px)] relative">
+    <div class="flex flex-col relative">
         <h3 id="title" class="text-center my-5 text-5xl uppercase font-bold kansas">Milestones</h3>
         <p class="font-bold uppercase divider md:mx-[10%]">Awarded players</p>
         <div class="italic mt-2 md:mt-20 text-center" v-if="players.length < 1">
@@ -180,7 +180,7 @@
                 </div>
             </div>
             <div class="flex w-full justify-center pb-8 md:pb-0 md:fixed md:bottom-8">
-                <NuxtLink to="/stock" class="">
+                <NuxtLink to="/supply" class="">
                     <button class="btn btn-outline mt-3">Next</button>
                 </NuxtLink>
             </div>

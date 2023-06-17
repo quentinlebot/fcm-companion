@@ -19,6 +19,13 @@
 </template>
 
 <script setup>
+
+import { useMainStore } from '@/stores/main';
+const store = useMainStore();
+
+onMounted(() => {
+    store.$reset();
+})
 </script>
 
 <style scoped>

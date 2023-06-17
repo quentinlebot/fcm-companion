@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col relative ">
-        <h3 class="text-center my-5 text-5xl uppercase font-bold kansas">Stock</h3>
+        <h3 class="text-center my-5 text-5xl uppercase font-bold kansas">Supply</h3>
         <p id="title" class="font-bold uppercase divider md:mx-[10%]">Select player's food's amount</p>
         <div class="italic mt-2 md:mt-20 text-center" v-if="players.length < 1">
             Start with adding players

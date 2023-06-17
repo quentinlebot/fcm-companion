@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col h-[calc(100vh-64px)] relative w-screen place-items-center">
+    <div class="flex flex-col relative place-items-center">
         <h3 class="text-center my-5 text-5xl uppercase font-bold kansas">Players & restaurants</h3>
         <p class="font-bold uppercase divider md:mx-[10%]">Add new player to your game</p>
         <div id="title" class="md:w-auto m-2 relative md:mt-10">
@@ -34,7 +34,8 @@
         <div class="md:w-1/3 mt-2 md:mt-10 justify-center" v-if="players.length > 0">
             <p class="font-bold uppercase divider">List of players</p>
             <div class="flex w-full flex-wrap gap-2 justify-center">
-                <div v-for="player in players" :key="player.name" class="badge" @click="deletePlayer(player.name)">
+                <div v-for="player in players" :key="player.name" class="badge badge-neutral"
+                    @click="deletePlayer(player.name)">
                     <div class="avatar w-4 h-4">
                         <div class="rounded">
                             <img :src="player.restaurant.img" format="webp" :alt="player.restaurant.name" />

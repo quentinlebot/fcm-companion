@@ -1,5 +1,5 @@
 <template>
-    <ul class="menu p-4 w-80 bg-base-100 text-base-content">
+    <ul class="menu p-4 w-80 bg-base-100 h-full text-base-content">
         <li v-for="page in pages" :key="page.path" :class="[route.name == page.path.replace('/', '') ? page.color : '']">
             <NuxtLink :to="page.path">
                 <Icon :name="page.icon" />
@@ -37,8 +37,8 @@ const pages = [
         color: 'text-accent',
     },
     {
-        path: '/stock',
-        label: 'Stock',
+        path: '/supply',
+        label: 'Supply',
         icon: 'fa6-solid:beer-mug-empty',
         color: 'text-success',
     },

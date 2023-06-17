@@ -1,11 +1,13 @@
 <template>
     <div class="drawer">
-        <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content">
-            <TheNav />
-            <slot></slot>
+        <input id="my-drawer-4" type="checkbox" class="relative drawer-toggle" />
+        <div class="drawer-content z-0">
+            <TheNav class="h-[64px]" />
+            <div class="min-h-[calc(100vh-64px)]">
+                <slot></slot>
+            </div>
         </div>
-        <div class="drawer-side mt-[65px]">
+        <div class="drawer-side mt-[65px] z-1">
             <label for="my-drawer-4" class="drawer-overlay"></label>
             <TheMenu />
         </div>
