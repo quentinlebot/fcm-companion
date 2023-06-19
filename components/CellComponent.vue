@@ -11,12 +11,14 @@
 </template>
 
 <script setup lang="ts">
+import { w } from 'vitest/dist/types-dea83b3d';
 import { Cell } from '~/types/types';
 
 const props = defineProps(['cell']) as { cell: Cell };
-const emits = defineEmits(['hovered']);
+const emits = defineEmits(['hovered', 'update:cell']);
 
-// const cellHover = ref()
+const cellHover = ref()
+const { x, y, top, right, bottom, left, width, height } = useElementBounding(cellHover);
 // const topLeft = ref()
 // const topRight = ref()
 // const bottomLeft = ref()
@@ -78,6 +80,15 @@ watch(props.cell, (val) => {
     classObject['border-b-2'] = val.border[2];
     classObject['border-l-2'] = val.border[3];
 });
+watch(x, (val) => {
+    props.cell.x = val;
+    emits('update:cell', props.cell)
+});
+watch(y, (val) => {
+    props.cell.y = val;
+    emits('update:cell', props.cell)
+});
+
 </script>
 
 <style scoped>

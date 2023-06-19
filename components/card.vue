@@ -1,6 +1,6 @@
 <template>
     <div ref="el" :style="{ position: 'fixed', top: y + 'px', left: x + 'px' }" @mousedown="mousedown" @mouseup="mouseup"
-        :class="classObject">
+        @touchstart="mousedown" @touchend="mouseup" :class="classObject">
     </div>
 </template>
 
@@ -11,7 +11,7 @@ const selected = ref(false);
 const drag = ref(false);
 const { width, height } = useElementSize(el)
 const { x: xMouse, y: yMouse, sourceType } = useMouse()
-const props = defineProps(['id'])
+const props = defineProps(['elem'])
 let emits = defineEmits(['selected']);
 
 let lastX = 50;
@@ -28,12 +28,16 @@ const classObject = reactive({
 const x = computed(() => {
     if (drag.value) {
         lastX = xMouse.value - width.value / 2;
+    } else {
+        lastX = props.elem.x;
     }
     return lastX;
 });
 const y = computed(() => {
     if (drag.value) {
         lastY = yMouse.value - height.value / 2;
+    } else {
+        lastY = props.elem.y;
     }
     return lastY;
 });
@@ -48,7 +52,7 @@ const mousedown = (e: Event) => {
 }
 
 watch(selected, (val) => {
-    emits('selected', val, props.id);
+    emits('selected', val, props.elem);
 });
 onMounted(() => {
 });
