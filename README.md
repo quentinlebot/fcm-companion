@@ -1,20 +1,17 @@
-# Nuxt 3 Minimal Starter
+# Foodchain Magnate Companion App
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This is a companion app for the board game [Foodchain Magnate](https://boardgamegeek.com/boardgame/175914/food-chain-magnate).
+
+It's a companion app designed to facilitate dinnertime calculations.
+
+See [Demo](https://foodchain-magnate.com)
 
 ## Setup
 
 Make sure to install the dependencies:
 
 ```bash
-# yarn
-yarn install
-
-# npm
 npm install
-
-# pnpm
-pnpm install
 ```
 
 ## Development Server
