@@ -1,12 +1,10 @@
 <template>
-    <div>
-        <NuxtLayout>
-            <Milestone />
-        </NuxtLayout>
-    </div>
+    <NuxtLayout>
+        <Milestone />
+    </NuxtLayout>
 </template>
 
 <script setup>
 </script>
 
-<style></style>
+<style scoped></style>

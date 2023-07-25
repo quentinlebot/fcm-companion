@@ -1,19 +1,35 @@
 <template>
-    <div class="hero min-h-screen bg-base-200">
-        <div class="hero-content flex-col lg:flex-row">
-            <img src="/img/3DboxFCM.png" class="max-w-sm rounded-lg" />
-            <img src="/img/3DboxFCM_KM.png" class="max-w-sm rounded-lg" />
-            <div class="text-center">
-                <h1 class="text-5xl font-bold kansas">Dinnertime Calculator</h1>
-                <p class="py-6">Welcome to the ultimate companion for Food Chain Magnate ! We understand that
-                    calculating dinner time stages can be complex, so we've created a tool to simplify the process.</p>
-                <NuxtLink to="/player" class="btn btn-primary">Get Started</NuxtLink>
+    <div class="hero">
+        <div class="hero-content flex-col h-screen">
+            <div class="flex gap-10">
+                <img class="max-w-[100px] md:max-w-[350px] object-contain" src="/img/3DboxFCM.png"
+                    alt="food chain magnate board game box" />
+                <img class="max-w-[95px] md:max-w-[340px] object-contain" src="/img/3DboxFCM_KM.png"
+                    alt="fcm ketchup mecanism board game box" />
+            </div>
+            <div class="flex flex-col text-center h-full justify-center place-items-center">
+                <h1 class="text-5xl font-bold kansas my-5">Dinnertime companion</h1>
+                <p class="py-5">Welcome to the ultimate companion for Food Chain Magnate board game !
+                    <br />This tool has been created to simplify the process of dinnertime calculation.
+                </p>
+                <NuxtLink to="/player" class="btn btn-primary my-10 w-1/2">Get Started</NuxtLink>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
+
+import { useMainStore } from '@/stores/main';
+const store = useMainStore();
+
+onMounted(() => {
+    store.$reset();
+})
 </script>
 
-<style></style>
+<style scoped>
+img.mirror {
+    transform: scaleX(-1);
+}
+</style>

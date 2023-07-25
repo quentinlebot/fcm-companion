@@ -1,6 +1,6 @@
 <template>
     <NuxtLayout>
-        <Dinnertime />
+        <Map />
     </NuxtLayout>
 </template>
 

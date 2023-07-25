@@ -1,12 +1,10 @@
 <template>
-    <div>
-        <NuxtLayout name="homepage">
-            <TheHero />
-        </NuxtLayout>
-    </div>
+    <NuxtLayout name="homepage">
+        <TheHero />
+    </NuxtLayout>
 </template>
 
 <script setup>
 </script>
 
-<style></style>
+<style scoped></style>

@@ -1,6 +1,6 @@
 <template>
     <NuxtLayout>
-        <Dinnertime />
+        <TurnOrder />
     </NuxtLayout>
 </template>
 

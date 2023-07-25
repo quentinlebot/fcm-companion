@@ -1,12 +1,10 @@
 <template>
-    <div>
-        <NuxtLayout>
-            <Player />
-        </NuxtLayout>
-    </div>
+    <NuxtLayout>
+        <Player />
+    </NuxtLayout>
 </template>
 
 <script setup>
 </script>
 
-<style></style>
+<style scoped></style>
