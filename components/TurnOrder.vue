@@ -11,7 +11,7 @@
                 <div class="md:w-1/3">
                     <draggable v-model="players" item-key="name">
                         <template #item="{ element: player }">
-                            <div class="flex justify-evenly place-items-center hover:flex-row hover:bg-neutral mt-2">
+                            <div class="flex justify-evenly place-items-center hover:flex-row mt-2">
                                 <div class="w-1/6 text-2xl kansas">
                                     {{ player.turnOrder }}
                                 </div>
